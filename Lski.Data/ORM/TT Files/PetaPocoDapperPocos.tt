@@ -1,0 +1,79 @@
+﻿<#@ template hostspecific="True" debug="True" #>
+<#@ include file="Poco.Settings.ttinclude" #>
+<#@ include file="Poco.ttinclude" #>using System;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Text;
+using System.Runtime.Serialization;
+
+<# if(!String.IsNullOrEmpty(Namespace)) { 
+	WriteLine("namespace " + Namespace + " {");
+	PushIndent("\t");
+}
+#>
+
+<# foreach(var tab in Tables) { #>
+
+[DataContract()]
+<# if(!tab.TableName.Equals(tab.ToClassName(), StringComparison.OrdinalIgnoreCase)) {
+		
+		if(TargetOrmPetaPoco)
+			WriteLine("[PetaPoco.TableName(\"" + tab.TableName + "\")]");
+		else if(TargetOrmDapper)
+			WriteLine("[Dapper.Contrib.Extensions.Table(\"" + tab.TableName + "\")]");
+}
+if(TargetOrmPetaPoco && !tab.GetPrimaryKey().columnName.EndsWith("id", StringComparison.OrdinalIgnoreCase)) {
+	WriteLine("[PetaPoco.PrimaryKey(\"" + tab.GetPrimaryKey().columnName + "\")]");
+}
+#>
+public partial class <#= tab.ToClassName() #> {
+
+	public <#= tab.ToClassName() #>() {
+
+		<# foreach(var col in tab.Columns) { 
+			if(!col.isNullable && col.columnType == typeof(String)) { 
+				#>this.<#= col.ToVariableName() #> = String.Empty;
+		<#
+			} else { 
+				#>//this.<#= col.ToVariableName() #> = ;
+		<#
+			}
+		}
+		WriteLine("");
+		#>
+	}
+
+	#region Properties
+	
+	<# foreach(ColumnData col in tab.Columns) { 
+	#>protected <#= col.ToDataTypeString() #> <#= col.ToVariableName() #>;
+	<# if(col.isPrimary && col.columnName.IndexOf("id", StringComparison.OrdinalIgnoreCase) == -1) {
+		
+		if(TargetOrmDapper)
+			WriteLine("[Dapper.Contrib.Extensions.Key(\"" + col.columnName + "\")]");
+	} #>
+	<#= (!col.isReadOnly ? "[DataMember()]" : "") #>
+	public virtual <#= col.ToDataTypeString() #> <#= col.ToPropertyName() #> {
+		get { 
+			return <#= col.ToVariableName() #><#= (col.columnType == typeof(String) ? " ?? (" + col.ToVariableName() + " = String.Empty)" : "") #>;
+		}
+		set {
+			if(<#= col.ToVariableName() #> != value) { // Only attempt to change if the value is different to the original
+				this.<#= col.ToVariableName() #> = value; 
+			}
+		}
+	}
+	
+	<# } #>
+
+	#endregion
+}
+
+<# } /* Ends the table for each */  #>
+
+<# if(!String.IsNullOrEmpty(Namespace)) { 
+	PopIndent();
+	WriteLine("}"); 
+} #>

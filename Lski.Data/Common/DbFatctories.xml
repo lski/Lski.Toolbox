@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<system.data>
+	<DbProviderFactories>
+
+		<!-- Legacy providers - Can still be used, but depreciated -->
+		<!-- Should now instantiate using DbProvider.GetFactory(connectionStringName), where the connection string setting uses a provider name below-->
+
+		<add name="OleDb Data Provider"
+			 invariant="DbFactory.OleDb"
+			 description="Provides a data provider for Ole databases that has the benefits of the provider extensions"
+			 type="Toolbox.ADO.DbFactoryProvider.OleFactory, Toolbox, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5411edc8ce65ec12" />
+
+		<add name="FoxPro Data Provider"
+			 invariant="DbFactory.FoxPro"
+			 description="Provides a specific data provider for FoxPro using an extended Ole driver"
+			 type="Toolbox.ADO.DbFactoryProvider.FoxProFactory, Toolbox, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5411edc8ce65ec12" />
+
+		<add name="MSSQL 2005 Data Provider"
+			 invariant="DbFactory.SqlServer2005"
+			 description="Provides a data provider for MSSQL 2005 and above"
+			 type="Toolbox.ADO.DbFactoryProvider.SQL2005Factory, Toolbox, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5411edc8ce65ec12" />
+
+		<add name="MSSQL Data Provider"
+			 invariant="DbFactory.SqlServer"
+			 description="Provides a data provider for SQL Server that has the benefits of the provider extensions"
+			 type="Toolbox.ADO.DbFactoryProvider.SQLFactory, Toolbox, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5411edc8ce65ec12" />
+
+		<add name="MySQL Data Provider"
+			 invariant="DbFactory.MySql"
+			 description="Provides a data provider for MySQL databases that has the benefits of the provider extension"
+			 type="Toolbox.ADO.DbFactoryProvider.MySqlFactory, Toolbox.ADO, Version=4.0.0.0, Culture=neutral, PublicKeyToken=73854e53f2a7cff7" />
+
+		<add name="MS Access Data Provider"
+			 invariant="DbFactory.Access"
+			 description="Provides a data provider for Access databases that has the benefits of the provider extensions"
+			 type="Toolbox.ADO.DbFactoryProvider.AccessFactory, Toolbox, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5411edc8ce65ec12" />
+
+	</DbProviderFactories>
+</system.data>

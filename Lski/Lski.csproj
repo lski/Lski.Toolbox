@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04E4A89B-DF48-460E-80D4-5C77D17615B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lski</RootNamespace>
+    <AssemblyName>Lski</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Connections\Connection.cs" />
+    <Compile Include="Data\Connections\Exceptions\CantConnectException.cs" />
+    <Compile Include="Data\Connections\Exceptions\ConnectionStringNotFoundException.cs" />
+    <Compile Include="Data\Connections\Transaction.cs" />
+    <Compile Include="Data\Extensions\DataTable.cs" />
+    <Compile Include="Data\Extensions\IDataReader.cs" />
+    <Compile Include="Data\SelectBuilder.cs" />
+    <Compile Include="Data\SortExpression.cs" />
+    <Compile Include="Dates\DateTimeExt.cs" />
+    <Compile Include="Email\Address.cs" />
+    <Compile Include="Email\AuthenticationType.cs" />
+    <Compile Include="Email\Email.cs" />
+    <Compile Include="Email\EmailFormat.cs" />
+    <Compile Include="Email\GenericEmail.cs" />
+    <Compile Include="Email\IEmail.cs" />
+    <Compile Include="Email\NoEmail.cs" />
+    <Compile Include="Email\Smtp.cs" />
+    <Compile Include="Email\WebDav.cs" />
+    <Compile Include="IO\Csv\CsvDataMap.cs" />
+    <Compile Include="IO\Csv\CsvDataMapLink.cs" />
+    <Compile Include="IO\Csv\CsvDataReader.cs" />
+    <Compile Include="IO\Csv\CsvExport.cs" />
+    <Compile Include="IO\Csv\CsvExportMap.cs" />
+    <Compile Include="IO\Csv\CsvImport.cs" />
+    <Compile Include="IO\Csv\CsvImportMap.cs" />
+    <Compile Include="IO\Csv\CsvTransferCompleteArgs.cs" />
+    <Compile Include="IO\Csv\ICsv.cs" />
+    <Compile Include="IO\DataMap.cs" />
+    <Compile Include="IO\DataMapLink.cs" />
+    <Compile Include="IO\FileSystem\Archive.cs" />
+    <Compile Include="IO\FileSystem\Exceptions\CreateDirectoryException.cs" />
+    <Compile Include="IO\FileSystem\Exceptions\FileCopyException.cs" />
+    <Compile Include="IO\FileSystem\Exceptions\FileMoveException.cs" />
+    <Compile Include="IO\FileSystem\FileFunctions.cs" />
+    <Compile Include="IO\FileSystem\FileInfoExt.cs" />
+    <Compile Include="IO\FileSystem\FileSystemInfoExt.cs" />
+    <Compile Include="IO\Objects.cs" />
+    <Compile Include="IO\TransferCompleteArgs.cs" />
+    <Compile Include="IO\ValueChangedArgs.cs" />
+    <Compile Include="IssueTracking\AddedFeature.cs" />
+    <Compile Include="IssueTracking\BugFix.cs" />
+    <Compile Include="IssueTracking\ToFix.cs" />
+    <Compile Include="Linq\Dynamic.cs" />
+    <Compile Include="Misc\Address.cs" />
+    <Compile Include="Misc\Applications.cs" />
+    <Compile Include="Misc\Impersonate.cs" />
+    <Compile Include="Misc\LineF.cs" />
+    <Compile Include="Misc\Process.cs" />
+    <Compile Include="Objects\Convert.cs" />
+    <Compile Include="Objects\Extensions\IEnumerableExt.cs" />
+    <Compile Include="Objects\Extensions\IListExt.cs" />
+    <Compile Include="Objects\Generics.cs" />
+    <Compile Include="Objects\ICloneable.cs" />
+    <Compile Include="Objects\Variable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\OneWayEncrypt.cs" />
+    <Compile Include="Security\TripleDES.cs" />
+    <Compile Include="Security\TripleDESExt.cs" />
+    <Compile Include="Security\XXTea.cs" />
+    <Compile Include="Txt\ConvertTo\BaseToDate.cs" />
+    <Compile Include="Txt\ConvertTo\ConvertTo.cs" />
+    <Compile Include="Txt\ConvertTo\ToBool.cs" />
+    <Compile Include="Txt\ConvertTo\ToDate.cs" />
+    <Compile Include="Txt\ConvertTo\ToDateDMY.cs" />
+    <Compile Include="Txt\ConvertTo\ToDateMDY.cs" />
+    <Compile Include="Txt\ConvertTo\ToDateYMD.cs" />
+    <Compile Include="Txt\ConvertTo\ToDecimal.cs" />
+    <Compile Include="Txt\ConvertTo\ToInteger.cs" />
+    <Compile Include="Txt\ConvertTo\ToText.cs" />
+    <Compile Include="Txt\EnumMethods.cs" />
+    <Compile Include="Txt\RandomStringGenerator.cs" />
+    <Compile Include="Txt\StringExt.cs" />
+    <Compile Include="Txt\Transformations\CharBasedTransformations.cs" />
+    <Compile Include="Txt\Transformations\FillText.cs" />
+    <Compile Include="Txt\Transformations\InsertText.cs" />
+    <Compile Include="Txt\Transformations\IntBasedTransformations.cs" />
+    <Compile Include="Txt\Transformations\Left.cs" />
+    <Compile Include="Txt\Transformations\MaxLength.cs" />
+    <Compile Include="Txt\Transformations\NumericsOnly.cs" />
+    <Compile Include="Txt\Transformations\RearrangeText.cs" />
+    <Compile Include="Txt\Transformations\ReplaceText.cs" />
+    <Compile Include="Txt\Transformations\Right.cs" />
+    <Compile Include="Txt\Transformations\StripChars.cs" />
+    <Compile Include="Txt\Transformations\StripSpaces.cs" />
+    <Compile Include="Txt\Transformations\ToLowerCase.cs" />
+    <Compile Include="Txt\Transformations\ToTitleCase.cs" />
+    <Compile Include="Txt\Transformations\ToUpperCase.cs" />
+    <Compile Include="Txt\Transformations\Transformation.cs" />
+    <Compile Include="Txt\Transformations\TransformValues.cs" />
+    <Compile Include="Txt\Transformations\Trim.cs" />
+    <Compile Include="Txt\Transformations\TrimEnd.cs" />
+    <Compile Include="Txt\Transformations\TrimStart.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

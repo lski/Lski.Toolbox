@@ -1,0 +1,189 @@
+﻿<#@ template hostspecific="True" debug="True" #>
+<#@ output extension="cs" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Configuration" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Configuration" #>
+<#+
+	private List<TableData> _tables;
+	public List<TableData> Tables {
+		get { return (_tables ?? (_tables = GetTableData()));}
+	}
+	
+	public List<TableData> GetTableData() {
+	
+		var l = new List<TableData>();
+		
+		foreach(var i in TableNames.Split(new char[] {','})) {
+			l.Add(new TableData(i, ConnectionString, Provider));
+		}
+	
+		return l;
+	}
+	
+	public class ColumnData {
+	
+		public String columnName;
+		public Type columnType;
+		public Boolean isReadOnly;
+		public Boolean isPrimary;
+		public bool isAutoincrement;
+		public bool isNullable;
+		
+		public String ToPropertyName() {
+			return ToCamelHump(columnName.Replace(" ", "_"));
+		}
+
+		public String ToArgumentName() {
+			var propName = this.ToPropertyName();
+			return String.Concat(propName[0].ToString().ToLower(), propName.Substring(1, propName.Length - 1));
+		}
+
+		public String ToVariableName() {
+			return "_" + this.ToArgumentName();
+		}
+		
+		public String ToDataTypeString() {
+
+			if (columnType == typeof(String) || columnType == typeof(Object) || columnType.IsArray)
+				return columnType.ToString();
+
+			return (isNullable ? columnType.ToString() + "?" : columnType.ToString());
+		}
+	}
+	
+	public class TableData {
+	
+		public string TableName;
+		public string ConnectionString;
+		public string Provider;
+	
+		public TableData(string tableName, string connectionString, string provider) {
+			this.TableName = tableName;
+			this.ConnectionString = connectionString;
+			this.Provider = provider;
+		}
+
+		private List<ColumnData> _Columns;
+		public List<ColumnData> Columns {
+			get { Console.WriteLine("Run Columns"); return _Columns = (_Columns = CollectColumnData(TableName, ConnectionString, Provider)); }
+		}
+		
+		public String ToClassName() {
+
+			String result = TableName.Replace(" ", "");
+
+			Match m = Regex.Match(result, "^(t_|v_|p_)", RegexOptions.IgnoreCase);
+			result = ToCamelHump(m.Length > 0 ? result.Substring(2) : result);
+			result = (result[0].ToString().ToUpperInvariant() + result.Substring(1));
+			result = (String.Compare(m.Value, "v_", true) == 0 ? result + "View" : (String.Compare(m.Value, "p_", true) == 0 ? "Sp" + result : result));
+			return result;
+		}
+		
+		public ColumnData GetPrimaryKey() {
+			
+			foreach(ColumnData col in Columns) {
+
+				if(col.isPrimary)
+					return col;
+			}
+
+			return Columns.ElementAt(0);
+		}
+		
+		public string CreateSelectList() {
+		
+			StringBuilder sb = new StringBuilder();
+
+			foreach(ColumnData col in Columns) {
+
+				sb.Append(col.columnName).Append(", ");
+			}
+
+			return sb.ToString(0, sb.Length - 2);
+		}
+		
+		public List<ColumnData> CollectColumnData(string tableName, string connectionString, string provider) {
+
+			ColumnData column;
+			List<ColumnData> columns = new List<ColumnData>();
+
+			DataTable schemaTable = null;
+			DbConnection conn = null;
+			
+			try {
+				
+				conn = DbProviderFactories.GetFactory(provider).CreateConnection();
+				
+				DbCommand comm = conn.CreateCommand();
+				comm.CommandText = String.Format(BaseSqlQuery, tableName);
+				
+				conn.ConnectionString = connectionString;
+				conn.Open();
+
+				using(DbDataReader r = comm.ExecuteReader(CommandBehavior.KeyInfo)) {
+					
+					schemaTable = r.GetSchemaTable();
+					
+					if(schemaTable == null)
+						throw new Exception("No schema was returned from the database");
+					
+					Boolean doesIsHiddenExist = schemaTable.Columns.Contains("ishidden");
+
+					for (Int32 i = 0, n = schemaTable.Rows.Count; i < n; i++) {
+
+						if (doesIsHiddenExist && (schemaTable.Rows[i]["ishidden"] as Boolean?).GetValueOrDefault(false))
+							continue;
+
+						column = new ColumnData();
+						column.columnName = ((String)schemaTable.Rows[i]["ColumnName"]);
+						column.columnType = (Type)schemaTable.Rows[i]["DataType"];
+						column.isPrimary = (Boolean)schemaTable.Rows[i]["IsKey"];
+						// Readonly if its sqlsever, missing basetablename if its mysql for read only fields
+						column.isReadOnly = (schemaTable.Rows[i]["IsReadOnly"] as Boolean?).GetValueOrDefault(false) || (schemaTable.Rows[i]["basetablename"] == DBNull.Value && schemaTable.Rows[i]["baseschemaname"] == DBNull.Value);
+						column.isAutoincrement = (Boolean)schemaTable.Rows[i]["isAutoIncrement"];
+						column.isNullable = (schemaTable.Rows[i]["allowdbnull"] as Boolean?).GetValueOrDefault(false);
+
+						columns.Add(column);
+					}
+				}
+				
+			} catch {
+				// Stub
+			} finally {
+				conn.Close();
+			}
+
+			return columns;
+		}
+	}
+
+	public static string ToCamelHump(string tableName) {
+
+		String[] parts = tableName.Split(new char[] {'_'}, StringSplitOptions.RemoveEmptyEntries);
+		StringBuilder sb = new StringBuilder();
+
+		foreach (string p in parts) {
+
+			sb.Append(Convert.ToString(p[0] + "").ToUpper());
+			sb.Append(p.Substring(1));
+		}
+
+		return sb.ToString();
+	}
+	
+	
+
+#>
