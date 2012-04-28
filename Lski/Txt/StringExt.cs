@@ -188,6 +188,22 @@ namespace Lski.Txt {
 		}
 
 		/// <summary>
+		/// Simple truncate function
+		/// </summary>
+		/// <param name="value">The string to truncate</param>
+		/// <param name="maxLength">The maximum length of the desired string</param>
+		/// <returns></returns>
+		public static string Truncate(this string value, int maxLength) {
+			
+			if (string.IsNullOrEmpty(value)) { 
+				return value; 
+			}
+
+			return value.Substring(0, Math.Min(value.Length, maxLength));
+		}
+
+
+		/// <summary>
 		/// Counts the characters in the passed string, that match the char passed. Does not break if the length or start are passed the
 		/// end of array. It simply truncates the searched area of the string.
 		/// </summary>
