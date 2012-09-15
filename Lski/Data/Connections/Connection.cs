@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using Lski.Data.Connections.Exceptions;
+using System.Collections.Concurrent;
 
 namespace Lski.Data.Connections {
 
@@ -20,23 +21,13 @@ namespace Lski.Data.Connections {
 			return DbProviderFactories.GetFactory(css.ProviderName);
 		}
 
-        /// <summary>
-        /// A cache of connections, so new connection objects are not re-created for each call to the database, in .Net4 change to ConcurrentDictionary
-        /// </summary>
-        protected static Dictionary<String, DbConnection> CachedConnections { get; set; }
-
 		public static DbConnection GetConnection(String connectionStringName) {
 
-            // Check cache for the current connections
-            if (!CachedConnections.ContainsKey(connectionStringName)) {
+            var css = ConfigurationManager.ConnectionStrings[connectionStringName];
+			var conn = DbProviderFactories.GetFactory(css.ProviderName).CreateConnection();
+			conn.ConnectionString = css.ConnectionString;
 
-                var css = ConfigurationManager.ConnectionStrings[connectionStringName];
-			    var conn = DbProviderFactories.GetFactory(css.ProviderName).CreateConnection();
-			    conn.ConnectionString = css.ConnectionString;
-                CachedConnections.Add(connectionStringName, conn);
-            }
-
-            return CachedConnections[connectionStringName];
+			return conn;
 		}
 
 		/// <summary>

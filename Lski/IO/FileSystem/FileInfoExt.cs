@@ -33,7 +33,6 @@ namespace Lski.IO.FileSystem {
 		/// 
 		/// Finally unlike the MoveTo Methods it DOES NOT edit the original filename, as you have reference to the destination, from the destination passed.
 		/// </remarks>
-		[System.Diagnostics.DebuggerStepThrough()]
 		public static void MoveToExt(this FileInfo origFile, FileInfo destinationFile, bool overwrite = true) {
 
 			// 1. If set that can overwrite and destination exists then delete the existing destination file
@@ -73,7 +72,6 @@ namespace Lski.IO.FileSystem {
 		///
 		/// Finally unlike the CopyTo Methods it DOES NOT edit the original filename, as you have reference to the destination, from the destination passed.
 		/// </remarks>
-		[System.Diagnostics.DebuggerStepThrough()]
 		public static void CopyToExt(this FileInfo origFile, FileInfo destinationFile, bool overwrite) {
 			// 1. If set that can overwrite and destination exists then delete the existing destination file
 			// 2. If the file exists at the destination but not allowed to overwrite it, inform the user by throwing an exception

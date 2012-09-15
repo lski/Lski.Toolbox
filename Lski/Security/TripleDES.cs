@@ -16,9 +16,52 @@ namespace Lski.Security {
 	/// <remarks></remarks>
 	public partial class TripleDES {
 
-		public static string Encrypt(string plainText, string password) {
+		/// <summary>
+		/// Creates a new TripleDES with the defined salt, so Encrypt and Decrypt dont require the salt passed each time
+		/// </summary>
+		/// <param name="salt"></param>
+		public TripleDES(byte[] salt) {
+			Salt = salt;
+		}
 
-			var pdb = GetDerivedBytes(password); 
+		private byte[] Salt { get; set; }
+
+		/// <summary>
+		/// Encrypt a string using a string password
+		/// </summary>
+		/// <param name="plainText"></param>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		public string Encrypt(string plainText, string password) {
+
+			var pdb = new Rfc2898DeriveBytes(password, Salt);
+			return Convert.ToBase64String(Encrypt(plainText, pdb.GetBytes(24), pdb.GetBytes(8)));
+
+		}
+
+		/// <summary>
+		/// Decrypt a string using a string password
+		/// </summary>
+		/// <param name="cipherText"></param>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		public string Decrypt(string cipherText, string password) {
+
+			var pdb = new Rfc2898DeriveBytes(password, Salt);
+			return Decrypt(Convert.FromBase64String(cipherText), pdb.GetBytes(24), pdb.GetBytes(8));
+
+		}
+
+		#region Static Members
+
+		/// <summary>
+		/// Holds the application instance, needs to be set prior to using
+		/// </summary>
+		public static TripleDES Instance { get; set; }
+
+		public static string Encrypt(string plainText, string password, byte[] salt) {
+
+			var pdb = new Rfc2898DeriveBytes(password, salt);
 			return Convert.ToBase64String(Encrypt(plainText, pdb.GetBytes(24), pdb.GetBytes(8)));
 
 		}
@@ -58,9 +101,9 @@ namespace Lski.Security {
 
 		}
 
-		public static string Decrypt(string cipherText, string password) {
+		public static string Decrypt(string cipherText, string password, byte[] salt) {
 
-			var pdb = GetDerivedBytes(password);
+			var pdb = new Rfc2898DeriveBytes(password, salt);
 			return Decrypt(Convert.FromBase64String(cipherText), pdb.GetBytes(24), pdb.GetBytes(8));
 
 		}
@@ -94,6 +137,8 @@ namespace Lski.Security {
 			return myutf.GetString(result);
 
 		}
+
+		#endregion
 
 	}
 
