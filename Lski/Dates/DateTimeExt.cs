@@ -17,6 +17,25 @@ namespace Lski.Dates {
 		}
 
 		/// <summary>
+		/// Returns a date, comprising the first day of the week of the date passed, according to the current culture. The process is non-destructive 
+		/// as it returns the result as a new date.
+		/// </summary>
+		/// <param name="dat"></param>
+		/// <returns></returns>
+		public static DateTime FirstDayOfWeek(this DateTime dat) {
+
+			dat = dat.Date;
+
+			int difference = (int)dat.DayOfWeek - (int)System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+
+			if (difference < 0) {
+				difference = 7 + difference;
+			}
+
+			return dat.AddDays(-difference);
+		}
+
+		/// <summary>
 		/// Converts the .net supported date format current culture format into JQuery Datepicker format.
 		/// </summary>
 		/// <param name="format">Date format supported by .NET.</param>

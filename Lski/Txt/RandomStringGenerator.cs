@@ -12,7 +12,7 @@ namespace Lski.Txt {
 		/// </summary>
 		/// <remarks></remarks>
 		[Flags()]
-		public enum CreateRandomStringOptions {
+		public enum RandomStringOptions {
 
 			/// <summary>
 			/// Include uppercase letters
@@ -63,24 +63,13 @@ namespace Lski.Txt {
 		private static Int32 _seedCounter = 0;
 
 		/// <summary>
-		/// Creates a random ascii string using the options passed.
-		/// </summary>
-		/// <param name="numOfChars">The amount of characters in the string</param>
-		/// <returns></returns>
-		/// <remarks></remarks>
-		public static string CreateRandomString(CreateRandomStringOptions options = CreateRandomStringOptions.All, Int32 numOfChars = 10, String charactersToExclude = null) {
-
-			return CreateRandomString(options, numOfChars, (charactersToExclude == null ? null : charactersToExclude.ToCharArray()));
-		}
-
-		/// <summary>
 		/// Creates a random ascii string using the options passed. Also offers the ability to exclude certain characters 
 		/// </summary>
 		/// <param name="numOfChars">The amount of characters in the string</param>
 		/// <param name="charsToExclude">Any specific characters that are not wanted in the results (Character Codes)</param>
 		/// <returns></returns>
 		/// <remarks></remarks>
-		public static string CreateRandomString(CreateRandomStringOptions options = CreateRandomStringOptions.All, Int32 numOfChars = 10, char[] chararactersToExclude = null) {
+		public static string Create(RandomStringOptions options = RandomStringOptions.All, Int32 numOfChars = 10, char[] chararactersToExclude = null) {
 
 			StringBuilder code = new StringBuilder(numOfChars);
 			Int32 seed = System.Convert.ToInt32(System.DateTime.Now.Millisecond + _seedCounter);
@@ -98,21 +87,21 @@ namespace Lski.Txt {
 
 			// Create a list of all the ascii characters that are allowed, at first ignoring the chars to exclude
 
-			if (options.Has(CreateRandomStringOptions.Numbers)) {
+			if (options.Has(RandomStringOptions.Numbers)) {
 
 				for (i = 48; i <= 57; i++) {
 					charList.Add(i);
 				}
 			}
 
-			if (options.Has(CreateRandomStringOptions.UppercaseLetters)) {
+			if (options.Has(RandomStringOptions.UppercaseLetters)) {
 
 				for (i = 65; i <= 90; i++) {
 					charList.Add(i);
 				}
 			}
 
-			if (options.Has(CreateRandomStringOptions.LowercaseLetters)) {
+			if (options.Has(RandomStringOptions.LowercaseLetters)) {
 
 				for (i = 97; i <= 122; i++) {
 					charList.Add(i);
@@ -120,14 +109,14 @@ namespace Lski.Txt {
 			}
 
 
-			if (options.Has(CreateRandomStringOptions.Underscores)) {
+			if (options.Has(RandomStringOptions.Underscores)) {
 
 				if (!charsToExclude.Contains((byte)95))
 					charList.Add(95);
 			}
 
 
-			if (options.Has(CreateRandomStringOptions.Hyphens)) {
+			if (options.Has(RandomStringOptions.Hyphens)) {
 
 				if (!charsToExclude.Contains((byte)45))
 					charList.Add(45);

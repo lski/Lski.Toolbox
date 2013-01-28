@@ -48,8 +48,8 @@
     <Compile Include="Data\Connections\Exceptions\CantConnectException.cs" />
     <Compile Include="Data\Connections\Exceptions\ConnectionStringNotFoundException.cs" />
     <Compile Include="Data\Connections\Transaction.cs" />
-    <Compile Include="Data\Extensions\DataTable.cs" />
-    <Compile Include="Data\Extensions\IDataReader.cs" />
+    <Compile Include="Data\Extensions\DataTableExt.cs" />
+    <Compile Include="Data\Extensions\IDataReaderExt.cs" />
     <Compile Include="Data\SelectBuilder.cs" />
     <Compile Include="Data\SortExpression.cs" />
     <Compile Include="Dates\DateTimeExt.cs" />
@@ -89,8 +89,9 @@
     <Compile Include="Linq\Dynamic.cs" />
     <Compile Include="Misc\Address.cs" />
     <Compile Include="Misc\Applications.cs" />
+    <Compile Include="Drawing\ImageExt.cs" />
     <Compile Include="Misc\Impersonate.cs" />
-    <Compile Include="Misc\LineF.cs" />
+    <Compile Include="Drawing\LineF.cs" />
     <Compile Include="Misc\Process.cs" />
     <Compile Include="Objects\Convert.cs" />
     <Compile Include="Objects\Extensions\IEnumerableExt.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Txt\ConvertTo\ToText.cs" />
     <Compile Include="Txt\EnumMethods.cs" />
     <Compile Include="Txt\RandomStringGenerator.cs" />
+    <Compile Include="Txt\RichString.cs" />
     <Compile Include="Txt\StringExt.cs" />
     <Compile Include="Txt\Transformations\CharBasedTransformations.cs" />
     <Compile Include="Txt\Transformations\FillText.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Lski.Misc {
+namespace Lski.Drawing {
 
     /// <summary>
     /// A simple class used to represent a line (using decimal values) on a drawing pane. Can be used to simply represent two points.

@@ -25,6 +25,13 @@ public static partial class UserDefinedFunctions
 		return regex.IsMatch(new string(input.Value));
 	}
 
+	[SqlFunctionAttribute]
+	public static SqlChars RegexReplace(SqlChars input, SqlString pattern, SqlString replacement) {
+
+		var regex = new Regex(pattern.Value, Options);
+		return new SqlChars(regex.Replace(new string(input.Value), replacement.Value).ToCharArray());
+	}
+
 	/// <summary>
 	/// Slightly advanced length function, where it also handles null by returning 0, rather than null (avoiding additional checks) and also trims the input string, prior to
 	/// giving the length back

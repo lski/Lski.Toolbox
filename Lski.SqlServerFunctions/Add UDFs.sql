@@ -61,6 +61,10 @@ IF OBJECT_ID (N'dbo.[RegexMatch]', N'FS') IS NOT NULL
 	Drop Function [RegexMatch];
 GO
 
+IF OBJECT_ID (N'dbo.[RegexReplace]', N'FS') IS NOT NULL
+	Drop Function [RegexReplace];
+GO
+
 IF OBJECT_ID (N'dbo.[ConcatWS]', N'FS') IS NOT NULL
 	Drop Function [ConcatWS];
 GO
@@ -101,7 +105,7 @@ GO
 /****** Object:  SqlAssembly [SqlServerFunctions]    Script Date: 11/17/2010 14:28:29 ******/
 CREATE ASSEMBLY [SqlServerFunctions]
 AUTHORIZATION [dbo]
-FROM '**Location of the DLL**'
+FROM '** CHANGE TO LOCATION OF DLL **'
 WITH PERMISSION_SET = SAFE
 GO
 
@@ -177,6 +181,14 @@ CREATE FUNCTION [dbo].[Length](@input [nvarchar](max))
 RETURNS [bigint] WITH EXECUTE AS CALLER
 AS 
 EXTERNAL NAME [SqlServerFunctions].[UserDefinedFunctions].[Length]
+GO
+
+CREATE FUNCTION [dbo].[RegexReplace](@input [nvarchar](max), @pattern [nvarchar](4000), @replacement [nvarchar](4000))
+-- Performs a regular expression comparison on the input passed, using the regular expression passed. Returns 0 on no match and 1 on success. The settings of the regular
+-- expression being used include: Singleline, IgnoreCase and IgnorePatternWhitespace
+RETURNS nvarchar(max) WITH EXECUTE AS CALLER
+AS 
+EXTERNAL NAME [SqlServerFunctions].[UserDefinedFunctions].[RegexReplace]
 GO
 
 CREATE FUNCTION [dbo].[RegexMatch](@input [nvarchar](max), @pattern [nvarchar](4000))
