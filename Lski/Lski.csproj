@@ -115,7 +115,7 @@
     <Compile Include="Txt\ConvertTo\ToInteger.cs" />
     <Compile Include="Txt\ConvertTo\ToText.cs" />
     <Compile Include="Txt\EnumMethods.cs" />
-    <Compile Include="Txt\RandomStringGenerator.cs" />
+    <Compile Include="Txt\RandomString.cs" />
     <Compile Include="Txt\RichString.cs" />
     <Compile Include="Txt\StringExt.cs" />
     <Compile Include="Txt\Transformations\CharBasedTransformations.cs" />
