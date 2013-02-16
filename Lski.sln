@@ -1,9 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski", "Lski\Lski.csproj", "{04E4A89B-DF48-460E-80D4-5C77D17615B0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Logging", "Lski.Logging\Lski.Logging.csproj", "{B6797262-C7CA-45A1-B17A-B08A6F1B6FE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Data", "Lski.Data\Lski.Data.csproj", "{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}"
 EndProject
@@ -23,10 +21,6 @@ Global
 		{04E4A89B-DF48-460E-80D4-5C77D17615B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E4A89B-DF48-460E-80D4-5C77D17615B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04E4A89B-DF48-460E-80D4-5C77D17615B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6797262-C7CA-45A1-B17A-B08A6F1B6FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6797262-C7CA-45A1-B17A-B08A6F1B6FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6797262-C7CA-45A1-B17A-B08A6F1B6FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6797262-C7CA-45A1-B17A-B08A6F1B6FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}.Release|Any CPU.ActiveCfg = Release|Any CPU

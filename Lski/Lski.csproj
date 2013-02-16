@@ -53,6 +53,7 @@
     <Compile Include="Data\SelectBuilder.cs" />
     <Compile Include="Data\SortExpression.cs" />
     <Compile Include="Dates\DateTimeExt.cs" />
+    <Compile Include="Drawing\ImageResizer.cs" />
     <Compile Include="Email\Address.cs" />
     <Compile Include="Email\AuthenticationType.cs" />
     <Compile Include="Email\Email.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\OneWayEncrypt.cs" />
     <Compile Include="Security\TripleDES.cs" />
-    <Compile Include="Security\TripleDESExt.cs" />
     <Compile Include="Security\XXTea.cs" />
     <Compile Include="Txt\ConvertTo\BaseToDate.cs" />
     <Compile Include="Txt\ConvertTo\ConvertTo.cs" />
