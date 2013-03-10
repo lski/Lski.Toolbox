@@ -21,8 +21,6 @@ namespace Lski.Txt.ConvertTo {
 	[DataContract()]
 	public abstract class ConvertTo : ICloneable {
 		
-		public abstract string Desc { get; }
-
 		/// <summary>
 		/// States the system type this object would map to in a data table
 		/// </summary>
@@ -35,26 +33,37 @@ namespace Lski.Txt.ConvertTo {
 
 		public abstract object Clone();
 
-		public static ConvertTo GetDataMapType(Type type) {
+		public static ConvertTo GetConverter(Type type) {
 
-			TypeCode tc = Type.GetTypeCode(type);
-			
+			// Handle potential nullable versions of scalar types
+			TypeCode tc = (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>) ? Type.GetTypeCode(type.GetGenericArguments()[0]) : Type.GetTypeCode(type));
+
+			// Should change this to a dynamic loader
 			switch (tc) {
 				case TypeCode.DateTime:
-					return new ToDate();
+					return new ToDateTime();
 				case TypeCode.Decimal:
-				case TypeCode.Double:
-				case TypeCode.Int64:
-				case TypeCode.Single:
-				case TypeCode.UInt32:
-				case TypeCode.UInt64:
 					return new ToDecimal();
-				case TypeCode.Byte:
-				case TypeCode.UInt16:
-				case TypeCode.SByte:
+				case TypeCode.Double:
+					return new ToDouble();
+				case TypeCode.Single:
+					return new ToSingle();
 				case TypeCode.Int16:
+					return new ToInt16();
 				case TypeCode.Int32:
-					return new ToInteger();
+					return new ToInt32();
+				case TypeCode.Int64:
+					return new ToInt64();
+				case TypeCode.UInt16:
+					return new ToUInt16();
+				case TypeCode.UInt32:
+					return new ToUInt32();
+				case TypeCode.UInt64:
+					return new ToUInt64();
+				case TypeCode.Byte:
+					return new ToByte();
+				case TypeCode.SByte:
+					return new ToSByte();				
 				default:
 					return new ToText();
 			}
@@ -64,13 +73,13 @@ namespace Lski.Txt.ConvertTo {
 		public static IEnumerable<Type> GetKnownTypes() {
 
 			return new Type[] {typeof(ToText), 
-							   typeof(ToDate),
+							   typeof(ToDateTime),
 							   typeof(ToDateDMY),
 							   typeof(ToDateMDY),
 							   typeof(ToDateYMD),
 							   typeof(ToDecimal),
 							   typeof(ToBool),
-							   typeof(ToInteger)};
+							   typeof(ToInt32)};
 		}
 
 		/// <summary>

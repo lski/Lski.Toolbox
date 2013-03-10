@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Lski.IO.Csv {
+namespace Lski.IO.CsvDataTable {
 
 	/// <summary>
 	/// A class designed to store the links for exporting a Csv file from code. Designed mostly for storage in XML in a file.

@@ -30,6 +30,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -63,15 +81,22 @@
     <Compile Include="Email\NoEmail.cs" />
     <Compile Include="Email\Smtp.cs" />
     <Compile Include="Email\WebDav.cs" />
-    <Compile Include="IO\Csv\CsvDataMap.cs" />
+    <Compile Include="IO\CsvDataTable\CsvDataMap.cs" />
+    <Compile Include="IO\CsvDataTable\CsvDataMapLink.cs" />
+    <Compile Include="IO\CsvDataTable\CsvDataReader.cs" />
+    <Compile Include="IO\CsvDataTable\CsvExport.cs" />
+    <Compile Include="IO\CsvDataTable\CsvExportMap.cs" />
+    <Compile Include="IO\CsvDataTable\CsvImport.cs" />
+    <Compile Include="IO\CsvDataTable\CsvImportMap.cs" />
+    <Compile Include="IO\CsvDataTable\CsvTransferCompleteArgs.cs" />
+    <Compile Include="IO\CsvDataTable\ICsv.cs" />
+    <Compile Include="IO\Csv\CsvImportSettings.cs" />
+    <Compile Include="IO\Csv\CsvSettings.cs" />
     <Compile Include="IO\Csv\CsvDataMapLink.cs" />
-    <Compile Include="IO\Csv\CsvDataReader.cs" />
-    <Compile Include="IO\Csv\CsvExport.cs" />
-    <Compile Include="IO\Csv\CsvExportMap.cs" />
     <Compile Include="IO\Csv\CsvImport.cs" />
-    <Compile Include="IO\Csv\CsvImportMap.cs" />
-    <Compile Include="IO\Csv\CsvTransferCompleteArgs.cs" />
+    <Compile Include="IO\Csv\CsvImportMapLink.cs" />
     <Compile Include="IO\Csv\ICsv.cs" />
+    <Compile Include="IO\Csv\InternalCsvImportMapLink.cs" />
     <Compile Include="IO\DataMap.cs" />
     <Compile Include="IO\DataMapLink.cs" />
     <Compile Include="IO\FileSystem\Archive.cs" />
@@ -106,19 +131,29 @@
     <Compile Include="Security\XXTea.cs" />
     <Compile Include="Txt\ConvertTo\BaseToDate.cs" />
     <Compile Include="Txt\ConvertTo\ConvertTo.cs" />
+    <Compile Include="Txt\ConvertTo\ToSByte.cs" />
+    <Compile Include="Txt\ConvertTo\ToUInt16.cs" />
+    <Compile Include="Txt\ConvertTo\ToUInt32.cs" />
+    <Compile Include="Txt\ConvertTo\ToUInt64.cs" />
+    <Compile Include="Txt\ConvertTo\ToSingle.cs" />
+    <Compile Include="Txt\ConvertTo\ToDouble.cs" />
+    <Compile Include="Txt\ConvertTo\ToInt64.cs" />
+    <Compile Include="Txt\ConvertTo\ToInt16.cs" />
     <Compile Include="Txt\ConvertTo\ToBool.cs" />
-    <Compile Include="Txt\ConvertTo\ToDate.cs" />
+    <Compile Include="Txt\ConvertTo\ToByte.cs" />
+    <Compile Include="Txt\ConvertTo\ToDateTime.cs" />
     <Compile Include="Txt\ConvertTo\ToDateDMY.cs" />
     <Compile Include="Txt\ConvertTo\ToDateMDY.cs" />
     <Compile Include="Txt\ConvertTo\ToDateYMD.cs" />
     <Compile Include="Txt\ConvertTo\ToDecimal.cs" />
-    <Compile Include="Txt\ConvertTo\ToInteger.cs" />
+    <Compile Include="Txt\ConvertTo\ToInt32.cs" />
     <Compile Include="Txt\ConvertTo\ToText.cs" />
     <Compile Include="Txt\EnumMethods.cs" />
     <Compile Include="Txt\RandomString.cs" />
     <Compile Include="Txt\RichString.cs" />
     <Compile Include="Txt\StringExt.cs" />
     <Compile Include="Txt\Transformations\CharBasedTransformations.cs" />
+    <Compile Include="Txt\Transformations\Transformations.cs" />
     <Compile Include="Txt\Transformations\FillText.cs" />
     <Compile Include="Txt\Transformations\InsertText.cs" />
     <Compile Include="Txt\Transformations\IntBasedTransformations.cs" />

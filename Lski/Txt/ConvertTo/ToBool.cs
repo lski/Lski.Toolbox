@@ -42,11 +42,6 @@ namespace Lski.Txt.ConvertTo {
 			}
 		}
 
-		[XmlIgnore()]
-		public override string Desc { 
-			get { return "Boolean"; } 
-		}
-
 		public override System.Type Type { 
 			get { return typeof(bool); } 
 		}
@@ -59,26 +54,30 @@ namespace Lski.Txt.ConvertTo {
 		/// <returns></returns>
 		public override object Parse(string value) {
 
-			if (string.IsNullOrEmpty(value)) 
+			if (string.IsNullOrEmpty(value)) {
 				return null;
+			}
 
 			// Start by trying to see if this value is a number, if so convert to a number before parsing
-			decimal tmpNumber = default(decimal);
+			byte tmpNumber;
 
 			// Now try and parse with the number converted
-			if (decimal.TryParse(value, out tmpNumber))	
+			if (byte.TryParse(value, out tmpNumber)) {
 				return Convert.ToBoolean(tmpNumber);
+			}
 
 			// Make sure that case remove the
-			String tmpValue = value.Trim();
+			String tmpValue = value.Trim().ToLowerInvariant();
 
-			if (TrueValues.Contains(tmpValue, StringComparer.OrdinalIgnoreCase)) 
+			if (TrueValues.Contains(tmpValue)) {
 				return true;
-			
-			if (FalseValues.Contains(tmpValue, StringComparer.OrdinalIgnoreCase))	
-				return false;
+			}
 
-			return null;
+			if (FalseValues.Contains(tmpValue)) {
+				return false;
+			}
+
+			throw new ArgumentException(String.Format("The value '{0}' could not parsed to a boolean value", value));
 		}
 
 		public override object Clone() { 

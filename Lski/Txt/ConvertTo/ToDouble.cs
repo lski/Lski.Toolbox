@@ -14,10 +14,10 @@ namespace Lski.Txt.ConvertTo {
 	/// Trys to parse any numeric value and stores it as a decimal
 	/// </summary>
 	/// <remarks></remarks>
-	public class ToDecimal : ConvertTo {
+	public class ToDouble : ConvertTo {
 
 		public override System.Type Type { 
-			get { return typeof(decimal); } 
+			get { return typeof(double); } 
 		}
 
 		public override object Parse(string value) {
@@ -26,18 +26,18 @@ namespace Lski.Txt.ConvertTo {
 				return null;
 			}
 
-			decimal num;
-
+			double num;
 			// If the number can be parsed, then add it otherwise, set it to null
-			if (decimal.TryParse(value, out num)) {
+			if (double.TryParse(value, out num)) {
 				return num;
 			}
-			else {
-				return null;
-			}
+
+			return null;
 		}
 
-		public override object Clone() { return new ToDecimal(); }
+		public override object Clone() { 
+			return new ToDouble(); 
+		}
 	}
 
 }

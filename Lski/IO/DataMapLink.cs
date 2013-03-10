@@ -81,7 +81,7 @@ namespace Lski.IO {
 		}
 
 		public static IEnumerable<Type> GetKnownTypes() {
-			return new Type[] { typeof(Csv.CsvDataMapLink) };
+			return new Type[] { typeof(CsvDataTable.CsvDataMapLink) };
 		}
 	}
 

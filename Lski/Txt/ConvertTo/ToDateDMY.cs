@@ -16,9 +16,6 @@ namespace Lski.Txt.ConvertTo {
 	/// <remarks></remarks>
 	public class ToDateDMY : BaseDataMapDate {
 
-		[XmlIgnore()]
-		public override string Desc { get { return "Date (DMY)"; } }
-
 		public override string[] Formats {
 			get {
 				if (_formats == null) {

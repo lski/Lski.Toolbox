@@ -30,7 +30,9 @@ namespace Lski.Txt.ConvertTo {
 			DateTime dat = default(DateTime);
 
 			// If the date can be parsed, then add it otherwise, set it to null
-			if (DateTime.TryParseExact(value, Formats, CultureInfo.InvariantCulture, DateTimeStyles.AllowInnerWhite, out dat)) return dat;
+			if (DateTime.TryParseExact(value, Formats, CultureInfo.InvariantCulture, DateTimeStyles.AllowInnerWhite, out dat)) {
+				return dat;
+			}
 
 			return DBNull.Value;
 		}

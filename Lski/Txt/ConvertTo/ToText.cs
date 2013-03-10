@@ -17,9 +17,6 @@ namespace Lski.Txt.ConvertTo {
 	public class ToText : ConvertTo {
 
 		[XmlIgnore()]
-		public override string Desc { get { return "Text"; } }
-
-		[XmlIgnore()]
 		public override System.Type Type { get { return typeof(string); } }
 
 		public override object Clone() { return new ToText();}

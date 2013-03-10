@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Lski.IO.Csv {
+namespace Lski.IO.CsvDataTable {
 
 	public class CsvTransferCompleteArgs : TransferCompleteArgs {
 

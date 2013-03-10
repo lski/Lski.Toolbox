@@ -15,9 +15,6 @@ namespace Lski.IO {
 			Transfer = 4
 		}
 
-		private ValueType _type;
-
-		private Int32 _quantity;
 		/// <summary>
 		/// Creates a new event arguement object which contains the information raised by the event
 		/// </summary>
@@ -26,8 +23,8 @@ namespace Lski.IO {
 		/// <remarks></remarks>
 
 		public ValueChangedArgs(Int32 quantity, ValueType type) {
-			_type = type;
-			_quantity = quantity;
+			Type = type;
+			Quantity = quantity;
 
 		}
 
@@ -37,10 +34,7 @@ namespace Lski.IO {
 		/// <value></value>
 		/// <returns></returns>
 		/// <remarks></remarks>
-		public Int32 Quantity {
-			get { return _quantity; }
-			set { _quantity = value; }
-		}
+		public Int32 Quantity { get; set; }
 
 		/// <summary>
 		/// Returns the type of value change this is, e.g. Imported or Exported
@@ -48,10 +42,7 @@ namespace Lski.IO {
 		/// <value></value>
 		/// <returns></returns>
 		/// <remarks></remarks>
-		public ValueType Type {
-			get { return _type; }
-			set { _type = value; }
-		}
+		public ValueType Type { get; set; }
 
 	}
 

@@ -14,30 +14,30 @@ namespace Lski.Txt.ConvertTo {
 	/// Trys to parse any numeric value and stores it as a decimal
 	/// </summary>
 	/// <remarks></remarks>
-	public class ToDecimal : ConvertTo {
+	public class ToInt16 : ConvertTo {
 
-		public override System.Type Type { 
-			get { return typeof(decimal); } 
+		public override System.Type Type {
+			get { return typeof(Int16); } 
 		}
 
 		public override object Parse(string value) {
 
+			// If a integer, but the there is no text in that position in the line
 			if (value.Length == 0) {
 				return null;
 			}
 
-			decimal num;
-
-			// If the number can be parsed, then add it otherwise, set it to null
-			if (decimal.TryParse(value, out num)) {
+			Int16 num;
+			if (Int16.TryParse(value, out num)) {
 				return num;
 			}
-			else {
-				return null;
-			}
+			
+			return null;
 		}
 
-		public override object Clone() { return new ToDecimal(); }
+		public override object Clone() {
+			return new ToInt16(); 
+		}
 	}
 
 }

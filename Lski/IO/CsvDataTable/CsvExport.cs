@@ -10,7 +10,7 @@ using Lski.Txt;
 using Lski.Txt.Transformations;
 using Lski.Txt.ConvertTo;
 
-namespace Lski.IO.Csv {
+namespace Lski.IO.CsvDataTable {
 	
 	public class CsvExport : ICsv {
 
@@ -197,7 +197,7 @@ namespace Lski.IO.Csv {
 						validatedLinks.Add(new CsvDataMapLink(fields[i].ColumnName, // Use the column name from table is its the correct case for the dataTable
 															  (map.AppendHeader ? mapItem.Target : pos.ToString()), // If no header is appended to be appended to the file then mark with position 
 															  pos, // The line position to write to
-															  (ConvertTo.GetDataMapType(fields[i].DataType)), // Calculated from the data type of the datatable, if issues arise maybe switch to original map type
+															  (ConvertTo.GetConverter(fields[i].DataType)), // Calculated from the data type of the datatable, if issues arise maybe switch to original map type
 															  (TransformValues)mapItem.Translations.Clone())); //Any conversions, although on export unlikely to include ANY
 					}
 				}

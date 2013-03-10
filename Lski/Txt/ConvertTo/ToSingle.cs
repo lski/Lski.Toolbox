@@ -14,34 +14,30 @@ namespace Lski.Txt.ConvertTo {
 	/// Trys to parse any numeric value and stores it as a decimal
 	/// </summary>
 	/// <remarks></remarks>
-	public class ToInteger : ConvertTo {
-
-		[XmlIgnore()]
-		public override string Desc { 
-			get { return "Integer"; } 
-		}
+	public class ToSingle : ConvertTo {
 
 		public override System.Type Type { 
-			get { return typeof(Int32); } 
+			get { return typeof(Single); } 
 		}
 
 		public override object Parse(string value) {
 
-			// If a integer, but the there is no text in that position in the line
-			// Set the date to DBNull.Value
-			if (value.Length == 0) return null; // DBNull.Value
+			if (value.Length == 0) {
+				return null;
+			}
 
-			Int32 num = default(Int32);
-			Boolean result = Int32.TryParse(value, out num);
-
+			Single num;
 			// If the number can be parsed, then add it otherwise, set it to null
-			if (result)
+			if (Single.TryParse(value, out num)) {
 				return num;
-			else
-				return null; // DBNull.Value
+			}
+
+			return null;
 		}
 
-		public override object Clone() { return new ToInteger(); }
+		public override object Clone() {
+			return new ToSingle(); 
+		}
 	}
 
 }
