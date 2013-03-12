@@ -72,8 +72,7 @@ namespace Lski.Txt {
 		public string Create(RandomStringOptions options = RandomStringOptions.All, Int32 numOfChars = 10, char[] chararactersToExclude = null) {
 
 			StringBuilder code = new StringBuilder(numOfChars);
-			Int32 seed = System.Convert.ToInt32(System.DateTime.Now.Millisecond + _seedCounter);
-			Random rand = new Random(seed > Int32.MaxValue ? seed - Int32.MaxValue : seed);
+			Random rand = new Random((int)(DateTime.Now.Ticks % (Int32.MaxValue + _seedCounter++)));
 
 			byte i = 0;
 			var charList = new List<byte>();
