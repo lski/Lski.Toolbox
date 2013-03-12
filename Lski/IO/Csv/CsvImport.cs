@@ -19,7 +19,7 @@ namespace Lski.IO.Csv {
 	/// 
 	/// During the import or export processes the methods fire events to inform the user of the amount of values imported/exported.
 	/// </remarks>
-	public class CsvImport : ICsv  {
+	public class CsvImport<T> : ICsv where T : new() {
 		
 		public CsvImportSettings Settings { get; private set; }
 
@@ -27,18 +27,8 @@ namespace Lski.IO.Csv {
 			get { return "NULL"; }
 		}
 
-
 		protected CsvImport() { 
 			// Empty for serializers only
-		}
-
-		public CsvImport(CsvSettings settings) {
-			
-			this.Settings = new CsvImportSettings() {
-				Delimiter = settings.Delimiter,
-				TextDelimiter = settings.TextDelimiter,
-				HasHeader = settings.HasHeader
-			};
 		}
 
 		public CsvImport(CsvImportSettings settings) {
@@ -81,7 +71,7 @@ namespace Lski.IO.Csv {
 		/// <param name="row">The datarow to fill</param>
 		/// <returns></returns>
 		/// <remarks></remarks>
-		private T FromCsvLine<T>(CsvImportSettings map, ICollection<InternalCsvImportMapLink> mapLinks, string[] csvLine) {
+		private T FromCsvLine<T>(CsvImportSettings map, ICollection<InternalCsvImportMap> mapLinks, string[] csvLine) {
 
 			// Save recalling it
 			var csvLineCount = csvLine.Count(); 
@@ -110,7 +100,7 @@ namespace Lski.IO.Csv {
 		/// 
 		/// NOTE: Needs to be overridden in a database specific subclass
 		/// </remarks>
-		internal void ProcessImportedValue<T>(CsvImportSettings map, InternalCsvImportMapLink link, T obj, string valueToProcess) {
+		internal void ProcessImportedValue<T>(CsvImportSettings map, InternalCsvImportMap link, T obj, string valueToProcess) {
 
 			// Because the methods to insert csv values use dataTables, convert from string null to DBNull
 			// Applicable to all types of values so should be done prior 
@@ -203,21 +193,10 @@ namespace Lski.IO.Csv {
 		/// </remarks>
 		public IEnumerable<T> Import<T>(string filename) where T : new() {
 
-			StreamReader csvReader = null;
-
-			try {
-
-				// Try to open the selected file
-				csvReader = CreateFileReader(filename);
-
-				foreach (var item in InternalImport<T>(this.Settings, csvReader)) {
+			using(var rdr = CreateFileReader(filename)) {
+				
+				foreach (var item in InternalImport<T>(this.Settings, rdr)) {
 					yield return item;
-				}
-			}
-			finally {
-
-				if (csvReader != null) {
-					csvReader.Close();
 				}
 			}
 
@@ -228,7 +207,6 @@ namespace Lski.IO.Csv {
 			foreach (var item in InternalImport<T>(this.Settings, new StreamReader(fs))) {
 				yield return item;
 			}
-
 		}
 
 		/// <summary>
@@ -246,12 +224,12 @@ namespace Lski.IO.Csv {
 		/// If a link does not match a position in the 
 		/// 
 		/// </remarks>
-		public IEnumerable<T> InternalImport<T>(CsvImportSettings map, StreamReader rdr) where T : new() {
+		private IEnumerable<T> InternalImport<T>(CsvImportSettings map, StreamReader rdr) where T : new() {
 
 			if (rdr == null)
 				yield break;
 
-			if (map.Links == null && !map.HasHeader) {
+			if (map.Links == null && !map.Header) {
 				throw new ArgumentException("If not manually providing links to CsvImport there must be a header to match against property names");
 			}
 			// If there are no links then get names for the links from the first line of 
@@ -259,11 +237,11 @@ namespace Lski.IO.Csv {
 				map.Links = CreateLinksFromHeader(map.Delimiter, rdr);
 			}
 			// If there are links and the file has an header move the pointer in the stream on one line
-			else if (map.Links != null && map.HasHeader) {
+			else if (map.Links != null && map.Header) {
 				rdr.ReadLine();
 			}
 
-			var internalMap = InternalCsvImportMapLink.CreateInternalLinks<T>(map.Links);
+			var internalMap = InternalCsvImportMap.CreateInternalLinks<T>(map.Links);
 
 			while (!rdr.EndOfStream) {
 

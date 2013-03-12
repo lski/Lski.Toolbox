@@ -92,11 +92,11 @@
     <Compile Include="IO\CsvDataTable\ICsv.cs" />
     <Compile Include="IO\Csv\CsvImportSettings.cs" />
     <Compile Include="IO\Csv\CsvSettings.cs" />
-    <Compile Include="IO\Csv\CsvDataMapLink.cs" />
+    <Compile Include="IO\Csv\CsvDataMap.cs" />
     <Compile Include="IO\Csv\CsvImport.cs" />
-    <Compile Include="IO\Csv\CsvImportMapLink.cs" />
+    <Compile Include="IO\Csv\CsvImportMap.cs" />
     <Compile Include="IO\Csv\ICsv.cs" />
-    <Compile Include="IO\Csv\InternalCsvImportMapLink.cs" />
+    <Compile Include="IO\Csv\InternalCsvImportMap.cs" />
     <Compile Include="IO\DataMap.cs" />
     <Compile Include="IO\DataMapLink.cs" />
     <Compile Include="IO\FileSystem\Archive.cs" />

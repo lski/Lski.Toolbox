@@ -7,7 +7,7 @@ using Lski.Txt.Transformations;
 
 namespace Lski.IO.Csv {
 	
-	public abstract class CsvDataMapLink {
+	public abstract class CsvDataMap {
 
 		/// <summary>
 		/// Line position within the Csv line

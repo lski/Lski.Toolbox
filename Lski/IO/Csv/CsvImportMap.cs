@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Lski.IO.Csv {
 
-	public class CsvImportLink : CsvDataMapLink {
+	public class CsvImportLink : CsvDataMap {
 
 		/// <summary>
 		/// An override for the conversion process, default used if null

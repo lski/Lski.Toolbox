@@ -10,12 +10,12 @@ namespace Lski.IO.Csv {
 		public const string DefaultDelimiter = ",";
 		public const string DefaultTextDelimiter = "\"";
 
-		public bool HasHeader { get; set; }
-		public string Delimiter { get; set; }
-		public string TextDelimiter { get; set; }
+		public virtual bool Header { get; set; }
+		public virtual string Delimiter { get; set; }
+		public virtual string TextDelimiter { get; set; }
 
 		public CsvSettings() {
-			HasHeader = false;
+			Header = false;
 			Delimiter = DefaultDelimiter;
 			TextDelimiter = DefaultTextDelimiter;
 		}
