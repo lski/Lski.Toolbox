@@ -25,6 +25,34 @@ namespace Lski.Drawing {
 			PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 		}
 
+		/// <summary>
+		/// Resizes the width of the image, if preserveAspectRatio then it will resize the height accordingly.
+		/// </summary>
+		/// <param name="image"></param>
+		/// <param name="maxWidth"></param>
+		/// <returns></returns>
+		public Image ResizeWidth(Image image, int width, bool preserveAspectRatio = true) {
+
+			Size newSize;
+
+			if (preserveAspectRatio) {
+				decimal ratio = decimal.Divide(width, image.Width);
+				newSize = new Size(width, (int)(image.Height * ratio));
+			}
+			else {
+				newSize = new Size(width, image.Height);
+			}
+
+			return image.Resize(newSize, false);
+		}
+
+		/// <summary>
+		/// Reduces the size of the image so that the largest dimension of the original image is not bigger than the max stated size, resizing the
+		/// other deimension proportionally to the larger dimension to maintain aspect ratio.
+		/// </summary>
+		/// <param name="image"></param>
+		/// <param name="size"></param>
+		/// <returns></returns>
 		public Image Resize(Image image, int size) {
 
 			if (image.Width == size && image.Height == size) {
