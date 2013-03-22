@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace Lski.Txt.ConvertTo {
+namespace Lski.Txt.Conversion {
 
 	/// <summary>
 	/// Trys to parse any numeric value and stores it as a decimal
@@ -16,9 +16,6 @@ namespace Lski.Txt.ConvertTo {
 	/// <remarks></remarks>
 	public class ToUInt64 : ConvertTo {
 
-		public override System.Type Type {
-			get { return typeof(UInt64); } 
-		}
 
 		public override object Parse(string value) {
 

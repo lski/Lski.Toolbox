@@ -13,7 +13,14 @@ namespace Lski.Txt.Transformations {
 
 	public class Transformations : List<Transformation>, ICloneable {
 
-		public Transformations() { }
+		public Transformations() {}
+
+		public Transformations(params Transformation[] trans) {
+			
+			foreach (var tran in trans) {
+				this.Add(tran);
+			}
+		}
 
 		public string Process(string value) {
 
@@ -26,7 +33,7 @@ namespace Lski.Txt.Transformations {
 
 		public object Clone() {
 
-			TransformValues avc = new TransformValues();
+			Transformations avc = new Transformations();
 
 			foreach (var i in this) {
 				avc.Add((Transformation)i.Clone());
@@ -36,52 +43,4 @@ namespace Lski.Txt.Transformations {
 		}
 
 	}
-
-	//[DataContract()]
-	//public class TransformValues : ICloneable {
-
-	//    private List<TransformValue> _Translations;
-	//    /// <summary>
-	//    /// Holds the list of translations for the passed value in the Process method.
-	//    /// </summary>
-	//    /// <remarks>
-	//    /// Holds the list of translations for the passed value in the Process method. Held in a property rather than overriden collection
-	//    /// to provide a cleaner xml export
-	//    /// </remarks>
-	//    [DataMember()]
-	//    public List<TransformValue> Translations {
-	//        get { return _Translations; }
-	//        set { _Translations = value ?? new List<TransformValue>(); } 
-	//    }
-
-	//    public TransformValues() {
-	//        Translations = new List<TransformValue>();
-	//    }
-
-	//    public string Process(string value) {
-
-	//        foreach (var i in this.Translations) {
-	//            value = i.Process(value);
-	//        }
-
-	//        return value;
-	//    }
-
-	//    public Int32 Add(TransformValue tv) {
-	//        this.Translations.Add(tv);
-	//        return this.Translations.Count - 2;
-	//    }
-
-	//    public object Clone() {
-
-	//        TransformValues avc = new TransformValues();
-
-	//        foreach (var i in this.Translations) {
-	//            avc.Translations.Add((TransformValue)i.Clone());
-	//        }
-
-	//        return avc;
-	//    }
-
-	//}
 }

@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Lski.Txt;
+using System.Reflection;
+using Lski.Txt.Conversion;
+using Lski.Txt.Transformations;
 
 namespace Lski.IO.Csv {
 
@@ -19,13 +22,9 @@ namespace Lski.IO.Csv {
 	/// 
 	/// During the import or export processes the methods fire events to inform the user of the amount of values imported/exported.
 	/// </remarks>
-	public class CsvImport<T> : ICsv where T : new() {
+	public class CsvImport {
 		
 		public CsvImportSettings Settings { get; private set; }
-
-		public virtual string NULLValue {
-			get { return "NULL"; }
-		}
 
 		protected CsvImport() { 
 			// Empty for serializers only
@@ -71,7 +70,7 @@ namespace Lski.IO.Csv {
 		/// <param name="row">The datarow to fill</param>
 		/// <returns></returns>
 		/// <remarks></remarks>
-		private T FromCsvLine<T>(CsvImportSettings map, ICollection<InternalCsvImportMap> mapLinks, string[] csvLine) {
+		private T FromCsvLine<T>(CsvImportSettings map, ICollection<InternalCsvLink> mapLinks, string[] csvLine) {
 
 			// Save recalling it
 			var csvLineCount = csvLine.Count(); 
@@ -100,30 +99,28 @@ namespace Lski.IO.Csv {
 		/// 
 		/// NOTE: Needs to be overridden in a database specific subclass
 		/// </remarks>
-		internal void ProcessImportedValue<T>(CsvImportSettings map, InternalCsvImportMap link, T obj, string valueToProcess) {
+		internal void ProcessImportedValue<T>(CsvImportSettings settings, InternalCsvLink link, T obj, string value) {
 
-			// Because the methods to insert csv values use dataTables, convert from string null to DBNull
+			// Because the methods to insert csv values use dataTables, convert from string null
 			// Applicable to all types of values so should be done prior 
-			if (this.NULLValue.Equals(valueToProcess, StringComparison.OrdinalIgnoreCase)) {
+			if (settings.NULL.Equals(value, StringComparison.OrdinalIgnoreCase)) {
 
 				link.Property.SetValue(obj, null, null);
 				return;
 			}
 
-			if (link.Tranformations != null) {
-				// Strip the csv rubbish from the string and format it as requested, if null returned, convert to DBNull.Value
-				valueToProcess = link.Tranformations.Process(ConvertFromCsvValue(valueToProcess, map.TextDelimiter));
-			}
+			// Strip the csv rubbish from the string and format it as requested
+			value = link.Tranformations.Process(value);
 
 			// If the map states that empty strings should be handled as null return null when its an empty string, otherwise return the empty string
-			if (map.EmptyValueAsNull && valueToProcess.Length == 0) {
+			if (settings.EmptyValueAsNull && value.Length == 0) {
 
 				link.Property.SetValue(obj, null, null);
 				return;
 			}
-
+			
 			// Run the datamap types own conversion method to parse the incoming value
-			link.Property.SetValue(obj, link.Conversion.Parse(valueToProcess), null);
+			link.Property.SetValue(obj, link.Conversion.Parse(value), null);
 		}
 
 		/// <summary>
@@ -137,40 +134,65 @@ namespace Lski.IO.Csv {
 			return csvLine.SplitAdv(delimiter);
 		}
 
-		#endregion
-
-		#region "Public Conversion Methods"
-
 		/// <summary>
-		/// Takes the value passed that is in the format of a value from a csv file, and converts it into a 'normal' string therefore no escaped sequences
+		/// Uses the CSV files first livne to create a set of auto generated links to store in map.Links
 		/// </summary>
-		/// <param name="str">The csv style value to convert</param>
+		/// <param name="rdr"></param>
 		/// <returns></returns>
-		/// <remarks></remarks>
-		public static string ConvertFromCsvValue(string str, string textDelimiter) {
+		private ICollection<CsvImportLink> CreateLinksFromHeader(String delimiter, StreamReader rdr) {
 
-			if (string.IsNullOrEmpty(str) || string.IsNullOrEmpty(textDelimiter)) {
-				return str;
+			var line = rdr.ReadLine();
+			var lst = new List<CsvImportLink>();
+
+			if (String.IsNullOrEmpty(line)) {
+				return lst;
 			}
 
-			// If commas surrounding the value, remove them
-			if (str.StartsWith(textDelimiter) && str.EndsWith(textDelimiter)) {
-
-				// If it has two double quote but has nothing else in it, simply return an empty string rather running substring which will error
-				if ((str.Length - 2) == 0) {
-					return string.Empty;
-				}
-
-				str = str.Substring(1, str.Length - 2);
+			var i = 0;
+			foreach (var item in SplitCsvLine(line, delimiter)) {
+				lst.Add(new CsvImportLink() {
+					Position = i++,
+					Property = item
+				});
 			}
 
-			// If it contains any other text delimiters then it should be in a pair, if so change them to a single 'double' quote
-			str = str.Replace(textDelimiter + textDelimiter, textDelimiter);
-
-			return str;
+			return lst;
 		}
 
+		private ICollection<InternalCsvLink> CreateInternalLinks<T>(ICollection<CsvImportLink> links, CsvImportSettings settings) {
 
+			var lst = new List<InternalCsvLink>();
+
+			if (links != null) {
+
+				var qry = (from p in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+						   join l in links on p.Name.ToLowerInvariant() equals l.Property.ToLowerInvariant()
+						   select new { Property = p, Link = l });
+
+
+				foreach (var pl in qry) {
+
+					var transformations = new Transformations();
+					// Automatically add the processing to remove values 
+					transformations.Add(new FromCsv(settings.TextDelimiter));
+
+					if (pl.Link.Tranformations != null) {
+						foreach (var item in pl.Link.Tranformations) {
+							transformations.Add(item);
+						}
+					}
+
+					lst.Add(new InternalCsvLink() {
+						Property = pl.Property,
+						Position = pl.Link.Position,
+						Conversion = pl.Link.Conversion ?? ConvertTo.GetConverter(pl.Property.PropertyType),
+						Tranformations = transformations
+					});
+				}
+			}
+
+			return lst;
+		}
 
 		#endregion
 
@@ -224,55 +246,30 @@ namespace Lski.IO.Csv {
 		/// If a link does not match a position in the 
 		/// 
 		/// </remarks>
-		private IEnumerable<T> InternalImport<T>(CsvImportSettings map, StreamReader rdr) where T : new() {
+		private IEnumerable<T> InternalImport<T>(CsvImportSettings settings, StreamReader rdr) where T : new() {
 
 			if (rdr == null)
 				yield break;
 
-			if (map.Links == null && !map.Header) {
+			if (settings.Links == null && !settings.Header) {
 				throw new ArgumentException("If not manually providing links to CsvImport there must be a header to match against property names");
 			}
 			// If there are no links then get names for the links from the first line of 
-			else if(map.Links == null) {
-				map.Links = CreateLinksFromHeader(map.Delimiter, rdr);
+			else if(settings.Links == null) {
+				settings.Links = CreateLinksFromHeader(settings.Delimiter, rdr);
 			}
 			// If there are links and the file has an header move the pointer in the stream on one line
-			else if (map.Links != null && map.Header) {
+			else if (settings.Links != null && settings.Header) {
 				rdr.ReadLine();
 			}
 
-			var internalMap = InternalCsvImportMap.CreateInternalLinks<T>(map.Links);
+			var internalMap = CreateInternalLinks<T>(settings.Links, settings);
 
 			while (!rdr.EndOfStream) {
 
 				// Add the row to the dataTable
-				yield return FromCsvLine<T>(map, internalMap, SplitCsvLine(rdr.ReadLine(), map.Delimiter));
+				yield return FromCsvLine<T>(settings, internalMap, SplitCsvLine(rdr.ReadLine(), settings.Delimiter));
 			}
-		}
-
-		/// <summary>
-		/// Uses the CSV files first livne to create a set of auto generated links to store in map.Links
-		/// </summary>
-		/// <param name="rdr"></param>
-		/// <returns></returns>
-		private ICollection<CsvImportLink> CreateLinksFromHeader(String delimiter, StreamReader rdr) {
-
-			var line = rdr.ReadLine();
-			var lst = new List<CsvImportLink>();
-
-			if (String.IsNullOrEmpty(line)) {
-				return lst;
-			}
-
-			var i = 0;
-			foreach (var item in SplitCsvLine(line, delimiter)){
-				lst.Add(new CsvImportLink() {
-					 Position = i++,
-					 Property = item
-				});
-			}
-
-			return lst;
 		}
 
 		#endregion

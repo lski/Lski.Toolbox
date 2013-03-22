@@ -15,6 +15,9 @@ namespace Lski.Txt {
 	/// </summary>
 	public static class EnumMethods {
 
+		/// <summary>
+		/// Caching to prevent recalling
+		/// </summary>
 		private static Dictionary<Enum, string> _stringValues = new Dictionary<Enum, string>();
 		private static Dictionary<Enum, object> _objects = new Dictionary<Enum, object>();
 
@@ -107,7 +110,7 @@ namespace Lski.Txt {
 	}
 
 	/// <summary>
-	/// This allows a string to be added to an enumeration value
+	/// This allows a string to be added to an enumeration value for display
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public class DescriptionAttribute : Attribute {

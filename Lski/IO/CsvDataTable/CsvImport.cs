@@ -14,7 +14,7 @@ using Lski.Data.Extensions;
 using Lski.Txt;
 using Lski.IO.FileSystem;
 using Lski.IO.FileSystem.Exceptions;
-using Lski.Txt.ConvertTo;
+using Lski.Txt.Conversion;
 using Lski.Txt.Transformations;
 
 namespace Lski.IO.CsvDataTable {

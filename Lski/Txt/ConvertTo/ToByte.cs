@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Lski.Txt.ConvertTo {
+namespace Lski.Txt.Conversion {
 
 	public class ToByte : ConvertTo {
-
-		public override Type Type {
-			get {  return typeof(Byte); }
-		}
 
 		public override object Parse(string value) {
 

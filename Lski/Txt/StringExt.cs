@@ -271,10 +271,10 @@ namespace Lski.Txt {
 		public static StringBuilder Strip(this string value, Char[] charsToStrip) {
 
 			// If the chars to strip is null or empty, then simply return the string as is, rather than trying to look through them
-			if ((charsToStrip == null) || charsToStrip.Length == 0)	
+			if (charsToStrip == null || charsToStrip.Length == 0)	
 				return new System.Text.StringBuilder(value);
 
-			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+			var sb = new System.Text.StringBuilder();
 
 			foreach (Char c in value) {
 

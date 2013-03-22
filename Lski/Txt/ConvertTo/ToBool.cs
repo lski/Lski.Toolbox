@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace Lski.Txt.ConvertTo {
+namespace Lski.Txt.Conversion {
 
 	/// <summary>
 	/// Trys to parse any numeric value and stores it as a decimal
@@ -42,8 +42,8 @@ namespace Lski.Txt.ConvertTo {
 			}
 		}
 
-		public override System.Type Type { 
-			get { return typeof(bool); } 
+		public override string ToString(object obj) {
+			return (obj == null ? (string)null : ((bool)obj ? "true" : "false"));
 		}
 
 		/// <summary>

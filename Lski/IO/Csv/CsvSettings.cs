@@ -10,11 +10,30 @@ namespace Lski.IO.Csv {
 		public const string DefaultDelimiter = ",";
 		public const string DefaultTextDelimiter = "\"";
 
+		/// <summary>
+		/// States whether the CSV file has a header
+		/// </summary>
 		public virtual bool Header { get; set; }
+		/// <summary>
+		/// The value delimiter, to mark to split between different values, usually a single comma ','
+		/// </summary>
 		public virtual string Delimiter { get; set; }
+		/// <summary>
+		/// The text delimiter, to be placed around a text value when a value delimiter is placed inside the text and needs to avoid being confused as a value delimiter, normal double quote '"'
+		/// </summary>
 		public virtual string TextDelimiter { get; set; }
 
+		private string _NULL;
+		/// <summary>
+		/// The string equiv of null, can not be null as it represents its value in the 
+		/// </summary>
+		public string NULL {
+			get { return _NULL; }
+			set { _NULL = (value ?? ""); }
+		}
+
 		public CsvSettings() {
+			NULL = "";
 			Header = false;
 			Delimiter = DefaultDelimiter;
 			TextDelimiter = DefaultTextDelimiter;

@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Lski.Txt.Transformations {
 
 	/// <summary>
-	/// Only returns numeric values in the string
+	/// Fills the selected target with the text supplied
 	/// </summary>
-	public class NumericsOnly : Transformation {
+	public class DefaultValue : Transformation {
+
+		public string Value { get; set; }
 
 		public override string Process(string value) {
-			return Regex.Replace(value, @"[^\d]", "");
+			return this.Value;
 		}
 
 		public override object Clone() {
-
-			return new NumericsOnly();
+			
+			return new DefaultValue() {
+				Value = this.Value 
+			};
 		}
 
 	}

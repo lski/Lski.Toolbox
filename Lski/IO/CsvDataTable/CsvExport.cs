@@ -8,7 +8,7 @@ using System.IO;
 
 using Lski.Txt;
 using Lski.Txt.Transformations;
-using Lski.Txt.ConvertTo;
+using Lski.Txt.Conversion;
 
 namespace Lski.IO.CsvDataTable {
 	

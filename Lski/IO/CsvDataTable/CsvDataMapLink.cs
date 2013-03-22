@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 
 using Lski.Txt.Transformations;
-using Lski.Txt.ConvertTo;
+using Lski.Txt.Conversion;
 
 
 namespace Lski.IO.CsvDataTable {
@@ -32,7 +32,7 @@ namespace Lski.IO.CsvDataTable {
 			this.LinePosition = linePosition;
 		}
 
-		public CsvDataMapLink(string source, string target, Int32 linePosition, ConvertTo dataMapType, TransformValues translation) : base(source, target, dataMapType, translation) {
+		public CsvDataMapLink(string source, string target, Int32 linePosition, ConvertTo dataMapType, Transformations translation) : base(source, target, dataMapType, translation) {
 			this.LinePosition = linePosition;
 		}
 

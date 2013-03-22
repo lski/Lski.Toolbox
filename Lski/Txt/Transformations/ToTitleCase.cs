@@ -6,18 +6,22 @@ using System.Globalization;
 
 namespace Lski.Txt.Transformations {
 
+	/// <summary>
+	/// Changes the value so that it displays in title case
+	/// </summary>
 	public class ToTitleCase : Transformation {
-
-		public override string ShortDesc { get { return "Title Cased"; } }
-		public override string FullDesc { get { return "Changes the value so that it displays in title case"; } }
 
 		public override string Process(string value) {
 
-			if (string.IsNullOrEmpty(value)) return value;
+			if (string.IsNullOrEmpty(value)) 
+				return value;
+			
+			// Have to convert it to lower case first in case in Upper case then it wont change it
 			return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value.ToLowerInvariant());
-
 		}
 
-		public override object Clone() { return new ToTitleCase { Formatting = this.Formatting }; }
+		public override object Clone() { 
+			return new ToTitleCase(); 
+		}
 	}
 }

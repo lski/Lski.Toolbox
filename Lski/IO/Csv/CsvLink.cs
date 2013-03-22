@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Lski.Txt.ConvertTo;
+using Lski.Txt.Conversion;
 using Lski.Txt.Transformations;
 
 namespace Lski.IO.Csv {
 	
-	public abstract class CsvDataMap {
+	public abstract class CsvLink {
 
 		/// <summary>
 		/// Line position within the Csv line

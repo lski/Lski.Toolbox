@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace Lski.Txt.ConvertTo {
+namespace Lski.Txt.Conversion {
 
 	/// <summary>
 	/// States the data type of an incoming value and provides a method of parsing the imcoming value into that datatype.
@@ -17,21 +17,15 @@ namespace Lski.Txt.ConvertTo {
 	/// 
 	/// If the value can not be parsed for that particular type then it returns null.
 	/// </remarks>
-	[KnownType("GetKnownTypes")]
-	[DataContract()]
 	public abstract class ConvertTo : ICloneable {
 		
-		/// <summary>
-		/// States the system type this object would map to in a data table
-		/// </summary>
-		/// <value></value>
-		/// <returns></returns>
-		/// <remarks></remarks>
-		public abstract System.Type Type { get; }
-
 		public abstract object Parse(string value);
 
 		public abstract object Clone();
+
+		public virtual string ToString(object obj) {
+			return (obj == null ? (string)null : Convert.ToString(obj));
+		}
 
 		public static ConvertTo GetConverter(Type type) {
 

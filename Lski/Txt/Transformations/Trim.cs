@@ -5,13 +5,23 @@ using System.Text;
 
 namespace Lski.Txt.Transformations {
 
-	public class Trim : CharBasedTransformations {
+	/// <summary>
+	/// All the spaces to the right and left of the text are removed
+	/// </summary>
+	public class Trim : Transformation {
 
-		public override string ShortDesc { get { return "Trim Both"; } }
-		public override string FullDesc { get { return "All the spaces to the right and left of the text are removed"; } }
+		public char Char { get; set; }
 
-		public override string Process(string value) { return value.Trim(_charList); }
-		public override object Clone() { return new Trim { _charList = this._charList }; }
+		public override string Process(string value) {
+			return value.Trim(Char);
+		}
+
+		public override object Clone() {
+
+			return new Trim {
+				Char = this.Char
+			};
+		}
 	}
 
 }

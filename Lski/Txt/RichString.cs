@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Lski.Txt {
 
+	/// <summary>
+	/// Simple combination of related properties for drawing text
+	/// </summary>
 	public class RichString {
 		public String Text { get; set; }
 		public Font Font { get; set; }

@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace Lski.Txt.ConvertTo {
+namespace Lski.Txt.Conversion {
 
 	/// <summary>
 	/// Trys to parse a date that is specified as coming in using format of year first (E.g. database format)

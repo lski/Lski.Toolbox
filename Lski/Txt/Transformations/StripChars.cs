@@ -6,14 +6,24 @@ using Lski.Txt;
 
 namespace Lski.Txt.Transformations {
 
-	public class StripChars : CharBasedTransformations {
+	/// <summary>
+	/// Removes all characters stated in formatting from the selected value
+	/// </summary>
+	public class StripChars : Transformation {
 
-		public override string ShortDesc { get { return "Remove Characters"; } }
-		public override string FullDesc { get { return "Removes all characters stated in formatting from the selected value"; } }
+		public char[] Chars { get; set; }
 
-		public override string Process(string value) { return value.Strip(_charList).ToString(); }
-		public override object Clone() { return new StripChars { _charList = this._charList }; }
+		public override string Process(string value) {
 
+			return (Chars == null || value == null ? value : value.Strip(Chars).ToString());
+		}
+
+		public override object Clone() {
+
+			return new StripChars {
+				Chars = this.Chars
+			};
+		}
 	}
 }
 

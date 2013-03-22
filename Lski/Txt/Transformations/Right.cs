@@ -7,16 +7,21 @@ using Lski.Txt;
 namespace Lski.Txt.Transformations {
 
 	/// <summary>
-	/// When processing the value passed in, it takes only the amount of characters specified from the left hand side (therefore simulating 
-	/// 'Right' function in a database)
+	/// Sets the maximum amount of characters to return starting from the right, going to the left (simulating 'Right' function in a database)
 	/// </summary>
 	/// <remarks></remarks>
-	public class Right : IntBasedTransformations {
+	public class Right : Transformation {
 
-		public override object Clone() { return new Right { _intValue = this._intValue }; }
-		public override string FullDesc { get { return "Sets the maximum amount of characters to return starting from the right, going to the left"; } }
+		public int MaxAmount { get; set; }
 
-		public override string Process(string value) { return value.SubStringAdv(value.Length - _intValue); }
-		public override string ShortDesc { get { return "Right"; } }
+		public override object Clone() {
+			return new Right {
+				MaxAmount = this.MaxAmount
+			};
+		}
+
+		public override string Process(string value) {
+			return value.SubStringAdv(value.Length - MaxAmount);
+		}
 	}
 }
