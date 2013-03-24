@@ -182,19 +182,21 @@ namespace Lski.IO.FileSystem {
 			char currentChar = '\0';
 
 			// Check there is still characters to be read in the reader
-			if ((reader.Peek() > -1)) charCode = reader.Read();
+			if ((reader.Peek() > -1)) 
+				charCode = reader.Read();
 
 
 			while (charCode != -1 && currentAmount < lineNumber) {
+				
 				currentChar = Convert.ToChar(charCode);
 
 				// 1. If a line feed then add to the count
 				// 2. If a carriage return check next value as well to see if line feed, if so, move on again
 				// 3. Simply move the reader on to the next char
-				if (currentChar == '\n') {
+				if (currentChar == '\n')
 					currentAmount += 1;
 
-				} else if (currentChar == '\r') {
+				else if (currentChar == '\r') {
 					currentAmount += 1;
 
 					// because this is a carriage return check if the next value is a line feed, if it is then advance again
@@ -207,7 +209,8 @@ namespace Lski.IO.FileSystem {
 					if (Convert.ToChar(charCode) == '\n')
 						charCode = reader.Read();
 
-				} else {
+				}
+				else {
 					charCode = reader.Read();
 				}
 			}
@@ -312,45 +315,6 @@ namespace Lski.IO.FileSystem {
 			return currentAmount;
 
 		}
-
-		/// <summary>
-		/// Returns a shorthand version of the FullName, using a combination of the root, spots and the final two FileSystemInfo objects.
-		/// </summary>
-		/// <returns></returns>
-		/// <remarks>
-		/// Returns a shorthand version of the FullName, using a combination of the root, spots and the final two FileSystemInfo objects.
-		/// 
-		/// The returned format will be the root directory, followed by '...' to indicate shortening of the filename
-		/// then followed by the first subdirectory and finally the filename itself
-		/// </remarks>
-		public static string CreateShorthandName(FileSystemInfo fsi) {
-
-			string endChar = null;
-			DirectoryInfo dir = null;
-
-			// If this object is a directory start the end with a directorySeparator
-			if (fsi is DirectoryInfo) {
-				endChar = Path.DirectorySeparatorChar.ToString();
-				dir = ((DirectoryInfo)fsi).Parent;
-			} 
-			else if (fsi is FileInfo) {
-				endChar = string.Empty;
-				dir = ((FileInfo)fsi).Directory;
-			}
-			else {
-				throw new ArgumentException("CreateShorthandName can only take objects of type DirectoryInfo and FileInfo and not of type " + fsi.GetType().Name);
-			}
-
-			// If there is no sub directory or the sub directory is the root, then simply return the full path
-			if (dir == null || dir.Equals(dir.Root) || dir.Parent == null || dir.Parent.Equals(dir.Root)) 
-				return fsi.FullName;
-
-			Char sep = Path.DirectorySeparatorChar;
-
-			// Start compiling the more complicated string
-			return (dir.Root.Name + "..." + sep + dir.Name + sep + fsi.Name + endChar);
-		}
-
 	}
 
 }

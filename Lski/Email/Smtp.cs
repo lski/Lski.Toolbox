@@ -8,14 +8,12 @@ using System.Net;
 
 namespace Lski.Email {
 
-	[DataContract()]
 	public class Smtp : GenericEmail {
 
 		public Smtp() : base() {
 			this.Port = 25;
 		}
 
-		[DataMember(Order = 4)]
 		public int Port { get; set; }
 
 		/// <summary>
@@ -35,7 +33,7 @@ namespace Lski.Email {
 		/// will send without that particular file, but will attempt to add the next file in the list until the list is completely
 		/// checked/attached.
 		/// </remarks>
-		public override void Send(String from, IEnumerable<String> to, String subject, String body, EmailFormat format = EmailFormat.Text, IEnumerable<String> cc = null, IEnumerable<String> bcc = null) {
+		public override void Send(String from, IEnumerable<String> to, String subject, String body, bool isHtml = false, IEnumerable<String> cc = null, IEnumerable<String> bcc = null) {
 
 			MailMessage mess = new MailMessage();
 
@@ -57,7 +55,7 @@ namespace Lski.Email {
 				}
 			}
 
-			mess.IsBodyHtml = (EmailFormat.Html == format);
+			mess.IsBodyHtml = isHtml;
 			mess.Subject = subject;
 			mess.Body = body;
 
@@ -123,14 +121,6 @@ namespace Lski.Email {
 		//    ExecuteSend(mess);
 		//}
 
-		public override void Fill(IEmail ie) {
-			
-			Server = ie.Server;
-			Port = ie.Port;
-			Username = ie.Username;
-			Password = ie.Password;
-			Timeout = ie.Timeout;
-		}
 
 		private void ExecuteSend(MailMessage msg) {
 

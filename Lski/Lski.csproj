@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Connections\Connection.cs" />
-    <Compile Include="Data\Connections\Exceptions\CantConnectException.cs" />
     <Compile Include="Data\Connections\Exceptions\ConnectionStringNotFoundException.cs" />
     <Compile Include="Data\Connections\Transaction.cs" />
     <Compile Include="Data\Extensions\DataTableExt.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Email\Address.cs" />
     <Compile Include="Email\AuthenticationType.cs" />
     <Compile Include="Email\Email.cs" />
-    <Compile Include="Email\EmailFormat.cs" />
     <Compile Include="Email\GenericEmail.cs" />
     <Compile Include="Email\IEmail.cs" />
     <Compile Include="Email\NoEmail.cs" />
@@ -103,13 +101,10 @@
     <Compile Include="IO\FileSystem\FileInfoExt.cs" />
     <Compile Include="IO\FileSystem\FileSystemInfoExt.cs" />
     <Compile Include="IO\Objects.cs" />
-    <Compile Include="IO\TransferCompleteArgs.cs" />
-    <Compile Include="IO\ValueChangedArgs.cs" />
     <Compile Include="IssueTracking\AddedFeature.cs" />
     <Compile Include="IssueTracking\BugFix.cs" />
     <Compile Include="IssueTracking\ToFix.cs" />
     <Compile Include="Linq\Dynamic.cs" />
-    <Compile Include="Misc\Address.cs" />
     <Compile Include="Misc\Applications.cs" />
     <Compile Include="Drawing\ImageExt.cs" />
     <Compile Include="Misc\Impersonate.cs" />

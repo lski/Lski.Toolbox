@@ -11,16 +11,29 @@ using Lski.Txt.Transformations;
 namespace Lski.IO.Csv {
 
 	/// <summary>
-	/// A class that allows importing and exporting from csv files
+	/// A class that allows importing and exporting from csv files, uses yield to improve performance
 	/// </summary>
-	/// <remarks>A class that allows importing and exporting from csv files
+	/// <remarks>A class that allows importing and exporting from csv files, uses yield to improve performance
+	///
+	/// If the settings do not include links, they are automatically generated to match the properties of the object being filled. If links are included then the Conversion and Transformation methods are
+	/// optional and are auto generated, unless stated.
 	/// 
-	/// Uses the passed TableControl object to use the appropriate objects for the database being used.
+	/// Usage: 
+	/// <code> 
+	/// var csv = new CsvImport(new CsvImportSettings() {
+	///		Header = true,
+	///		Links = new CsvImportLink[] {
+	///			 new CsvImportLink() { Position = 1, Property = "Useremail" },
+	///			 new CsvImportLink() { Position = 0, Property = "Registered", Conversion = new ToDateMDY() },
+	///			 new CsvImportLink() { Position = 0, Property = "RandomVal", Tranformations = new Transformations(new Match(@"^[\d]{0,2}")) }
+	///		}
+	///});
+	///
 	/// 
-	/// Internally holds an object which includes the default settings for this object. These defaults can be changed, or
-	/// each method can be passed its own individual settings.
-	/// 
-	/// During the import or export processes the methods fire events to inform the user of the amount of values imported/exported.
+	///foreach (var item in csv.Import<MyClass>(@"C:\output.csv")) {
+	///		Console.Out.WriteLine(item.MyProperty);
+	///}
+	///</code>
 	/// </remarks>
 	public class CsvImport {
 		
@@ -131,7 +144,7 @@ namespace Lski.IO.Csv {
 		/// <returns></returns>
 		/// <remarks></remarks>
 		protected virtual string[] SplitCsvLine(string csvLine, string delimiter) {
-			return csvLine.SplitAdv(delimiter);
+			return csvLine.Split(delimiter);
 		}
 
 		/// <summary>
@@ -159,6 +172,13 @@ namespace Lski.IO.Csv {
 			return lst;
 		}
 
+		/// <summary>
+		/// Uses the links passed in the settings to create the internal links needed to import values
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="links"></param>
+		/// <param name="settings"></param>
+		/// <returns></returns>
 		private ICollection<InternalCsvLink> CreateInternalLinks<T>(ICollection<CsvImportLink> links, CsvImportSettings settings) {
 
 			var lst = new List<InternalCsvLink>();
@@ -199,20 +219,11 @@ namespace Lski.IO.Csv {
 		#region "Import Methods"
 
 		/// <summary>
-		/// Inserts the values from the csv file into the passed dataTable. This process does not effect values already
-		/// held in the dataTable. 
+		/// Imports values from a CSV file into objects of the type desired, as each line is read it is yielded as an object to avoid through the enumeration twice and doesnt store the objects in memory
 		/// </summary>
-		/// <param name="fileName">The full file name of the csv to import from.</param>
-		/// <returns>The amount of records imported</returns>
-		/// <exception cref="IndexOutOfRangeException">Thrown if a column links refers to a position not the csv line</exception>
-		/// <remarks>Inserts the values from the csv file into the held TableControls dataTable. This process does not effect values already
-		/// held in the dataTable. 
-		/// 
-		/// The passed list of CsvColumnData object relate to each being a suggested link between a value held in a 
-		/// certain position on a line in the csv file and a column in the dataTable this value will be inserted into. Note:
-		/// If a link does not match a position in the 
-		/// 
-		/// </remarks>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="filename"></param>
+		/// <returns></returns>
 		public IEnumerable<T> Import<T>(string filename) where T : new() {
 
 			using(var rdr = CreateFileReader(filename)) {
@@ -224,6 +235,25 @@ namespace Lski.IO.Csv {
 
 		}
 
+		/// <summary>
+		/// Imports values from a CSV file into a collection of objects of the type desired
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="filename"></param>
+		/// <param name="lst"></param>
+		public void Import<T>(string filename, ICollection<T> lst) where T : new() {
+
+			foreach(var item in Import<T>(filename)) {
+				lst.Add(item);
+			}
+		}
+
+		/// <summary>
+		/// Imports values from a CSV filestream into objects of the type desired, as each line is read it is yielded as an object to avoid through the enumeration twice and doesnt store the objects in memory
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="fs"></param>
+		/// <returns></returns>
 		public IEnumerable<T> Import<T>(Stream fs) where T : new() {
 
 			foreach (var item in InternalImport<T>(this.Settings, new StreamReader(fs))) {
@@ -232,20 +262,25 @@ namespace Lski.IO.Csv {
 		}
 
 		/// <summary>
-		/// Inserts the values from the csv file into the passed dataTable. This process does not effect values already
-		/// held in the dataTable. 
+		/// Imports values from a CSV file into a collection of objects of the type desired
 		/// </summary>
-		/// <param name="fileName">The full file name of the csv to import from.</param>
-		/// <returns>The amount of records imported</returns>
-		/// <exception cref="IndexOutOfRangeException">Thrown if a column links refers to a position not the csv line</exception>
-		/// <remarks>Inserts the values from the csv file into the held TableControls dataTable. This process does not effect values already
-		/// held in the dataTable. 
-		/// 
-		/// The passed list of CsvColumnData object relate to each being a suggested link between a value held in a 
-		/// certain position on a line in the csv file and a column in the dataTable this value will be inserted into. Note:
-		/// If a link does not match a position in the 
-		/// 
-		/// </remarks>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="fs"></param>
+		/// <param name="lst"></param>
+		public void Import<T>(Stream fs, ICollection<T> lst) where T : new() {
+
+			foreach (var item in Import<T>(fs)) {
+				lst.Add(item);
+			}
+		}
+
+		/// <summary>
+		/// Performs the actual import from the passed stream
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="settings"></param>
+		/// <param name="rdr"></param>
+		/// <returns></returns>
 		private IEnumerable<T> InternalImport<T>(CsvImportSettings settings, StreamReader rdr) where T : new() {
 
 			if (rdr == null)

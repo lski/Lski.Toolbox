@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace Lski.IO.Csv {
 
+	/// <summary>
+	/// Processes a string from a normal string to one that is useable within an CSV File using the settings provided
+	/// </summary>
 	public class ToCsv : Transformation {
 
 		private string _TextDelimiter;

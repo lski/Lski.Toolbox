@@ -58,7 +58,7 @@ namespace Lski.Dates {
 		///   yy      y               09          Year(two digit)
 		///   yyyy    yy              2009        Year(four digit)
 		/// </remarks>
-		public static string DotNetToJQueryFormat(string format) {
+		public static string ToJQueryFormat(string format) {
 
 			string currentFormat = format;
 
@@ -83,6 +83,8 @@ namespace Lski.Dates {
 			return currentFormat;
 		}
 
+		// TODO: Change to returning list of DateTimes and excepting a TimeSpan
+
 		/// <summary>
 		/// Creates a list of times in the format 09:00 where it starts at the minimum time and finishes at the maximum time with the set size of intervals
 		/// </summary>
@@ -102,6 +104,7 @@ namespace Lski.Dates {
 
 			if (!minMatch.Success || minMatch.Groups.Count < 4)
 				throw new ArgumentException("The format of the minimum time needs to be in the format 09:00");
+
 			if (!maxMatch.Success || maxMatch.Groups.Count < 4)
 				throw new ArgumentException("The format of the minimum time needs to be in the format 09:00");
 
@@ -142,12 +145,5 @@ namespace Lski.Dates {
 		public static DateTime CombineWithTime(this DateTime date, DateTime time, Boolean includeSeconds = false) {
 			return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, (includeSeconds ? time.Second : 0));
 		}
-
-		//public static String DateSuffix(Int32 date) {
-
-		//    var d = date.ToString();
-		//    return d.substr(-(Math.Min(d.Length, 2))) > 3 && d.substr(-(Math.Min(d.Length, 2))) < 21 ? "th" : ["th", "st", "nd", "rd", "th"][Math.min(Number(d)%10, 4)];
-		//}
-
 	}
 }

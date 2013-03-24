@@ -9,7 +9,7 @@ using System.Text;
 namespace Lski.Drawing {
 	
 	/// <summary>
-	/// Simple class to provide resizing of images, unlike the default standard the settings are set to high quality to maintain a good quality image.
+	/// Provide resizing of images, unlike the default standard the settings are set to high quality to maintain a good quality image.
 	/// </summary>
 	public class ImageResizer {
 

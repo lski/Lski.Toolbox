@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Lski.IO.Csv {
 
+	/// <summary>
+	/// Processes a value that is in the style of a CSV value to a string without CSV formatting
+	/// </summary>
 	public class FromCsv : Transformation {
 
 		private string _TextDelimiter;

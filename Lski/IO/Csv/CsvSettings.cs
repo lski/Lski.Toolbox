@@ -25,7 +25,7 @@ namespace Lski.IO.Csv {
 
 		private string _NULL;
 		/// <summary>
-		/// The string equiv of null, can not be null as it represents its value in the 
+		/// The string equiv of null, can not be null as it represents its value as a string the CSV File, e.g. "" or "NULL"
 		/// </summary>
 		public string NULL {
 			get { return _NULL; }

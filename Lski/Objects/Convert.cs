@@ -7,6 +7,8 @@ using System.ComponentModel;
 
 namespace Lski.Objects {
 	
+	// TODO: Do testing on the current version of ConvertTo to decide whether or not to depreciate this
+
 	public static class Convert {
 
 		/// <summary>

@@ -8,7 +8,7 @@ using System.Security.Principal;
 namespace Lski.Misc {
 
 	/// <summary>
-	/// Using code from Msdn to enable running code as another user. Has been created with I disposible so it can be used in a using statement
+	/// Using code from Msdn to enable running code as another user. Has been created with IDisposible so it can be used in a using statement
 	/// </summary>
 	public class Impersonate : IDisposable {
 

@@ -9,7 +9,6 @@ using System.IO;
 
 namespace Lski.Email {
 	
-	[DataContract()]
 	public class WebDav : GenericEmail {
 
 		public WebDav() : base() {
@@ -18,16 +17,11 @@ namespace Lski.Email {
 			this.Mailbox = String.Empty;
 		}
 
-		[DataMember(Order = 4)]
 		public String Domain { get;	set; }
-		
-		[DataMember(Order = 5)]
 		public string Mailbox { get; set; }
-
-		[DataMember(Order = 6)]
 		public AuthenticationType AuthType { get; set; }
 
-		public override void Send(string from, IEnumerable<string> to, string subject, string body, EmailFormat format = EmailFormat.Text, IEnumerable<string> cc = null, IEnumerable<string> bcc = null) {
+		public override void Send(string from, IEnumerable<string> to, string subject, string body, bool isHtml = false, IEnumerable<string> cc = null, IEnumerable<string> bcc = null) {
 
 			try {
 
@@ -131,17 +125,6 @@ namespace Lski.Email {
 				throw new Exception("There was an error sending an email using WebDav", ex);
 			}
 
-		}
-
-		public override void Fill(IEmail ie) {
-			
-			Server = ie.Server;
-			Timeout = ie.Timeout;
-			Username = ie.Username;
-			Password = ie.Password;
-			AuthType = ie.AuthType;
-			Domain = ie.Domain;
-			Mailbox = ie.Mailbox;
 		}
 	}
 }

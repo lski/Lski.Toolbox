@@ -31,14 +31,18 @@ namespace Lski.Objects {
 		/// it will hold the default for that type, rather than null. E.g. Int32 = 0 and String = Nothing
 		/// </summary>
 		/// <remarks></remarks>
-		public Variable() {	_value = default(T); }
+		public Variable() {	
+			_value = default(T); 
+		}
 
 		/// <summary>
 		/// Creates a new variable object assigning value passed to the object. Does NOT raise any events
 		/// </summary>
 		/// <param name="value"></param>
 		/// <remarks></remarks>
-		public Variable(T value) { _value = value; }
+		public Variable(T value) { 
+			_value = value; 
+		}
 
 		#endregion
 
@@ -58,13 +62,15 @@ namespace Lski.Objects {
 				if (!value.Equals(_value)) {
 					ValueChangingArgs args = new ValueChangingArgs(_value, value);
 
-					if (ValueChanging != null) 	ValueChanging(this, args);
+					if (ValueChanging != null) 	
+						ValueChanging(this, args);
 
 					// Only update if the user doesnt want to cancel
 					if (!args.Cancel) {
 						
 						_value = value;
-						if (ValueChanged != null) ValueChanged(this, new ValueChangedArgs(_value));
+						if (ValueChanged != null) 
+							ValueChanged(this, new ValueChangedArgs(_value));
 					}
 
 				}

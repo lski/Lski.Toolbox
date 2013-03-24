@@ -23,97 +23,6 @@ namespace Lski.Txt {
 		/// <returns>A fixed length string, padded with spaces</returns>
 		/// <remarks></remarks>
 		[DebuggerStepThrough()]
-		public static string FixedLength(Object obj, Int32 size) {
-
-			// If the passed size is larger, pad the string
-			// Otherwise truncates the string down in size
-			if (obj == null) 
-				return String.Empty.PadRight(size);
-
-			var str = System.Convert.ToString(obj);
-
-			if (size > str.Length) 
-				return str.PadRight(size);
-			else if (str.Length > size) 
-				return str.Substring(0, size);
-
-			return str;
-		}
-
-		/// <summary>
-		/// Takes the passed string and either truncates the string or pads it with the specified Char. (Default pads to the right)
-		/// </summary>
-		/// <param name="str">The str to turn to fixed length</param>
-		/// <param name="size">The size of the fixed length string</param>
-		/// <param name="charToPad">The char to use to pad the string</param>
-		/// <returns>A fixed length string, padded with the passed char</returns>
-		/// <remarks></remarks>
-		[DebuggerStepThrough()]
-		public static string FixedLength(Object obj, Int32 size, char charToPad) {
-
-			// If the passed size is larger, pad the string
-			// Otherwise truncates the string down in size
-			if (obj == null)
-				return String.Empty.PadRight(size, charToPad);
-
-			var str = System.Convert.ToString(obj);
-			
-			if (size > str.Length) 
-				return str.PadRight(size, charToPad);
-			else if (str.Length > size) 
-				return str.Substring(0, size);
-
-			return str;
-
-		}
-
-		/// <summary>
-		/// Takes the passed string and either truncates the string or pads it with the specified Char, in the direction requested
-		/// </summary>
-		/// <param name="str">The str to turn to fixed length</param>
-		/// <param name="size">The size of the fixed length string</param>
-		/// <param name="charToPad">The char to use to pad the string</param>
-		/// <param name="padLeft">If true states the padding should be before the string on the left</param>
-		/// <returns>A fixed length string, padded with the passed char</returns>
-		/// <remarks></remarks>
-		[DebuggerStepThrough()]
-		public static string FixedLength(Object obj, Int32 size, char charToPad, bool padLeft) {
-
-			// If the passed size is larger, pad the string
-			// Otherwise truncates the string down in size
-			if (obj == null) {
-
-				if (padLeft)
-					return String.Empty.PadLeft(size, charToPad);
-				else
-					return String.Empty.PadRight(size, charToPad);
-
-			}
-
-			var str = System.Convert.ToString(obj);
-
-			if (size > str.Length) {
-
-				if (padLeft) 
-					return str.PadLeft(size, charToPad);
-				else 
-					return str.PadRight(size, charToPad);
-
-			} else if (str.Length > size) 
-				return str.Substring(0, size);
-
-			return str;
-
-		}
-
-		/// <summary>
-		/// Takes the passed string and either truncates the string or pads it with spaces (Default pads to the right)
-		/// </summary>
-		/// <param name="str">The str to turn to fixed length</param>
-		/// <param name="size">The size of the fixed length string</param>
-		/// <returns>A fixed length string, padded with spaces</returns>
-		/// <remarks></remarks>
-		[DebuggerStepThrough()]
 		public static string FixedLength(this string str, Int32 size) {
 
 			// If the passed size is larger, pad the string
@@ -188,16 +97,15 @@ namespace Lski.Txt {
 		}
 
 		/// <summary>
-		/// Simple truncate function
+		/// Truncates the passed string to the maxLength or its own length whichever is smaller
 		/// </summary>
 		/// <param name="value">The string to truncate</param>
 		/// <param name="maxLength">The maximum length of the desired string</param>
 		/// <returns></returns>
 		public static string Truncate(this string value, int maxLength) {
 			
-			if (string.IsNullOrEmpty(value)) { 
+			if (string.IsNullOrEmpty(value))
 				return value; 
-			}
 
 			return value.Substring(0, Math.Min(value.Length, maxLength));
 		}
@@ -220,16 +128,14 @@ namespace Lski.Txt {
 			Int32 lastPosition = (start + (length ?? str.Length) - 1);
 
 			// If the length + start is past the end of the string, cut it down to fit
-			if (lastPosition > str.Length) {
+			if (lastPosition > str.Length)
 				lastPosition = (str.Length - 1);
-			}
 
 			// Run through the string
 			for (Int32 i = start; i <= lastPosition; i++) {
-				if (str[i] == chr) {
+				
+				if (str[i] == chr)
 					counter += 1;
-				}
-
 			}
 
 			return counter;
@@ -237,21 +143,20 @@ namespace Lski.Txt {
 		}
 
 		/// <summary>
-		/// Simply creates a new string, without any instances of the char passed. This is equivelent to running: 
-		/// str.replace(charToStrip, String.Empty) but that is not allowed.
+		/// Strips the character from the string, faster than string.Replace as its not adding empty strings and accepts a simply char to compare
 		/// </summary>
 		/// <param name="string">The string to strip the character from</param>
-		/// <param name="charToStrip">The character to strip from the</param>
+		/// <param name="chr">The character to strip from the</param>
 		/// <returns></returns>
 		/// <remarks></remarks>
 		[DebuggerStepThrough()]
-		public static StringBuilder Strip(this string str, char charToStrip) {
+		public static StringBuilder Strip(this string str, char chr) {
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
 			foreach (Char c in str) {
 
-				if (c != charToStrip) 
+				if (c != chr) 
 					sb.Append(c);
 			}
 
@@ -260,30 +165,61 @@ namespace Lski.Txt {
 		}
 
 		/// <summary>
-		/// Simply creates a new string, without any instances of the char passed. This is equivelent to running: 
-		/// str.replace(charToStrip, String.Empty) but that is not allowed.
+		/// Removes the any instance from the array of characters wherever they are found within the string 
 		/// </summary>
 		/// <param name="value">The string to strip the character from</param>
 		/// <param name="charsToStrip">The character list to strip from the current string</param>
 		/// <returns></returns>
 		/// <remarks></remarks>
 		[DebuggerStepThrough()]
-		public static StringBuilder Strip(this string value, Char[] charsToStrip) {
+		public static StringBuilder Strip(this string value, Char[] chars) {
 
 			// If the chars to strip is null or empty, then simply return the string as is, rather than trying to look through them
-			if (charsToStrip == null || charsToStrip.Length == 0)	
+			if (chars == null || chars.Length == 0)	
 				return new System.Text.StringBuilder(value);
 
 			var sb = new System.Text.StringBuilder();
 
 			foreach (Char c in value) {
 
-				if (!charsToStrip.Contains(c)) 
+				if (!chars.Contains(c)) 
 					sb.Append(c);
 			}
 
 			return sb;
+		}
 
+		/// <summary>
+		/// Replaces any of the array of chars with the new char, saves recalling, faster than Regex
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="oldChars"></param>
+		/// <param name="newChar"></param>
+		/// <returns></returns>
+		[DebuggerStepThrough()]
+		public static String Replace(this string value, Char[] oldChars, char newChar) {
+
+			// If the chars to strip is null or empty, then simply return the string as is, rather than trying to look through them
+			if (oldChars == null || oldChars.Length == 0)	
+				return value;
+
+			var sb = new System.Text.StringBuilder();
+
+			foreach (Char c in value) {
+				sb.Append(oldChars.Contains(c) ? newChar : c);
+			}
+
+			return sb.ToString();
+		}
+
+		public static string[] Split(this string str, string separator, StringSplitOptions option = StringSplitOptions.None) {
+
+			return str.Split(new string[] { separator }, option);
+		}
+
+		public static string[] Split(this string str, string separator, int count, StringSplitOptions option = StringSplitOptions.None) {
+
+			return str.Split(new string[] { separator }, count, option);
 		}
 
 		/// <summary>
@@ -303,6 +239,7 @@ namespace Lski.Txt {
 		/// then it runs that method by default to take advantage of the that methods optimization.
 		/// </remarks>
 		[System.Diagnostics.DebuggerStepThrough()]
+		[Obsolete("No longer any quicker than the built in version", true)]
 		public static string[] SplitAdv(this string str, string separator, StringSplitOptions option = StringSplitOptions.None)
 		{
 
@@ -311,11 +248,10 @@ namespace Lski.Txt {
 
 			// 1. If no separator was passed return string array, with passed string only value
 			// 2. If only a single char then run the quicker stringObj.Split method
-			if (string.IsNullOrEmpty(separator)) {
+			if (string.IsNullOrEmpty(separator))
 				return new string[] { str };
-			} else if (separator.Length == 1) {
+			else if (separator.Length == 1)
 				return str.Split(separator.ToCharArray(), option);
-			}
 
 			// Looping vars
 			Int32 i = default(Int32);
@@ -346,8 +282,7 @@ namespace Lski.Txt {
 
 						if (sepChars[j] != str[i + j]) {
 							matchFound = false;
-							break; // TODO: might not be correct. Was : Exit For
-
+							break;
 						}
 
 					}
@@ -491,7 +426,7 @@ namespace Lski.Txt {
 				return null;
 
 			try {
-				return (new CultureInfo("en-gb", false)).TextInfo.ToTitleCase(preserveAllCaps ? input : input.ToLower());
+				return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(preserveAllCaps ? input : input.ToLower());
 			} catch (Exception) {
 				return null;
 			}
@@ -534,6 +469,7 @@ namespace Lski.Txt {
 		public static String Trim(string str, bool emptyStringOnNull = true) {
 
 			if (str == null) {
+
 				if (emptyStringOnNull)
 					return String.Empty;
 				else
@@ -563,17 +499,9 @@ namespace Lski.Txt {
 		/// <returns></returns>
 		public static String ConcatWS(IEnumerable<String> objs, String separator) {
 
-			StringBuilder sb = new StringBuilder();
-
-			foreach (var s in objs) {
-
-				if(s == null || s.Length == 0)
-					continue;
-
-				sb.Append(s).Append(separator);
-			}
-
-			return (sb.Length == 0 ? String.Empty : sb.ToString(0, sb.Length - separator.Length));
+			return String.Join(separator, (from s in objs
+										   where s != null && s.Length > 0
+										   select s));
 		}
 
 		/// <summary>
@@ -585,63 +513,25 @@ namespace Lski.Txt {
 		/// <returns></returns>
 		public static String ConcatWS(IEnumerable<Object> objs, String separator) {
 
-			StringBuilder sb = new StringBuilder();
-
-			foreach (var s in objs) {
-
-				if (s == null)
-					continue;
-
-				if (s is string && ((String)s).Length > 0)
-					sb.Append(s).Append(separator);
-				else {
-
-					var tmpStr = s.ToString();
-
-					if (tmpStr.Length > 0)
-						sb.Append(tmpStr).Append(separator);
-				}				
-			}
-
-			return (sb.Length == 0 ? String.Empty : sb.ToString(0, sb.Length - separator.Length));
-		}
-
-		/// <summary>
-		/// Provides a conversion method for converting an object into a string. If the object is nothing or DBNull then it will 
-		/// convert it into and empty string. If a string it will use DirectCast for performance. If anything else it will try and
-		/// convert it using the object.ToString()
-		/// </summary>
-		/// <param name="obj">The object to convert to string</param>
-		/// <returns></returns>
-		/// <remarks></remarks>
-		[System.Diagnostics.DebuggerStepThrough()]
-		public static string ConvertToString(object obj) {
-
-			// If null or DBNull then return an empty string
-			if (obj == null || obj is DBNull)
-				return string.Empty;
-
-			// If is a string, simply cast
-			if (obj is string) 
-				return (string)obj;
-
-			// If an object 
-			return obj.ToString();
-
+			return String.Join(separator, (from o in objs 
+										   where o != null 
+										   let s = o.ToString() // Convert it once only
+										   where s.Length > 0 
+										   select s));
 		}
 
 		/// <summary>
 		/// Simply cuts down the string and returns it in a list where each piece is the size stated (E.g. If size of chunks is 2 then Helloworld = He,ll,ow,or,ld)
 		/// </summary>
-		/// <param name="sizeOfChunks">The size of each chunk of the original string to put into the </param>
+		/// <param name="chunkSize">The size of each chunk of the original string to put into the </param>
 		/// <returns></returns>
 		/// <remarks></remarks>
-		public static IEnumerable<string> ChunkString(string str, Int32 sizeOfChunks) {
+		public static IEnumerable<string> ChunkString(string str, Int32 chunkSize) {
 
-			if (sizeOfChunks < 1)
+			if (chunkSize < 1)
 				throw new ArgumentException("The size of chunks to split a string into can not be less than 1");
 
-			if (sizeOfChunks == 1) {
+			if (chunkSize == 1) {
 
 				for (Int32 i = 0; i <= str.Length - 1; i++) {
 
@@ -651,9 +541,9 @@ namespace Lski.Txt {
 
 			} else {
 
-				for (Int32 i = 0; i <= str.Length - 1; i += sizeOfChunks) {
+				for (Int32 i = 0; i <= str.Length - 1; i += chunkSize) {
 
-					yield return str.SubStringAdv(i, sizeOfChunks);
+					yield return str.SubStringAdv(i, chunkSize);
 				}
 
 			}

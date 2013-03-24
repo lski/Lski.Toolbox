@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
-using System.Security;
 
 namespace Lski.Security {
 
@@ -18,11 +18,10 @@ namespace Lski.Security {
 		/// </remarks>
 		public static string Process(string input) {
 
-			MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
-			System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+			var encrypter = new SHA256CryptoServiceProvider();
+			var bytes = new UTF8Encoding().GetBytes(input);
 
-			return System.Convert.ToBase64String(md5Hasher.ComputeHash(encoder.GetBytes(input)));
-
+			return Convert.ToBase64String(encrypter.ComputeHash(bytes));
 		}
 	}
 }

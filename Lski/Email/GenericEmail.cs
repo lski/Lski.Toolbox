@@ -16,33 +16,9 @@ namespace Lski.Email {
 			this.Password = String.Empty;
 		}
 
-		private String _Username;
-		private String _Password;
-		private int _Timeout;
-		private String _Server;
-
-		[DataMember(Order = 0)]
-		public String Server {
-			get { return _Server; }
-			set { _Server = value; }
-		}
-
-		[DataMember(Order = 1)]
-		public int Timeout {
-			get { return _Timeout; }
-			set { _Timeout = value; }
-		}
-
-		[DataMember(Order = 2)]
-		public String Username {
-			get { return _Username; }
-			set { _Username = value ?? String.Empty; }
-		}
-
-		[DataMember(Order = 3)]
-		public String Password {
-			get { return _Password; }
-			set { _Password = value ?? String.Empty; }
-		}
+		public String Server { get; set; }
+		public int Timeout { get ; set; }
+		public String Username { get; set; }
+		public String Password { get; set; }
 	}
 }

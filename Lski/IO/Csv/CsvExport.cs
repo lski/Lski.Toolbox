@@ -76,9 +76,6 @@ namespace Lski.IO.Csv {
 		}
 
 		protected ICsvExportWriter InternalFileExport<T>(StreamWriter writer) {
-
-			// TODO: Work out whether we are at the beginning of stream to add header or not
-
 			return new CsvExportWriter(Settings, CreateInternalLinks<T>(Settings.Links, Settings), writer);
 		}
 

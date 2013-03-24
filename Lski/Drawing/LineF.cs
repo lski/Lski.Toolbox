@@ -6,7 +6,7 @@ using System.Text;
 namespace Lski.Drawing {
 
     /// <summary>
-    /// A simple class used to represent a line (using decimal values) on a drawing pane. Can be used to simply represent two points.
+    /// Represents a line (using decimal values) on a drawing pane. Can be used to simply represent two points.
     /// </summary>
 	public class LineF {
 

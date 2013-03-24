@@ -11,7 +11,6 @@ namespace Lski.Email {
 	/// <summary>
 	/// An abstract class, designed to store the settings required to send an email and provide an interface to enabling sending mail using those settings
 	/// </summary>
-	[DataContract()]
 	public abstract class Email {
 
 		/// <summary>
@@ -31,11 +30,11 @@ namespace Lski.Email {
 		/// will send without that particular file, but will attempt to add the next file in the list until the list is completely
 		/// checked/attached.
 		/// </remarks>
-		public void Send(String from, String to, String subject, String body, EmailFormat format = EmailFormat.Text, IEnumerable<String> cc = null, IEnumerable<String> bcc = null) {
-			Send(from, new String[] { to }, subject, body, format, cc, bcc);
+		public void Send(String from, String to, String subject, String body, bool isHtml = false, IEnumerable<String> cc = null, IEnumerable<String> bcc = null) {
+			Send(from, new String[] { to }, subject, body, isHtml, cc, bcc);
 		}
 
-		public abstract void Send(String from, IEnumerable<String> to, String subject, String body, EmailFormat format = EmailFormat.Text, IEnumerable<String> cc = null, IEnumerable<String> bcc = null);
+		public abstract void Send(String from, IEnumerable<String> to, String subject, String body, bool isHtml = false, IEnumerable<String> cc = null, IEnumerable<String> bcc = null);
 
 		///// <summary>
 		///// A method used to send mail to an assocated list of addresses, using the currently set smtpserver.
@@ -63,31 +62,7 @@ namespace Lski.Email {
 		///// </remarks>
 		//public abstract void Send(Email message);
 
-        public abstract void Fill(IEmail ie);
-
 		#region Static Members
-
-		/// <summary>
-		/// Simply converts any object that implements the IEmail interface into the appropriate Email broker object
-		/// </summary>
-		/// <param name="ie"></param>
-		/// <returns></returns>
-		public static Email ConvertFrom(IEmail ie) {
-
-			Email e = null;
-
-            var type = System.Type.GetType(ie.Type);
-
-            if(type == null || !type.IsSubclassOf(typeof(Email))) {
-                return new NoEmail();
-            }
-
-            var emailObj = (Email)Activator.CreateInstance(type);
-
-			emailObj.Fill(ie);
-
-			return e;
-		}
 
 		/// <summary>
 		/// Opens the users email client. With the appropriate information.

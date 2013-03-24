@@ -20,6 +20,7 @@ namespace Lski.Misc {
 		/// <remarks></remarks>
 		[System.Diagnostics.DebuggerStepperBoundary()]
 		public static void RunToComplete(string processCommand, ProcessWindowStyle windowBehaviour = ProcessWindowStyle.Hidden) {
+
 			System.Diagnostics.Process process = null;
 
 			try {

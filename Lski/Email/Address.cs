@@ -82,7 +82,7 @@ namespace Lski.Email {
 				Int32 dotPos = email.LastIndexOf('.');
 
 				// Now simply check basic format
-				if (atPos == -1) 
+				if (atPos == -1)
 					throw new Exception("An email address needs to contain an '@' symbol");
 
 				// If more than one @ symbol then there are too many
@@ -105,9 +105,11 @@ namespace Lski.Email {
 			return result;
 		}
 
+		// TODO: Change to a Regex comparison
+
 		/// <summary>
 		/// Extracts the an email address from an email address and name combination.
-		/// <example><code>"Lee Cooper" <lcooper@nationalwindscreens.co.uk'></code></example>
+		/// <example><code>"Lee Cooper" <lcooper@test.co.uk'></code></example>
 		/// </summary>
 		/// <param name="address">The email address including name that you want to extract the email address from between 
 		/// corresponding angle brackets

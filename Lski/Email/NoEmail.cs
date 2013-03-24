@@ -19,12 +19,8 @@ namespace Lski.Email {
 		/// <param name="format"></param>
 		/// <param name="cc"></param>
 		/// <param name="bcc"></param>
-		public override void Send(string from, IEnumerable<string> to, string subject, string body, EmailFormat format = EmailFormat.Text, IEnumerable<string> cc = null, IEnumerable<string> bcc = null) {
+		public override void Send(string from, IEnumerable<string> to, string subject, string body, bool isHtml = false, IEnumerable<string> cc = null, IEnumerable<string> bcc = null) {
 			return;
-		}
-
-		public override void Fill(IEmail ie) {
-			// stub
 		}
 	}
 }

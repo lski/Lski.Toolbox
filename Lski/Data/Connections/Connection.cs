@@ -57,11 +57,7 @@ namespace Lski.Data.Connections {
 
 			if (connState == ConnectionState.Broken || connState == ConnectionState.Closed) {
 
-				try {
-					conn.Open();
-				} catch (Exception ex) {
-					throw new CantConnectException(conn.ConnectionString, ex);
-				}
+				conn.Open();
 
 				// If the connection was mearly broken and not closed, dont state this is implicitly opened
 				if (connState == ConnectionState.Closed)
