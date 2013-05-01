@@ -9,7 +9,7 @@ namespace Lski.Data
     /// <summary>
     /// Convert a base data type to another base data type, simply convertor just for certain types
     /// </summary>
-	[Lski.IssueTracking.ToFix("Should be doing a more exact conversion, like giving a provider option", "2011/07/28")]
+	[Obsolete("No longer required", true)]
     public sealed class DbTypeConvertor
     {
         private struct DbTypeMapEntry

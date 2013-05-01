@@ -142,6 +142,22 @@ namespace Lski.Windows.Forms.Printing
 		}
 
 
+		public static string ConvertToString(object obj) {
+
+			// If null or DBNull then return an empty string
+			if (obj == null || obj is DBNull)
+				return string.Empty;
+
+			// If is a string, simply cast
+			if (obj is string)
+				return (string)obj;
+
+			// If an object 
+			return obj.ToString();
+
+		}
+
+
 		/// <summary>
 		/// Sets up some of the class variables for the print cycle
 		/// </summary>
@@ -647,8 +663,8 @@ namespace Lski.Windows.Forms.Printing
 				System.Text.StringBuilder tmp = new System.Text.StringBuilder(textToParse);
 
 				tmp.Replace("~un~", Environment.UserName);
-				tmp.Replace("~#~", StringExt.ConvertToString(PageNumber));
-				tmp.Replace("~##~", StringExt.ConvertToString(TotalNumOfPages));
+				tmp.Replace("~#~", ConvertToString(PageNumber));
+				tmp.Replace("~##~", ConvertToString(TotalNumOfPages));
 				tmp.Replace("~LT~", System.DateTime.Now.ToLongTimeString());
 				tmp.Replace("~LD~", System.DateTime.Now.ToLongDateString());
 				tmp.Replace("~SD~", System.DateTime.Now.ToShortDateString());

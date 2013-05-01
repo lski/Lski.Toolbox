@@ -11,7 +11,7 @@ namespace Lski.IO {
 	/// <summary>
 	/// Offers simple static functions for exporting and importing an object to xml from and into a file
 	/// </summary>
-	public class Objects {
+	public static class Objects {
 
 		/// <summary>
 		/// Exports passed object to the file stated using a DataContractSerialiser to convert it into XML. REQUIRED A serializable attribute type recongnised by DataContractSerializer

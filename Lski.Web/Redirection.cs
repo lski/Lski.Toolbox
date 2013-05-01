@@ -22,33 +22,29 @@ namespace Lski.Web
 			Transfer
 		}
 
-		private TransferType _transferType = TransferType.Redirect;
-		public TransferType Type {
-			get { return _transferType; }
-			set { _transferType = value; }
-		}
+		public TransferType Type { get; set; }
+		public String Location { get; set; }
+		public HttpContextBase Context { get; set; }
 
-		private String _location;
-		public String Location {
-			get { return _location; }
-			set { _location = value; }
-		}
+		public Redirection() 
+			: this(new HttpContextWrapper(HttpContext.Current), "", TransferType.Redirect) {}
 
-		public Redirection(TransferType transferType, String location)
-		{
-			this._transferType = transferType;
-			this._location = location;
-		}
+		public Redirection(HttpContextBase context, String location, TransferType transferType) {
 
+			this.Context = context;
+			this.Type = transferType;
+			this.Location = location;
+		}
 
 		public void Go()
 		{
-			if (_transferType == TransferType.Transfer) {
-				System.Web.HttpContext.Current.Server.Transfer(this.Location);
-			} else {
-				System.Web.HttpContext.Current.Response.Redirect(this.Location, false);
-			}
+			if (Type == TransferType.Transfer)
+				this.Context.Server.Transfer(this.Location);
+			else
+				this.Context.Response.Redirect(this.Location, false);
+			
 		}
+		
 	}
 
 

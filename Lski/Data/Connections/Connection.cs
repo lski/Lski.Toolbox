@@ -1,48 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Lski.Data.Connections.Exceptions;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using Lski.Data.Connections.Exceptions;
-using System.Collections.Concurrent;
 
 namespace Lski.Data.Connections {
 
 	/// <summary>
 	/// A basic selection of static methods associated with connected to a database and the DbConnection object and their providers
 	/// </summary>
-	public class Connection {
+	public static class Connection {
 
 		public static DbProviderFactory GetFactory(String connectionStringName) {
 
 			var css = ConfigurationManager.ConnectionStrings[connectionStringName];
+
+			if (css == null)
+				throw new ConnectionStringNotFoundException(connectionStringName);
+
 			return DbProviderFactories.GetFactory(css.ProviderName);
 		}
 
 		public static DbConnection GetConnection(String connectionStringName) {
 
             var css = ConfigurationManager.ConnectionStrings[connectionStringName];
+
+			if (css == null)
+				throw new ConnectionStringNotFoundException(connectionStringName);
+
 			var conn = DbProviderFactories.GetFactory(css.ProviderName).CreateConnection();
 			conn.ConnectionString = css.ConnectionString;
 
 			return conn;
-		}
-
-		/// <summary>
-		/// Returns the connection string details based on the connection string name that was supplied
-		/// </summary>
-		/// <param name="connectionStringName"></param>
-		/// <returns></returns>
-		protected static ConnectionStringSettings GetConnectionStringDetails(String connectionStringName) {
-
-			var cs = ConfigurationManager.ConnectionStrings[connectionStringName];
-
-			if (cs == null)
-				throw new ConnectionStringNotFoundException(connectionStringName);
-
-			return cs;
 		}
 
 		/// <summary>

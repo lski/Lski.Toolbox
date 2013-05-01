@@ -58,7 +58,7 @@ namespace Lski.Data.Connections {
 
 		/// <summary>
 		/// Receives a transaction object and attempts to roll it back, if transaction is null, simply returns. If marked as suppress error it hides any error
-		/// thrown, but records it.
+		/// thrown
 		/// </summary>
 		/// <param name="tran"></param>
 		/// <param name="suppressError"></param>

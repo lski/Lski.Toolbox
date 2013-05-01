@@ -29,6 +29,7 @@ namespace Lski.Windows.Forms.Controls.WebBrowser {
 		private WebBrowserExtendedEvents events;
 
 		public GetNewFormDelegate GetNewForm;
+
 		#region "Constructors"
 
 		public ExtendedWebBrowser()

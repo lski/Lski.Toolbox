@@ -69,9 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Locations.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Mvc\Bundles\Bundle.cs" />
     <Compile Include="Mvc\Bundles\CssBundle.cs" />
     <Compile Include="Mvc\Bundles\JsBundle.cs" />
@@ -83,18 +80,12 @@
     <Compile Include="WebForms\Extensions\ControlExt.cs" />
     <Compile Include="WebForms\Extensions\TreeViewExt.cs" />
     <Compile Include="WebForms\WebEvents.cs" />
-    <Compile Include="WebMethods.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lski\Lski.csproj">
       <Project>{04E4A89B-DF48-460E-80D4-5C77D17615B0}</Project>
       <Name>Lski</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

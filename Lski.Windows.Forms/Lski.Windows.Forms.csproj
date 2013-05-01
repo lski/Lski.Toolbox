@@ -42,9 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AdvGroupBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\AsyncLabel.cs">
       <SubType>Component</SubType>
     </Compile>

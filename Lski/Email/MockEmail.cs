@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Lski.Email {
 	
-	public class NoEmail : Email {
+	public class MockEmail : Email {
 
-		public NoEmail() : base() {}
+		public MockEmail() : base() {}
 
 		/// <summary>
 		/// Provides a stub for email, meaning when called in a collection this settings/broker object doesnt not attempt to actually send anything.

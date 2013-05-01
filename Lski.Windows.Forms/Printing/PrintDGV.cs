@@ -357,7 +357,7 @@ namespace Lski.Windows.Forms.Printing
 						e.Graphics.DrawImage(bitmap, new Point(_columnsData[i].Left, topPosition));
 						// Draw to text of the cell to the text visible in the combo cell, not added to combobox because
 						// a combobox handles selected values differently to DataGridViewComboBoxColumn
-						e.Graphics.DrawString(StringExt.ConvertToString(cell.Value), cell.InheritedStyle.Font, new SolidBrush(cell.InheritedStyle.ForeColor), new RectangleF(_columnsData[i].Left + 1, topPosition, _columnsData[i].Width - 16, rowHeight), _stringFormatComboBox);
+						e.Graphics.DrawString(ConvertToString(cell.Value), cell.InheritedStyle.Font, new SolidBrush(cell.InheritedStyle.ForeColor), new RectangleF(_columnsData[i].Left + 1, topPosition, _columnsData[i].Width - 16, rowHeight), _stringFormatComboBox);
 
 
 					} else if ((object.ReferenceEquals(_columnsData[i].Type, typeof(DataGridViewImageColumn)))) {

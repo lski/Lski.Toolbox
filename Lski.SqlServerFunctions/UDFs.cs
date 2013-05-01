@@ -291,19 +291,4 @@ public static partial class UserDefinedFunctions
 		return (condition.Value ? ifTrue : ifFalse);
 	}
 
-	//[SqlFunction()]
-	//public static SqlDateTime MaxDate(SqlDateTime dateOne, SqlDateTime dateTwo, SqlDateTime dateThree, SqlDateTime dateFour, SqlDateTime dateFive, SqlDateTime dateSix, SqlDateTime dateSeven) {
-
-	//    var l = new List<SqlDateTime>();
-	//    l.Add(dateOne);
-	//    l.Add(dateTwo);
-	//    l.Add(dateThree);
-	//    l.Add(dateFour);
-	//    l.Add(dateFive);
-	//    l.Add(dateSix);
-	//    l.Add(dateSeven);
-
-	//    return l.Max();
-	//}
-
 }

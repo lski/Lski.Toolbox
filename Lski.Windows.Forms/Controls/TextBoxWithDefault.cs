@@ -41,18 +41,17 @@ namespace Lski.Windows.Forms.Controls
 			InitDefaults(defaultText, this.ForeColor);
 		}
 
-		public TextBoxWithDefault(String defaultText, System.Drawing.Color defaultColor)
+		public TextBoxWithDefault(String defaultText, Color defaultColor)
 		{
 			InitDefaults(defaultText, defaultColor);
 		}
 
-		public void InitDefaults(String defaultText, System.Drawing.Color defaultColor)
+		public void InitDefaults(String defaultText, Color defaultColor)
 		{
 			this.DefaultText = defaultText;
 			this.DefaultColor = defaultColor;
 
 			this.GotFocus += TextBoxRefresh;
-
 			this.LostFocus += TextBoxRefresh;
 		}
 
@@ -65,16 +64,14 @@ namespace Lski.Windows.Forms.Controls
 
 		protected override void WndProc(ref Message m)
 		{
-			if (m.Msg == 15) {
+			if (m.Msg == 15 && this.TextLength == 0 && !this.ContainsFocus) {
+
 				base.WndProc(ref m);
 
-				Graphics g = this.CreateGraphics();
-
-				if (this.TextLength == 0 && !this.ContainsFocus) {
+				using (var g = this.CreateGraphics()) {	
 					g.DrawString(this.DefaultText, this.Font, new SolidBrush(this.DefaultColor), 0, 0);
 				}
-
-				g.Dispose();
+				
 			} else {
 				base.WndProc(ref m);
 			}

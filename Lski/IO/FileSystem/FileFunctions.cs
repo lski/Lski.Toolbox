@@ -34,18 +34,21 @@ namespace Lski.IO.FileSystem {
 		public static FileInfo GetApplicationFileRef(string relativeFileName) {
 
 			// If the relativeFilename is blank or nothing return nothing
-			if (String.IsNullOrEmpty(relativeFileName)) return null;
+			if (String.IsNullOrEmpty(relativeFileName)) 
+				return null;
 
 			relativeFileName = relativeFileName.Replace('\\', '/');
 
 			// Clean up the relative file name, so that it starts with a backslash
-			if (relativeFileName.StartsWith("../")) {
+			if (relativeFileName.StartsWith("../"))
 				relativeFileName = relativeFileName.SubStringAdv(3);
-			} else if (relativeFileName.StartsWith("./")) {
+			
+			else if (relativeFileName.StartsWith("./"))
 				relativeFileName = relativeFileName.SubStringAdv(2);
-			} else if (relativeFileName.StartsWith("/")) {
+			
+			else if (relativeFileName.StartsWith("/"))
 				relativeFileName = relativeFileName.SubStringAdv(1);
-			}
+
 
 			// 1. If the application is network deployed (clickonce) then use the deployment directory or dataDirectory as the base
 

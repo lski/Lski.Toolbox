@@ -71,28 +71,12 @@
     <Compile Include="Data\SortExpression.cs" />
     <Compile Include="Dates\DateTimeExt.cs" />
     <Compile Include="Drawing\ImageResizer.cs" />
-    <Compile Include="Email\Address.cs" />
     <Compile Include="Email\AuthenticationType.cs" />
     <Compile Include="Email\Email.cs" />
     <Compile Include="Email\GenericEmail.cs" />
-    <Compile Include="Email\IEmail.cs" />
-    <Compile Include="Email\NoEmail.cs" />
+    <Compile Include="Email\MockEmail.cs" />
     <Compile Include="Email\Smtp.cs" />
     <Compile Include="Email\WebDav.cs" />
-    <Compile Include="IO\Csv\CsvExport.cs" />
-    <Compile Include="IO\Csv\CsvExportLink.cs" />
-    <Compile Include="IO\Csv\CsvExportSettings.cs" />
-    <Compile Include="IO\Csv\CsvImportSettings.cs" />
-    <Compile Include="IO\Csv\CsvSettings.cs" />
-    <Compile Include="IO\Csv\CsvLink.cs" />
-    <Compile Include="IO\Csv\CsvImport.cs" />
-    <Compile Include="IO\Csv\CsvImportLink.cs" />
-    <Compile Include="IO\Csv\ICsvExportWriter.cs" />
-    <Compile Include="IO\Csv\InternalCsvLink.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IO\Csv\FromCsv.cs" />
-    <Compile Include="IO\Csv\ToCsv.cs" />
     <Compile Include="IO\FileSystem\Archive.cs" />
     <Compile Include="IO\FileSystem\Exceptions\CreateDirectoryException.cs" />
     <Compile Include="IO\FileSystem\Exceptions\FileCopyException.cs" />
@@ -105,12 +89,12 @@
     <Compile Include="IssueTracking\BugFix.cs" />
     <Compile Include="IssueTracking\ToFix.cs" />
     <Compile Include="Linq\Dynamic.cs" />
-    <Compile Include="Misc\Applications.cs" />
     <Compile Include="Drawing\ImageExt.cs" />
     <Compile Include="Misc\Impersonate.cs" />
     <Compile Include="Drawing\LineF.cs" />
     <Compile Include="Misc\Process.cs" />
     <Compile Include="Objects\Convert.cs" />
+    <Compile Include="Objects\DescriptionAttribute.cs" />
     <Compile Include="Objects\Extensions\IEnumerableExt.cs" />
     <Compile Include="Objects\Extensions\IListExt.cs" />
     <Compile Include="Objects\Generics.cs" />
@@ -120,48 +104,12 @@
     <Compile Include="Security\OneWayEncrypt.cs" />
     <Compile Include="Security\TripleDES.cs" />
     <Compile Include="Security\XXTea.cs" />
-    <Compile Include="Txt\ConvertTo\BaseToDate.cs" />
-    <Compile Include="Txt\ConvertTo\ConvertTo.cs" />
-    <Compile Include="Txt\ConvertTo\ToSByte.cs" />
-    <Compile Include="Txt\ConvertTo\ToUInt16.cs" />
-    <Compile Include="Txt\ConvertTo\ToUInt32.cs" />
-    <Compile Include="Txt\ConvertTo\ToUInt64.cs" />
-    <Compile Include="Txt\ConvertTo\ToSingle.cs" />
-    <Compile Include="Txt\ConvertTo\ToDouble.cs" />
-    <Compile Include="Txt\ConvertTo\ToInt64.cs" />
-    <Compile Include="Txt\ConvertTo\ToInt16.cs" />
-    <Compile Include="Txt\ConvertTo\ToBool.cs" />
-    <Compile Include="Txt\ConvertTo\ToByte.cs" />
-    <Compile Include="Txt\ConvertTo\ToDateTime.cs" />
-    <Compile Include="Txt\ConvertTo\ToDateDMY.cs" />
-    <Compile Include="Txt\ConvertTo\ToDateMDY.cs" />
-    <Compile Include="Txt\ConvertTo\ToDateYMD.cs" />
-    <Compile Include="Txt\ConvertTo\ToDecimal.cs" />
-    <Compile Include="Txt\ConvertTo\ToInt32.cs" />
-    <Compile Include="Txt\ConvertTo\ToText.cs" />
-    <Compile Include="Txt\EnumMethods.cs" />
+    <Compile Include="Objects\Extensions\EnumExt.cs" />
     <Compile Include="Txt\RandomString.cs" />
     <Compile Include="Txt\RichString.cs" />
     <Compile Include="Txt\StringExt.cs" />
-    <Compile Include="Txt\Transformations\Match.cs" />
-    <Compile Include="Txt\Transformations\Transformations.cs" />
-    <Compile Include="Txt\Transformations\DefaultValue.cs" />
-    <Compile Include="Txt\Transformations\InsertText.cs" />
-    <Compile Include="Txt\Transformations\Left.cs" />
-    <Compile Include="Txt\Transformations\NumericsOnly.cs" />
-    <Compile Include="Txt\Transformations\Rearrange.cs" />
-    <Compile Include="Txt\Transformations\Replace.cs" />
-    <Compile Include="Txt\Transformations\Right.cs" />
-    <Compile Include="Txt\Transformations\StripChars.cs" />
-    <Compile Include="Txt\Transformations\StripSpaces.cs" />
-    <Compile Include="Txt\Transformations\ToLowerCase.cs" />
-    <Compile Include="Txt\Transformations\ToTitleCase.cs" />
-    <Compile Include="Txt\Transformations\ToUpperCase.cs" />
-    <Compile Include="Txt\Transformations\Transformation.cs" />
-    <Compile Include="Txt\Transformations\Trim.cs" />
-    <Compile Include="Txt\Transformations\TrimEnd.cs" />
-    <Compile Include="Txt\Transformations\TrimStart.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
