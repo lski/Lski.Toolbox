@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.SqlServerFunctions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Web", "Lski.Web\Lski.Web.csproj", "{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Data", "Lski.Data\Lski.Data.csproj", "{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5C13FB2-8A62-47CF-BEC3-891A20EA6710}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
