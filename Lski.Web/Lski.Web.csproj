@@ -81,12 +81,6 @@
     <Compile Include="WebForms\Extensions\TreeViewExt.cs" />
     <Compile Include="WebForms\WebEvents.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Lski\Lski.csproj">
-      <Project>{04E4A89B-DF48-460E-80D4-5C77D17615B0}</Project>
-      <Name>Lski</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

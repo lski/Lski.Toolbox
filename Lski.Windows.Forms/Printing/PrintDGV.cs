@@ -9,9 +9,6 @@ using System.Xml.Linq;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
-using Lski.Txt;
-//using Microsoft.VisualBasic.Conversion;
-
 namespace Lski.Windows.Forms.Printing
 {
 

@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski", "Lski\Lski.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Windows.Forms", "Lski.Windows.Forms\Lski.Windows.Forms.csproj", "{EB756064-DC22-41B0-ADD2-0B11DD61CB9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.SqlServerFunctions", "Lski.SqlServerFunctions\Lski.SqlServerFunctions.csproj", "{077023A7-66CD-47C4-9BF1-E7EB443FEC58}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Web", "Lski.Web\Lski.Web.csproj", "{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}"
 EndProject
 Global
@@ -23,10 +21,6 @@ Global
 		{EB756064-DC22-41B0-ADD2-0B11DD61CB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB756064-DC22-41B0-ADD2-0B11DD61CB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB756064-DC22-41B0-ADD2-0B11DD61CB9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{077023A7-66CD-47C4-9BF1-E7EB443FEC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{077023A7-66CD-47C4-9BF1-E7EB443FEC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{077023A7-66CD-47C4-9BF1-E7EB443FEC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{077023A7-66CD-47C4-9BF1-E7EB443FEC58}.Release|Any CPU.Build.0 = Release|Any CPU
 		{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164DF5D1-D6A5-4097-AE12-9E9F78CF4FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU

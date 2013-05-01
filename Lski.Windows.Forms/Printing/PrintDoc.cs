@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 using System.Drawing.Printing;
-using Lski.Txt;
 using System.Drawing;
 
 namespace Lski.Windows.Forms.Printing
