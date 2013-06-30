@@ -33,7 +33,7 @@ namespace Lski.Data.Connections {
 		/// } // If reaches here without committing, then the transaction is rolled back automatically
 		/// </remarks>
 		public Transaction(DbConnection conn) {
-			
+
 			_connection = conn;
 
 			if (_connection.State == ConnectionState.Closed) {
@@ -50,6 +50,15 @@ namespace Lski.Data.Connections {
 		public DbTransaction Base {
 			get {
 				return _transaction;
+			}
+		}
+
+		/// <summary>
+		/// A reference to the connection associated with the transaction
+		/// </summary>
+		public DbConnection Conn {
+			get {
+				return _connection;
 			}
 		}
 
@@ -108,35 +117,5 @@ namespace Lski.Data.Connections {
 					Rollback();
 			}
 		}
-
-		///// <summary>
-		///// Receives a transaction object and attempts to roll it back, if transaction is null, simply returns. If marked as suppress error it hides any error
-		///// thrown
-		///// </summary>
-		///// <param name="tran"></param>
-		///// <param name="suppressError"></param>
-		///// <remarks></remarks>
-		//private static void AttemptRollback(DbTransaction tran, bool suppressError = true) {
-
-		//	if (suppressError) {
-
-		//		try {
-
-		//			if (tran != null) {
-		//				tran.Rollback();
-		//				tran.Dispose();
-		//			}
-		//		}
-		//		catch {}
-			
-		//	}
-		//	else {
-
-		//		if (tran != null) {
-		//			tran.Rollback();
-		//			tran.Dispose();
-		//		}
-		//	}
-		//}
 	}
 }
