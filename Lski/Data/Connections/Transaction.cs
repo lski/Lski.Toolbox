@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Common;
+using System.Data;
 
 namespace Lski.Data.Connections {
 
@@ -12,30 +13,82 @@ namespace Lski.Data.Connections {
 	public class Transaction : IDisposable {
 
 		private Boolean _completed = false;
+		private Boolean _rolledBack = false;
 		private DbConnection _connection;
 		private DbTransaction _transaction;
+		private Boolean _connectionOpened = false;
 
+		/// <summary>
+		/// Creates a wrapper for a transaction object that can be used in a using
+		/// </summary>
+		/// <param name="conn">A db connection object, if connection is closed then it is opened and then closed on dispose implicitly</param>
+		/// <remarks>
+		/// Usage:
+		/// using(var tran = new Transaction(meConnection)) {
+		/// 
+		///		// Do Stuff
+		///		
+		///		tran.Commit();
+		/// 
+		/// } // If reaches here without committing, then the transaction is rolled back automatically
+		/// </remarks>
 		public Transaction(DbConnection conn) {
+			
 			_connection = conn;
+
+			if (_connection.State == ConnectionState.Closed) {
+				_connection.Open();
+				_connectionOpened = true;
+			}
+
 			_transaction = _connection.BeginTransaction();
 		}
 
-		public DbTransaction BaseTransaction {
+		/// <summary>
+		/// Gives access to the underlying transaction object 
+		/// </summary>
+		public DbTransaction Base {
 			get {
 				return _transaction;
 			}
 		}
 
+		/// <summary>
+		/// Mark the transactions as completed successfully, if not run prior to Dispose being called the transaction is rolled back.
+		/// </summary>
 		public void Commit() {
+
+			// Makes sure if the user has already called rollback we dont run commit by accident
+			if (_rolledBack == true)
+				return;
+
 			_completed = true;
 			_transaction.Commit();
+
+			// Close the connection if openeded implicitly
+			if (_connectionOpened && _connection.State == ConnectionState.Open)
+				_connection.Close();
 		}
 
+		/// <summary>
+		/// Rollsback the transaction explicity, so that the transaction is not completed when 
+		/// </summary>
 		public void Rollback() {
+
+			// Ensure this is not run twice
+			_rolledBack = true;
+
 			_transaction.Rollback();
 			_transaction.Dispose();
+
+			// Close the connection if openeded implicitly
+			if (_connectionOpened && _connection.State == ConnectionState.Open)
+				_connection.Close();
 		}
 
+		/// <summary>
+		/// If when the object is disposed the transaction has NOT been completed then the transaction will be rolled back, a'la TransactionScope
+		/// </summary>
 		public void Dispose() {
 
 			Dispose(true);
@@ -51,38 +104,39 @@ namespace Lski.Data.Connections {
 			if (disposing) {
 
 				// When reaching here check the if this level has been completed, if not, then rollback
-				if (!_completed)
+				if (!_completed && !_rolledBack)
 					Rollback();
 			}
 		}
 
-		/// <summary>
-		/// Receives a transaction object and attempts to roll it back, if transaction is null, simply returns. If marked as suppress error it hides any error
-		/// thrown
-		/// </summary>
-		/// <param name="tran"></param>
-		/// <param name="suppressError"></param>
-		/// <remarks></remarks>
-		[Obsolete("Use the transaction class to wrap the IDbTransaction object rather than using it directly")]
-		public static void AttemptRollback(DbTransaction tran, bool suppressError = true) {
+		///// <summary>
+		///// Receives a transaction object and attempts to roll it back, if transaction is null, simply returns. If marked as suppress error it hides any error
+		///// thrown
+		///// </summary>
+		///// <param name="tran"></param>
+		///// <param name="suppressError"></param>
+		///// <remarks></remarks>
+		//private static void AttemptRollback(DbTransaction tran, bool suppressError = true) {
 
-			if (suppressError) {
+		//	if (suppressError) {
 
-				try {
+		//		try {
 
-					if (tran != null)
-						tran.Rollback();
-
-				}
-				catch (Exception) {
-				}
+		//			if (tran != null) {
+		//				tran.Rollback();
+		//				tran.Dispose();
+		//			}
+		//		}
+		//		catch {}
 			
-			}
-			else {
+		//	}
+		//	else {
 
-				if (tran != null)
-					tran.Rollback();
-			}
-		}
+		//		if (tran != null) {
+		//			tran.Rollback();
+		//			tran.Dispose();
+		//		}
+		//	}
+		//}
 	}
 }
