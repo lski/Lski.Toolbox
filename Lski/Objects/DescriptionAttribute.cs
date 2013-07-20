@@ -11,7 +11,6 @@ namespace Lski.Objects {
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public class DescriptionAttribute : Attribute {
 
-		private String _value;
 		/// <summary>
 		/// Holds the stringvalue for a value in an enum.
 		/// </summary>
@@ -22,7 +21,7 @@ namespace Lski.Objects {
 		/// </summary>
 		/// <param name="value"></param>
 		public DescriptionAttribute(string value) {
-			this._value = value;
+			Value = value;
 		}
 
 	}
