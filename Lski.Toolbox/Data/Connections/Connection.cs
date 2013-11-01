@@ -1,5 +1,4 @@
-﻿using Lski.Toolbox.Data.Connections.Exceptions;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
@@ -16,7 +15,7 @@ namespace Lski.Toolbox.Data.Connections {
 			var css = ConfigurationManager.ConnectionStrings[connectionStringName];
 
 			if (css == null)
-				throw new ConnectionStringNotFoundException(connectionStringName);
+				throw new ArgumentException(String.Format("The connection string with the name '{0}' could not be found", connectionStringName));
 
 			return DbProviderFactories.GetFactory(css.ProviderName);
 		}
@@ -26,7 +25,7 @@ namespace Lski.Toolbox.Data.Connections {
             var css = ConfigurationManager.ConnectionStrings[connectionStringName];
 
 			if (css == null)
-				throw new ConnectionStringNotFoundException(connectionStringName);
+				throw new ArgumentException(String.Format("The connection string with the name '{0}' could not be found", connectionStringName));
 
 			var conn = DbProviderFactories.GetFactory(css.ProviderName).CreateConnection();
 			conn.ConnectionString = css.ConnectionString;
@@ -78,20 +77,16 @@ namespace Lski.Toolbox.Data.Connections {
 			if (conn != null && conn.State == ConnectionState.Open) {
 
 				if (suppressError) {
-
 					try {
 						conn.Close();
 					} 
 					catch (Exception) {
 					}
-
 				} 
 				else {
 					conn.Close();
 				}
-
 			}
-
 		}
 	}
 }

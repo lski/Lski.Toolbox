@@ -62,8 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Connections\BasicContext.cs" />
     <Compile Include="Data\Connections\Connection.cs" />
-    <Compile Include="Data\Connections\Exceptions\ConnectionStringNotFoundException.cs" />
     <Compile Include="Data\Connections\Transaction.cs" />
     <Compile Include="Data\Extensions\DataTableExt.cs" />
     <Compile Include="Data\Extensions\IDataReaderExt.cs" />
