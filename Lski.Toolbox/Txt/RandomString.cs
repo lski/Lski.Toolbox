@@ -13,7 +13,7 @@ namespace Lski.Toolbox.Txt {
 		/// </summary>
 		/// <remarks></remarks>
 		[Flags()]
-		public enum RandomStringOptions {
+		public enum CharacterOptions {
 
 			/// <summary>
 			/// Include uppercase letters
@@ -64,15 +64,79 @@ namespace Lski.Toolbox.Txt {
 		private Int32 _seedCounter = 0;
 
 		/// <summary>
+		/// The types of characters that can be added to the string, multiple options can be selected
+		/// </summary>
+		public CharacterOptions Characters { get; private set; }
+
+		/// <summary>
+		/// Length of the string to be generated, can be overidden when generating the string
+		/// </summary>
+		public int Size { get; private set; }
+
+		/// <summary>
+		/// A list a characters that you dont want to include with the string, e.g. i, l, 0, o as they are hard to distinguish from each each
+		/// </summary>
+		public char[] Exclude { get; private set; }
+
+		public RandomString() : this(CharacterOptions.All) {
+		}
+
+		public RandomString(CharacterOptions characters)
+			: this(characters, 10) {
+		}
+
+		public RandomString(CharacterOptions characters, Int32 size)
+			: this(characters, 10, null) {
+		}
+
+		public RandomString(CharacterOptions characters, Int32 size, char[] exclude) {
+			Characters = characters;
+			Size = size;
+			Exclude = exclude;
+		}
+
+		/// <summary>
+		/// Generates a random string
+		/// </summary>
+		public string Generate() {
+			return _Generate(Characters, Size, Exclude);
+		}
+
+		/// <summary>
+		/// Generates a random string
+		/// </summary>
+		/// <param name="size">Overrides the size property just for this call</param>
+		/// <returns></returns>
+		public string Generate(Int32 size) {
+			return _Generate(Characters, size, Exclude);
+		}
+
+		/// <summary>
+		/// Used to generate a random string, without creating a new object.
+		/// 
+		/// WARNING: Do not use in a loop, create a new RandomString object outside of the loop and call its generate method in the loop. That will prevent any duplicate strings as the RandomString
+		/// object uses an internal counter.
+		/// </summary>
+		/// <param name="characters"></param>
+		/// <param name="size"></param>
+		/// <param name="exclude"></param>
+		/// <returns></returns>
+		public static string Generate(CharacterOptions characters = CharacterOptions.All, Int32 size = 10, char[] exclude = null) {
+			
+			var rdm = new RandomString(characters, size, exclude);
+			return rdm.Generate();
+		}
+
+		/// <summary>
 		/// Creates a random ascii string using the options passed. Also offers the ability to exclude certain characters 
 		/// </summary>
-		/// <param name="numOfChars">The amount of characters in the string</param>
+		/// <param name="size">The amount of characters in the string</param>
 		/// <param name="charsToExclude">Any specific characters that are not wanted in the results (Character Codes)</param>
 		/// <returns></returns>
 		/// <remarks></remarks>
-		public string Create(RandomStringOptions options = RandomStringOptions.All, Int32 numOfChars = 10, char[] chararactersToExclude = null) {
+		private string _Generate(CharacterOptions characters = CharacterOptions.All, Int32 size = 10, char[] exclude = null) {
 
-			StringBuilder code = new StringBuilder(numOfChars);
+			StringBuilder code = new StringBuilder(size);
 			Random rand = new Random((int)(DateTime.Now.Ticks % (Int32.MaxValue + _seedCounter++)));
 
 			byte i = 0;
@@ -80,28 +144,28 @@ namespace Lski.Toolbox.Txt {
 
 			byte[] charsToExclude;
 
-			if (chararactersToExclude == null)
+			if (exclude == null)
 				charsToExclude = new byte[] { };
 			else
-				charsToExclude = Encoding.ASCII.GetBytes(chararactersToExclude);
+				charsToExclude = Encoding.ASCII.GetBytes(exclude);
 
 			// Create a list of all the ascii characters that are allowed, at first ignoring the chars to exclude
 
-			if (options.Has(RandomStringOptions.Numbers)) {
+			if (characters.Has(CharacterOptions.Numbers)) {
 
 				for (i = 48; i <= 57; i++) {
 					charList.Add(i);
 				}
 			}
 
-			if (options.Has(RandomStringOptions.UppercaseLetters)) {
+			if (characters.Has(CharacterOptions.UppercaseLetters)) {
 
 				for (i = 65; i <= 90; i++) {
 					charList.Add(i);
 				}
 			}
 
-			if (options.Has(RandomStringOptions.LowercaseLetters)) {
+			if (characters.Has(CharacterOptions.LowercaseLetters)) {
 
 				for (i = 97; i <= 122; i++) {
 					charList.Add(i);
@@ -109,14 +173,14 @@ namespace Lski.Toolbox.Txt {
 			}
 
 
-			if (options.Has(RandomStringOptions.Underscores)) {
+			if (characters.Has(CharacterOptions.Underscores)) {
 
 				if (!charsToExclude.Contains((byte)95))
 					charList.Add(95);
 			}
 
 
-			if (options.Has(RandomStringOptions.Hyphens)) {
+			if (characters.Has(CharacterOptions.Hyphens)) {
 
 				if (!charsToExclude.Contains((byte)45))
 					charList.Add(45);
@@ -131,7 +195,7 @@ namespace Lski.Toolbox.Txt {
 			var charListCount = charList.Count;
 
 			// Now run through and create the string
-			for (Int32 x = 0; x <= numOfChars; x++) {
+			for (Int32 x = 0; x <= size; x++) {
 				code.Append(System.Convert.ToChar(charList[rand.Next(charListCount)]));
 			}
 
