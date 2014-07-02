@@ -432,6 +432,24 @@ namespace Lski.Toolbox.Txt {
 			}
 		}
 
+		/// <summary>
+		/// Simply makes the String.IsNullOrEmpty call easier to read
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
+		public static bool IsNullOrEmpty(this String input) {
+			return String.IsNullOrEmpty(input);
+		}
+
+		/// <summary>
+		/// Simply makes the String.IsNullOrWhiteSpace call easier to read
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
+		public static bool IsNullOrWhiteSpace(this String input) {
+			return String.IsNullOrWhiteSpace(input);
+		}
+
 		#endregion
 
 		#region "Non Extension Methods"
