@@ -103,6 +103,7 @@
     <Compile Include="Txt\RandomString.cs" />
     <Compile Include="Txt\RichString.cs" />
     <Compile Include="Txt\StringExt.cs" />
+    <Compile Include="Txt\UriExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
