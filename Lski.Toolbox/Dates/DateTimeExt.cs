@@ -10,10 +10,49 @@ namespace Lski.Toolbox.Dates {
 
 		public const String IsTime = @"^(20|21|22|23|[01]\d|\d)[:](([0-5]\d){1,2})$";
 		public const String EndsWithTime = "^" + IsTime;
-		public static readonly DateTime DefaultDateValue;
+		
+		private static readonly DateTime _epoch;
+
+		public static DateTime Epoch {
+			get { return _epoch; }
+		}
 
 		static DateTimeExt() {
-			DefaultDateValue = new DateTime(1899,12,30);
+			_epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		}
+
+		/// <summary>
+		/// Converts a date into the number of seconds from Epoch. This is done using te UTC version of the time.
+		/// </summary>
+		/// <param name="date"></param>
+		/// <returns></returns>
+		public static long ToUnixTime(this DateTime date) {
+			
+			return (long)((date.ToUniversalTime() - Epoch).TotalSeconds);
+		}
+
+		/// <summary>
+		/// Converts a number into a dateTime where the number is the number of seconds since the Epoch. 
+		/// 
+		/// Returns a DateTime UTC object, to get a local version call FromUnixTime().ToLocalTime() on the result.
+		/// </summary>
+		/// <param name="date"></param>
+		/// <returns></returns>
+		public static DateTime FromUnixTime(this int date) {
+
+			return Epoch.AddSeconds(date);
+		}
+
+		/// <summary>
+		/// Converts a number into a dateTime where the number is the number of seconds since the Epoch. 
+		/// 
+		/// Returns a DateTime UTC object, to get a local version call FromUnixTime().ToLocalTime() on the result.
+		/// </summary>
+		/// <param name="date"></param>
+		/// <returns></returns>
+		public static DateTime FromUnixTime(this long date) {
+			
+			return Epoch.AddSeconds(date);
 		}
 
 		/// <summary>
@@ -34,6 +73,8 @@ namespace Lski.Toolbox.Dates {
 
 			return dat.AddDays(-difference);
 		}
+
+
 
 		/// <summary>
 		/// Converts the .net supported date format current culture format into JQuery Datepicker format.
