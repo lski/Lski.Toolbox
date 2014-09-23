@@ -45,7 +45,7 @@ namespace System {
 		/// Important: If value is null then it does not added the name to the string and returns the uri unchanged
 		/// </summary>
 		/// <returns></returns>
-		public static string AddParameter(string uri, string name, object value) {
+		public static string AddParameter(this string uri, string name, object value) {
 
 			return AddParameter(new Uri(uri), name, value).ToString();
 		}
