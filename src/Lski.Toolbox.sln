@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Toolbox", "Lski.Toolbox\Lski.Toolbox.csproj", "{04E4A89B-DF48-460E-80D4-5C77D17615B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Toolbox.Test", "Lski.Toolbox.Test\Lski.Toolbox.Test.csproj", "{F9E2AF9F-F43E-4C94-A3F5-BCBE42395844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{04E4A89B-DF48-460E-80D4-5C77D17615B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E4A89B-DF48-460E-80D4-5C77D17615B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04E4A89B-DF48-460E-80D4-5C77D17615B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E2AF9F-F43E-4C94-A3F5-BCBE42395844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E2AF9F-F43E-4C94-A3F5-BCBE42395844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E2AF9F-F43E-4C94-A3F5-BCBE42395844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E2AF9F-F43E-4C94-A3F5-BCBE42395844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

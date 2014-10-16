@@ -107,6 +107,7 @@
     <Compile Include="Security\XXTea.cs" />
     <Compile Include="Objects\Extensions\EnumExt.cs" />
     <Compile Include="Txt\RandomString.cs" />
+    <Compile Include="Txt\RandomStringHelper.cs" />
     <Compile Include="Txt\RichString.cs" />
     <Compile Include="Txt\StringExt.cs" />
     <Compile Include="Txt\UriExtensions.cs" />
