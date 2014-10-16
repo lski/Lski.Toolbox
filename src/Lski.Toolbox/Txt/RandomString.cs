@@ -86,7 +86,7 @@ namespace Lski.Toolbox.Txt {
 		}
 
 		public RandomString(CharacterOptions characters, Int32 size)
-			: this(characters, 10, null) {
+			: this(characters, size, null) {
 		}
 
 		public RandomString(CharacterOptions characters, Int32 size, char[] exclude) {
@@ -136,8 +136,8 @@ namespace Lski.Toolbox.Txt {
 		/// <remarks></remarks>
 		private string _Generate(CharacterOptions characters = CharacterOptions.All, Int32 size = 10, char[] exclude = null) {
 
-			StringBuilder code = new StringBuilder(size);
-			Random rand = new Random((int)(DateTime.Now.Ticks % (Int32.MaxValue + _seedCounter++)));
+			var code = new StringBuilder(size);
+			var rand = new Random((int)(DateTime.Now.Ticks % (Int32.MaxValue + _seedCounter++)));
 
 			byte i = 0;
 			var charList = new List<byte>();
@@ -195,7 +195,7 @@ namespace Lski.Toolbox.Txt {
 			var charListCount = charList.Count;
 
 			// Now run through and create the string
-			for (Int32 x = 0; x <= size; x++) {
+			for (var x = 0; x <= size; x++) {
 				code.Append(System.Convert.ToChar(charList[rand.Next(charListCount)]));
 			}
 
