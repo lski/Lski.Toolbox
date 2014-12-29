@@ -32,7 +32,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Lski.Toolbox.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
@@ -57,61 +58,36 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Connections\BasicContext.cs" />
-    <Compile Include="Data\Connections\Connection.cs" />
-    <Compile Include="Data\Connections\Transaction.cs" />
-    <Compile Include="Data\Extensions\DataTableExt.cs" />
-    <Compile Include="Data\Extensions\IDataReaderExt.cs" />
-    <Compile Include="Data\SelectBuilder.cs" />
-    <Compile Include="Data\SortExpression.cs" />
     <Compile Include="Dates\DateTimeExt.cs" />
-    <Compile Include="Drawing\ImageResizer.cs" />
-    <Compile Include="IO\FileSystem\Archive.cs" />
-    <Compile Include="IO\FileSystem\Exceptions\CreateDirectoryException.cs" />
-    <Compile Include="IO\FileSystem\Exceptions\FileCopyException.cs" />
-    <Compile Include="IO\FileSystem\Exceptions\FileMoveException.cs" />
-    <Compile Include="IO\FileSystem\FileFunctions.cs" />
-    <Compile Include="IO\FileSystem\FileInfoExt.cs" />
-    <Compile Include="IO\FileSystem\FileSystemInfoExt.cs" />
-    <Compile Include="IO\Objects.cs" />
-    <Compile Include="IssueTracking\AddedFeature.cs" />
-    <Compile Include="IssueTracking\BugFix.cs" />
-    <Compile Include="IssueTracking\ToFix.cs" />
-    <Compile Include="Linq\Dynamic.cs" />
-    <Compile Include="Drawing\ImageExt.cs" />
-    <Compile Include="Misc\Impersonate.cs" />
-    <Compile Include="Drawing\LineF.cs" />
-    <Compile Include="Misc\Process.cs" />
+    <Compile Include="IO\Exceptions\FileExistsException.cs" />
+    <Compile Include="IO\FileSystemInfoFunctions.cs" />
+    <Compile Include="IO\FileInfoExtensions.cs" />
+    <Compile Include="IO\FileSystemInfoExtensions.cs" />
     <Compile Include="Objects\Convert.cs" />
     <Compile Include="Objects\DescriptionAttribute.cs" />
-    <Compile Include="Objects\Extensions\IEnumerableExt.cs" />
-    <Compile Include="Objects\Extensions\IListExt.cs" />
+    <Compile Include="Objects\IEnumerableExtensions.cs" />
+    <Compile Include="Objects\IListExtensions.cs" />
     <Compile Include="Objects\Generics.cs" />
-    <Compile Include="Objects\ICloneable.cs" />
-    <Compile Include="Objects\Variable.cs" />
+    <Compile Include="Objects\Observable.cs" />
+    <Compile Include="IO\StreamReaderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\OneWayEncrypt.cs" />
-    <Compile Include="Security\TripleDES.cs" />
-    <Compile Include="Security\XXTea.cs" />
-    <Compile Include="Objects\Extensions\EnumExt.cs" />
+    <Compile Include="Txt\EncryptionUtility.cs" />
+    <Compile Include="Objects\EnumExtensions.cs" />
     <Compile Include="Txt\RandomString.cs" />
     <Compile Include="Txt\RandomStringHelper.cs" />
-    <Compile Include="Txt\RichString.cs" />
-    <Compile Include="Txt\StringExt.cs" />
+    <Compile Include="Txt\StringExtensions.cs" />
+    <Compile Include="Txt\StringFunctions.cs" />
     <Compile Include="Txt\UriExtensions.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
