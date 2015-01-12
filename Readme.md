@@ -29,7 +29,7 @@ Plus others...
 
 There are many break changes between version 1 and 2, mostly stripping old legacy functions, but I have also removed out two sections:
 
-- [Lski.Toolbox.Data](https://github.com/lski/Lski.Toolbox.Data) and [Lski.Toolbox.ImageResizer](https://github.com/lski/Lski.Toolbox.ImageResizer) are now a separate library and nuget packages
+- [Lski.Toolbox.Data](https://github.com/lski/Lski.Toolbox.Data) and [Lski.Toolbox.ImageEditing](https://github.com/lski/Lski.Toolbox.ImageEditing) are now a separate library and nuget packages
 - System.Linq.Dynamic has been removed as the same code is available as a separate nuget package by someone else
 
 ### Roadmap
