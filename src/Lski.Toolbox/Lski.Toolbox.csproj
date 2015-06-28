@@ -66,6 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\DisposableEnumerator.cs" />
+    <Compile Include="Collections\IEnumerableExtensions.cs" />
+    <Compile Include="Collections\IListExtensions.cs" />
     <Compile Include="Dates\DateTimeExt.cs" />
     <Compile Include="IO\Exceptions\FileExistsException.cs" />
     <Compile Include="IO\FileSystemInfoFunctions.cs" />
