@@ -6,16 +6,49 @@ namespace Lski.Toolbox.IO {
 
     public static class FileInfoExtensions {
 
-        /// <summary>
-        /// Provides a MoveTo function with the added functionality of an overwrite feature, plus creates the directory structure of the destination if one doesnt exist.
-        /// </summary>
-        /// <param name="original">The full file name of the file to move in a FileInfo object</param>
-        /// <param name="destination">The new location, including the filename</param>
-        /// <param name="overwrite">
-        /// Whether or not to overwrite any file at the location stated by the destination address. If false and the destination file exists then throws FileExistsException
-        /// </param>
-        /// <exception cref="FileExistsException"></exception>
-        public static void MoveToExtended(this FileInfo original, FileInfo destination, bool overwrite = true) {
+		/// <summary>
+		/// Creates a new FileInfo object, if an invalid path it returns null.
+		///  
+		/// It does this by trying to check for invalid path characters prior to creating a new FileInfo, and only then capturing and suppressing any 
+		/// exceptions thrown by FileInfo object.
+		/// 
+		/// This should be more efficient as creating Exceptions is a heavy process. Most situations that could cause a FileInfo to throw an exceptions 
+		/// would be caught before attempting to create a FileInfo object.
+		/// </summary>
+		/// <param name="filepath"></param>
+		/// <returns></returns>
+		public static FileInfo CreateSafe(string filepath) {
+
+			if (filepath == null) {
+				throw new ArgumentNullException(nameof(filepath));
+			}
+
+			FileInfo fi;
+
+			if (filepath.IndexOfAny(Path.GetInvalidPathChars()) > -1) {
+				return null;
+			}
+
+			try {
+				fi = new FileInfo(filepath);
+			}
+			catch (Exception) {
+				return null;
+			}
+
+			return fi;
+		}
+
+		/// <summary>
+		/// Provides a MoveTo function with the added functionality of an overwrite feature, plus creates the directory structure of the destination if one doesnt exist.
+		/// </summary>
+		/// <param name="original">The full file name of the file to move in a FileInfo object</param>
+		/// <param name="destination">The new location, including the filename</param>
+		/// <param name="overwrite">
+		/// Whether or not to overwrite any file at the location stated by the destination address. If false and the destination file exists then throws FileExistsException
+		/// </param>
+		/// <exception cref="FileExistsException"></exception>
+		public static void MoveToExtended(this FileInfo original, FileInfo destination, bool overwrite = true) {
 
             if (original == null) {
                 throw new ArgumentNullException("original");
