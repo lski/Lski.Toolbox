@@ -17,10 +17,10 @@ namespace Lski.Toolbox.Collections {
 			var count = list.Count;
 
 			if (originalIndex < 0 || (originalIndex > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("The original position {0} does not exist, list has only {1} items", originalIndex, count));
+				throw new IndexOutOfRangeException($"The original position {originalIndex} does not exist, list has only {count} items");
 			}
 			else if (newIndex < 0 || (newIndex > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("The new position {0} does not exist, list has only {1} items", originalIndex, count));
+				throw new IndexOutOfRangeException($"The new position {originalIndex} does not exist, list has only {count} items");
 			}
 
 			var tmp = list[newIndex];
@@ -39,10 +39,10 @@ namespace Lski.Toolbox.Collections {
 			var count = list.Count;
 
 			if (originalIndex < 0 || (originalIndex > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("The original position {0} does not exist, list has only {1} items", originalIndex, count));
+				throw new IndexOutOfRangeException($"The original position {originalIndex} does not exist, list has only {count} items");
 			}
 			else if (newIndex < 0 || (newIndex > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("The new position {0} does not exist, list has only {1} items", originalIndex, count));
+				throw new IndexOutOfRangeException($"The new position {originalIndex} does not exist, list has only {count} items");
 			}
 
 			if (originalIndex < newIndex) {
@@ -72,7 +72,7 @@ namespace Lski.Toolbox.Collections {
 			var count = list.Count;
 
 			if (index < 0 || (index > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("Index {0} does not exist, list has only {1} items", index, count));
+				throw new IndexOutOfRangeException($"Index {index} does not exist, list has only {count} items");
 			}
 
 			// Add the item to a position before the current one
@@ -97,7 +97,7 @@ namespace Lski.Toolbox.Collections {
 			}
 
 			if (index < 0 || (index > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("Index {0} does not exist, list has only {1} items", index, count));
+				throw new IndexOutOfRangeException($"Index {index} does not exist, list has only {count} items");
 			}
 
 			// Add the item to a position before the current one
@@ -122,7 +122,7 @@ namespace Lski.Toolbox.Collections {
 			var count = list.Count;
 
 			if (index < 0 || (index > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("Index {0} does not exist, list has only {1} items", index, count));
+				throw new IndexOutOfRangeException($"Index {index} does not exist, list has only {count} items");
 			}
 
 			// Add the item to a position before the current one
@@ -147,7 +147,7 @@ namespace Lski.Toolbox.Collections {
 			}
 
 			if (index < 0 || (index > count - 1)) {
-				throw new IndexOutOfRangeException(string.Format("Index {0} does not exist, list has only {1} items", index, list.Count));
+				throw new IndexOutOfRangeException($"Index {index} does not exist, list has only {list.Count} items");
 			}
 
 			// Add the item to a position before the current one

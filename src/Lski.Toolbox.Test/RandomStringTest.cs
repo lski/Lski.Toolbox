@@ -11,7 +11,7 @@ namespace Lski.Toolbox.Test {
 		[TestMethod]
 		public void RandomStringsAreDifferent() {
 
-			var r = new RandomString();
+			var r = new RandomString(CharacterListPredefined.All);
 
 			var s1 = r.Generate();
 			var s2 = r.Generate();
@@ -25,7 +25,7 @@ namespace Lski.Toolbox.Test {
 		[TestMethod]
 		public void StringLengthCorrect() {
 
-			var r = new RandomString();
+			var r = new RandomString(CharacterListPredefined.All);
 
 			var s1 = r.Generate();
 
@@ -38,6 +38,28 @@ namespace Lski.Toolbox.Test {
 			Console.WriteLine(s1);
 
 			s1.Should().HaveLength(12);
+		}
+
+		[TestMethod]
+		public void CharacterListTest() {
+
+			var s = CharacterList.Generate(CharacterListOptions.All);
+
+			Console.WriteLine(s);
+
+			s.Should().Equal(@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_{}[]()/\'""`~,;:.<>");
+			s.Should().HaveCount(82);
+		}
+
+		[TestMethod]
+		public void CharacterListExclusionTest() {
+
+			var s = CharacterList.Generate(CharacterListOptions.All, CharacterListPredefined.SimilarCharacters);
+
+			Console.WriteLine(s);
+
+			s.Should().Equal(@"ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789-_{}[]()/\'""`~,;:.<>");
+			s.Should().HaveCount(74);
 		}
 	}
 }

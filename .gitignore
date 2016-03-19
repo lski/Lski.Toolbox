@@ -161,3 +161,7 @@ $RECYCLE.BIN/
 .DS_Store
 
 **/App_Data/*.mdf
+
+# NuGet
+nuget/nuget.*
+nuget/*.nupkg

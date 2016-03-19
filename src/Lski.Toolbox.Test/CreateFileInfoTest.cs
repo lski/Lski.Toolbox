@@ -13,7 +13,7 @@ namespace Lski.Toolbox.Test {
 			FileInfoExtensions.CreateSafe(@"c:\asasas").Should().NotBeNull();
 
 			FileInfoExtensions.CreateSafe(@"asasa/asasas").Should().NotBeNull();
-			
+
 			FileInfoExtensions.CreateSafe(@"../asas.asd.sasd").Should().NotBeNull();
 
 			FileInfoExtensions.CreateSafe(@"h:?\asdasd").Should().BeNull();

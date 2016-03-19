@@ -32,8 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Release\Lski.Toolbox.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
@@ -82,8 +81,13 @@
     <Compile Include="Objects\Observable.cs" />
     <Compile Include="IO\StreamReaderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Txt\CharacterList.cs" />
+    <Compile Include="Txt\CharacterListOptions.cs" />
+    <Compile Include="Txt\CharacterListPredefined.cs" />
     <Compile Include="Txt\EncryptionUtility.cs" />
+    <Compile Include="Txt\SimpleEncryption.cs" />
     <Compile Include="Objects\EnumExtensions.cs" />
+    <Compile Include="Txt\ISimpleEncryption.cs" />
     <Compile Include="Txt\RandomString.cs" />
     <Compile Include="Txt\RandomStringHelper.cs" />
     <Compile Include="Txt\StringExtensions.cs" />

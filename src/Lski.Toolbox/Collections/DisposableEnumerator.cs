@@ -5,30 +5,36 @@ using System.Collections.Generic;
 namespace Lski.Toolbox.Collections {
 
 	/// <summary>
-	/// Wrapper class for handling enumerables where each item is of type Disposable. It enables the enumerable to be used with a Dispose, where each disposable is disposed
-	/// and therefore can be used with the using statement.
-	///
-	/// E.g.
-	/// <code>
-	/// using (var streams = new DisposableEnumerator<FileStream>(filepaths.Select(x => File.OpenRead(x)))) {
-	///		// Do something with stream */
-	/// }
-	/// </code>
-	/// 
-	/// NB: Does not run the IEnumerable passed in until run itself via an enumerable or ToList() etc.
+	/// Wrapper class for handling enumerables where each item&lt;T&gt; that are of type <see cref="IDisposable"/>.
+	/// It can be used as a belt &amp; braces approach to ensure all items are disposed.
+	/// NB: iterations are not cached in advance.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <example><code>
+	/// using (var streams = new DisposableEnumerator&lt;FileStream&gt;(filepaths.Select(x => File.OpenRead(x)))) {
+	///		foreach (var item in streams) {
+	///				// Do somthing with the streams
+	///			}
+	///		}
+	///	}
+	/// </code></example>
+	/// <remarks>
+	///Note: Internal enumerables are not cached/run before the <see cref="DisposableEnumerator{T}"/> is run itself, therefore not risking using too
+	/// </remarks>
 	public class DisposableEnumerator<T> : IEnumerable<T>, IDisposable where T : IDisposable {
 
-		private IEnumerable<T> _collection;
+		private readonly IEnumerable<T> _collection;
 
-		public DisposableEnumerator(IEnumerable<T> collection) {
+		/// <summary>
+		/// Creates the <see cref="DisposableEnumerator{T}"/> with the <see cref="IEnumerable{T}"/> of <see cref="IDisposable"/> objects
+		/// </summary>
+		/// <param name="enumerable">The enumerable to loop through</param>
+		public DisposableEnumerator(IEnumerable<T> enumerable) {
 
-			if (collection == null) {
-				throw new ArgumentNullException(nameof(collection));
+			if (enumerable == null) {
+				throw new ArgumentNullException(nameof(enumerable));
 			}
 
-			_collection = collection;
+			_collection = enumerable;
 		}
 
 		public void Dispose() {

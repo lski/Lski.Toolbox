@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Lski.Toolbox</id>
+        <version>2.3.1</version>
+        <authors>Lee Cooper</authors>
+        <projectUrl>https://github.com/lski/Lski.Toolbox</projectUrl>
+        <iconUrl>https://www.gravatar.com/avatar/e28af3724cd70eb082bdb84063964ea1</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A simple C# toolbox repository holding together useful functions.</description>
+        <summary>A simple C# toolbox repository holding together useful functions.</summary>
+        <releaseNotes>2.3.1 Added xml documentation file correctly to nuget and created nuspec file</releaseNotes>
+    </metadata>
+    <files>
+        <file src="..\src\lski.toolbox\bin\release\Lski.Toolbox.dll" target="lib\net45\Lski.Toolbox.dll" />
+        <file src="..\src\lski.toolbox\bin\release\Lski.Toolbox.pdb" target="lib\net45\Lski.Toolbox.pdb" />
+        <file src="..\src\lski.toolbox\bin\release\Lski.Toolbox.XML" target="lib\net45\Lski.Toolbox.XML" />
+    </files>
+</package>
