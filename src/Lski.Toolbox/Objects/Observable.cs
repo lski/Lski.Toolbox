@@ -79,7 +79,7 @@
 
             public ChangedArgs(T original, T value) {
 
-                _value = value; 
+                _value = value;
                 _original = original;
             }
 

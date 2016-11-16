@@ -20,7 +20,7 @@ namespace Lski.Toolbox.Txt {
 		/// <typeparam name="T">The <see cref="SymmetricAlgorithm"/> to use to decrypt the value</typeparam>
 		public static string Decrypt<T>(string text, string password, string salt) where T : SymmetricAlgorithm, new() {
 
-			return new SimpleEncryption(salt).Decrypt<T>(text, password);
+			return new SimpleEncryption<T>(salt).Decrypt(text, password);
 		}
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace Lski.Toolbox.Txt {
 		/// <typeparam name="T">The <see cref="SymmetricAlgorithm"/> to use to decrypt the value</typeparam>
 		public static string Decrypt<T>(string text, string password, byte[] salt) where T : SymmetricAlgorithm, new() {
 
-			return new SimpleEncryption(salt).Decrypt<T>(text, password);
+			return new SimpleEncryption<T>(salt).Decrypt(text, password);
 		}
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace Lski.Toolbox.Txt {
 		/// <typeparam name="T">The <see cref="SymmetricAlgorithm"/> to use to encrypt the value</typeparam>
 		public static string Encrypt<T>(string value, string password, string salt) where T : SymmetricAlgorithm, new() {
 
-			return new SimpleEncryption(salt).Encrypt<T>(value, password);
+			return new SimpleEncryption<T>(salt).Encrypt(value, password);
 		}
 
 		/// <summary>
@@ -56,7 +56,7 @@ namespace Lski.Toolbox.Txt {
 		/// <typeparam name="T">The <see cref="SymmetricAlgorithm"/> to use to encrypt the value</typeparam>
 		public static string Encrypt<T>(string value, string password, byte[] salt) where T : SymmetricAlgorithm, new() {
 
-			return new SimpleEncryption(salt).Encrypt<T>(value, password);
+			return new SimpleEncryption<T>(salt).Encrypt(value, password);
 		}
 	}
 }

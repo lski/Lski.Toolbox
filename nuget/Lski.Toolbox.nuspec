@@ -2,14 +2,16 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Lski.Toolbox</id>
-        <version>2.3.1</version>
+        <version>3.3.0</version>
         <authors>Lee Cooper</authors>
         <projectUrl>https://github.com/lski/Lski.Toolbox</projectUrl>
         <iconUrl>https://www.gravatar.com/avatar/e28af3724cd70eb082bdb84063964ea1</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A simple C# toolbox repository holding together useful functions.</description>
         <summary>A simple C# toolbox repository holding together useful functions.</summary>
-        <releaseNotes>2.3.1 Added xml documentation file correctly to nuget and created nuspec file</releaseNotes>
+        <releaseNotes>
+		3.3.0 Updated SimpleEncryption to handle async calls and attached the generic SymmetricAlgorithm to the class rather than the Encrypt/Decrypt methods.
+		</releaseNotes>
     </metadata>
     <files>
         <file src="..\src\lski.toolbox\bin\release\Lski.Toolbox.dll" target="lib\net45\Lski.Toolbox.dll" />

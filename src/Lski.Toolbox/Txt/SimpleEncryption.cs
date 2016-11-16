@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Lski.Toolbox.Txt {
 
@@ -11,8 +12,8 @@ namespace Lski.Toolbox.Txt {
 	/// <remarks>
 	/// NB: This is an altered version based on code found online, however I no longer can provide reference.
 	/// </remarks>
-	public class SimpleEncryption : ISimpleEncryption {
-
+	public class SimpleEncryption<T> : ISimpleEncryption<T> where T : SymmetricAlgorithm, new()
+    {
 		readonly byte[] _salt;
 
 		/// <summary>
@@ -33,13 +34,32 @@ namespace Lski.Toolbox.Txt {
 			_salt = salt;
 		}
 
-		/// <summary>
-		/// Decrypts a string that was encrypted using the same password, salt and <see cref="SymmetricAlgorithm"/> that created it
+        /// <summary>
+        /// Decrypts a string that was encrypted using the same password, salt and <see cref="SymmetricAlgorithm"/> that created it
+        /// </summary>
+        /// <param name="text">The text that you want to decrypt</param>
+        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
+	    public string Decrypt(string text, string password) {
+
+	        return DecryptAsync(text, password).GetAwaiter().GetResult();
+	    }
+
+        /// <summary>
+		/// Encrypts a string that can also be decrypted using the same password and a salt and <see cref="SymmetricAlgorithm"/>
 		/// </summary>
-		/// <param name="text">The text that you want to decrypt</param>
+		/// <param name="value">The text that you want to encypt</param>
 		/// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-		/// <typeparam name="T">The <see cref="SymmetricAlgorithm"/> to use to decrypt the value</typeparam>
-		public string Decrypt<T>(string text, string password) where T : SymmetricAlgorithm, new() {
+	    public string Encrypt(string value, string password) {
+
+	        return EncryptAsync(value, password).GetAwaiter().GetResult();
+	    }
+
+	    /// <summary>
+        /// Decrypts a string that was encrypted using the same password, salt and <see cref="SymmetricAlgorithm"/> that created it
+        /// </summary>
+        /// <param name="text">The text that you want to decrypt</param>
+        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
+        public async Task<string> DecryptAsync(string text, string password) {
 
 			using (DeriveBytes rgb = new Rfc2898DeriveBytes(password, _salt)) {
 
@@ -55,7 +75,7 @@ namespace Lski.Toolbox.Txt {
 
 						using (var reader = new StreamReader(stream, Encoding.Unicode)) {
 
-							return reader.ReadToEnd();
+							return await reader.ReadToEndAsync();
 						}
 					}
 				}
@@ -67,8 +87,7 @@ namespace Lski.Toolbox.Txt {
 		/// </summary>
 		/// <param name="value">The text that you want to encypt</param>
 		/// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-		/// <typeparam name="T">The <see cref="SymmetricAlgorithm"/> to use to encrypt the value</typeparam>
-		public string Encrypt<T>(string value, string password) where T : SymmetricAlgorithm, new() {
+		public async Task<string> EncryptAsync(string value, string password) {
 
 			using (DeriveBytes rgb = new Rfc2898DeriveBytes(password, _salt)) {
 
@@ -84,7 +103,7 @@ namespace Lski.Toolbox.Txt {
 
 						using (var writer = new StreamWriter(stream, Encoding.Unicode)) {
 
-							writer.Write(value);
+							await writer.WriteAsync(value);
 						}
 					}
 
