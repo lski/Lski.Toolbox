@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DictionaryExtensionTests.cs" />
     <Compile Include="EncryptionTest.cs" />
     <Compile Include="RandomStringTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

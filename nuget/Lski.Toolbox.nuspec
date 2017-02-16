@@ -2,15 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Lski.Toolbox</id>
-        <version>3.4.1</version>
+        <version>3.6.1</version>
         <authors>Lee Cooper</authors>
         <projectUrl>https://github.com/lski/Lski.Toolbox</projectUrl>
         <iconUrl>https://www.gravatar.com/avatar/e28af3724cd70eb082bdb84063964ea1</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>A simple C# toolbox repository holding together useful functions.</description>
-        <summary>A simple C# toolbox repository holding together useful functions.</summary>
+        <description>A simple C# toolbox containing some useful functions.</description>
+        <summary>A simple C# toolbox containing some useful functions.</summary>
         <releaseNotes>
-		Added ToIso8601 on DateTimeExt class
+		Added a change scheme method to UriExtensions
 		</releaseNotes>
     </metadata>
     <files>

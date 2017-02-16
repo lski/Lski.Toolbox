@@ -4,5 +4,5 @@
 [assembly: AssemblyProduct("Lski.Toolbox")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyCompany("Lee Cooper")]
-[assembly: AssemblyInformationalVersion("3.4.1")]
-[assembly: AssemblyVersion("3.4.1.*")]
+[assembly: AssemblyInformationalVersion("3.6.1")]
+[assembly: AssemblyVersion("3.6.1.*")]
