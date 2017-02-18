@@ -10,7 +10,7 @@
         <description>A simple C# toolbox containing some useful functions.</description>
         <summary>A simple C# toolbox containing some useful functions.</summary>
         <releaseNotes>
-		Prep work for converting to .NetStandard library. Includes new overloads in Generics to accept TypeInfo objects as well as Type objects
+		Removed obsolete functions
 		</releaseNotes>
     </metadata>
     <files>
