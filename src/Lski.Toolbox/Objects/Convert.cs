@@ -64,7 +64,7 @@ namespace Lski.Toolbox.Objects {
 
 			if (!_cached.TryGetValue(t, out cachedProps)) {
 
-				cachedProps = new HashSet<PropertyInfo>(from x in t.GetProperties(BindingFlags.Instance | BindingFlags.Public) select x);
+				cachedProps = new HashSet<PropertyInfo>(from x in t.GetRuntimeProperties() where x.CanRead && x.CanWrite select x);
 
 				_cached.TryAdd(t, cachedProps);
 			}

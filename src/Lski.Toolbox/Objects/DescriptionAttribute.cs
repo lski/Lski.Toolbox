@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Reflection;
 
 namespace Lski.Toolbox.Objects {
 
@@ -25,14 +26,14 @@ namespace Lski.Toolbox.Objects {
         /// <summary>
         /// Caching to prevent recalling
         /// </summary>
-        private static readonly ConcurrentDictionary<System.Enum, string> _cached = new ConcurrentDictionary<System.Enum, string>();
+        private static readonly ConcurrentDictionary<Enum, string> _cached = new ConcurrentDictionary<Enum, string>();
 
         /// <summary>
         /// Returns a string, if the enumeration value has a 'Description' attribute it will return the value from that, otherwise returns a string version of the enumeration value itself
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public static String GetDescription(this System.Enum e) {
+        public static String GetDescription(this Enum e) {
 
             string output = null;
 
@@ -41,7 +42,7 @@ namespace Lski.Toolbox.Objects {
 
                 //Look for our 'DescriptionAttribute' in the field's custom attributes
                 var type = e.GetType();
-                var fi = type.GetField(e.ToString());
+                var fi = type.GetTypeInfo().GetDeclaredField(e.ToString());
                 var attrs = fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
 
                 output = attrs.Select(a => a.Value).FirstOrDefault() ?? e.ToString();
