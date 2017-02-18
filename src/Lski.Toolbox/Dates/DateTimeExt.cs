@@ -7,7 +7,6 @@ namespace Lski.Toolbox.Dates {
 
         private const string IsoDateTimeFormat = "{0:0000}-{1:00}-{2:00}T{3:00}:{4:00}:{5:00}Z";
         private const String IsTime = @"^(20|21|22|23|[01]\d|\d)[:](([0-5]\d){1,2})$";
-        private const String EndsWithTime = "^" + IsTime;
 
         /// <summary>
         /// A DateTime that represents Epoch
@@ -69,18 +68,6 @@ namespace Lski.Toolbox.Dates {
             }
 
             return dat.AddDays(-difference);
-        }
-
-        /// <summary>
-        /// Useful for combining separate dates and separate times together in one datetime object, in a constructive manner. The new object is returned
-        /// </summary>
-        /// <param name="date">The DateTime object containing the date section desired</param>
-        /// <param name="time">The DateTime object containing the time section desired</param>
-        /// <param name="includeSeconds">Optional: States whether the new DateTime should include the seconds from the time object or reset to zero</param>
-        [Obsolete("Will be removed in the next major release")]
-        public static DateTime CombineWithTime(this DateTime date, DateTime time, Boolean includeSeconds = false) {
-
-            return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, (includeSeconds ? time.Second : 0));
         }
     }
 }

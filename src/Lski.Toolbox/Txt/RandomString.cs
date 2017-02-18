@@ -39,15 +39,6 @@ namespace Lski.Toolbox.Txt {
 		/// <summary>
 		/// Creates a random string generator that will be based on the characters supplied
 		/// </summary>
-		[Obsolete("Use new RandomString(size, CharacterSet.All) instead, this will be removed in the next major verion")]
-		public RandomString() {
-
-			Init(DEFAULT_SIZE, RandomStringHelper.All.ToCharArray());
-		}
-
-		/// <summary>
-		/// Creates a random string generator that will be based on the characters supplied
-		/// </summary>
 		/// <param name="characters">The characters to select from</param>
 		public RandomString(IEnumerable<char> characters) {
 
@@ -110,16 +101,6 @@ namespace Lski.Toolbox.Txt {
 			}
 
 			Init(size, characters);
-		}
-
-		/// <summary>
-		/// Do not use
-		/// </summary>
-		/// <param name="size"></param>
-		[Obsolete("Use new RandomString(size, CharacterSet.All) instead, this will be depreciated")]
-		public RandomString(int size) {
-
-			Init(size, RandomStringHelper.All.ToCharArray());
 		}
 
 		/// <summary>

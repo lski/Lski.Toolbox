@@ -73,11 +73,8 @@
     <Compile Include="IO\Exceptions\FileExistsException.cs" />
     <Compile Include="IO\FileSystemInfoFunctions.cs" />
     <Compile Include="IO\FileInfoExtensions.cs" />
-    <Compile Include="IO\FileSystemInfoExtensions.cs" />
     <Compile Include="Objects\Convert.cs" />
     <Compile Include="Objects\DescriptionAttribute.cs" />
-    <Compile Include="Objects\IEnumerableExtensions.cs" />
-    <Compile Include="Objects\IListExtensions.cs" />
     <Compile Include="Objects\Generics.cs" />
     <Compile Include="Objects\Observable.cs" />
     <Compile Include="IO\StreamReaderExtensions.cs" />
@@ -90,7 +87,6 @@
     <Compile Include="Objects\EnumExtensions.cs" />
     <Compile Include="Txt\ISimpleEncryption.cs" />
     <Compile Include="Txt\RandomString.cs" />
-    <Compile Include="Txt\RandomStringHelper.cs" />
     <Compile Include="Txt\StringExtensions.cs" />
     <Compile Include="Txt\StringFunctions.cs" />
     <Compile Include="Txt\UriExtensions.cs" />
