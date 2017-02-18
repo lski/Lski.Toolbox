@@ -8,7 +8,6 @@ namespace Lski.Toolbox.Txt
     /// </summary>
     public static class UriExtensions
     {
-
         /// <summary>
         /// Creates a new Uri with the name/value pair both encoded and added to the end of the Uri. Therefore is non-destructive.
         /// </summary>
@@ -37,11 +36,17 @@ namespace Lski.Toolbox.Txt
                 return uri;
             }
 
-            var param = WebUtility.UrlEncode(name) + "=" + WebUtility.UrlEncode($"{value}");
-            var qry = uri.Query + (uri.Query.Length == 0 ? "?" : "&") + param;
-            var lnk = uri.GetLeftPart(UriPartial.Path) + qry + uri.Fragment;
+            var qry = uri.Query;
+            qry = qry.Length > 0 ? qry.Substring(1) + "&" : qry;
+            qry += WebUtility.UrlEncode(name) + "=" + WebUtility.UrlEncode($"{value}");
 
-            return new Uri(lnk);
+            var newUri = new UriBuilder(uri.Scheme, uri.Host, uri.Port, uri.AbsolutePath)
+            {
+                Query = qry,
+                Fragment = uri.Fragment
+            };
+
+            return newUri.Uri;
         }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace Lski.Toolbox.Txt
 			var newUri = new UriBuilder(uri);
 
 			var hadDefaultPort = uri.IsDefaultPort;
-			newUri.Scheme = Uri.UriSchemeHttps;
+			newUri.Scheme = scheme;
 			newUri.Port = hadDefaultPort ? -1 : uri.Port;
 
 			return newUri.Uri;

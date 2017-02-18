@@ -1,7 +1,7 @@
-Lski.Toolbox v2
+Lski.Toolbox
 ============
 
-A simple C# toolbox repository holding together useful functions. Highlights include:
+A simple C# toolbox repository containing a few basic useful functions. Highlights include:
 
 - Basic string helpers
   - ConcatWs - Linking non-empty list items with a separator, discarding the rest
@@ -24,13 +24,6 @@ A simple C# toolbox repository holding together useful functions. Highlights inc
 - IList extensions for moving items
 
 Plus others...
-
-### Upgrading from v1 to v2
-
-There are many break changes between version 1 and 2, mostly stripping old legacy functions, but I have also removed out two sections:
-
-- [Lski.Toolbox.Data](https://github.com/lski/Lski.Toolbox.Data) and [Lski.Toolbox.ImageEditing](https://github.com/lski/Lski.Toolbox.ImageEditing) are now a separate library and nuget packages
-- System.Linq.Dynamic has been removed as the same code is available as a separate nuget package by someone else
 
 ### Roadmap
 
