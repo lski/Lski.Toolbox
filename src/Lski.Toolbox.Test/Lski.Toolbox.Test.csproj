@@ -68,7 +68,7 @@
     <Compile Include="UrlTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lski.Toolbox\Lski.Toolbox.csproj">
+    <ProjectReference Include="..\Lski.Toolbox\Lski.Toolbox.net45.csproj">
       <Project>{04E4A89B-DF48-460E-80D4-5C77D17615B0}</Project>
       <Name>Lski.Toolbox</Name>
     </ProjectReference>
