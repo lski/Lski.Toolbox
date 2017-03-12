@@ -1,0 +1,11 @@
+﻿{
+  "frameworks": {
+    "net45": {}
+  },
+  "runtimes": {
+    "win": {}
+  },
+  "dependencies": {
+    "xunit.runner.visualstudio": "2.2.0"
+  }
+}

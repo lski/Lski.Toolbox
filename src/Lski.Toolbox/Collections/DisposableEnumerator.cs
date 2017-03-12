@@ -10,7 +10,7 @@ namespace Lski.Toolbox.Collections {
 	/// NB: iterations are not cached in advance.
 	/// </summary>
 	/// <example><code>
-	/// using (var streams = new DisposableEnumerator&lt;FileStream&gt;(filepaths.Select(x => File.OpenRead(x)))) {
+	/// using (var streams = filepaths.Select(x => File.OpenRead(x)).AsDisposable()) {
 	///		foreach (var item in streams) {
 	///				// Do somthing with the streams
 	///			}
@@ -18,7 +18,7 @@ namespace Lski.Toolbox.Collections {
 	///	}
 	/// </code></example>
 	/// <remarks>
-	///Note: Internal enumerables are not cached/run before the <see cref="DisposableEnumerator{T}"/> is run itself, therefore not risking using too
+	///Note: Internal enumerables are not cached/run before the <see cref="DisposableEnumerator{T}"/> is enumerated itself
 	/// </remarks>
 	public class DisposableEnumerator<T> : IEnumerable<T>, IDisposable where T : IDisposable {
 

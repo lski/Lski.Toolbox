@@ -1,90 +1,60 @@
-﻿using Lski.Toolbox.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 
 namespace Lski.Toolbox.Txt {
 
 	/// <summary>
-	/// Used to create a list of characters that meet a certain criteria, that can be used with RandomString.
+	/// A selection of predfined character lists
 	/// </summary>
 	public static class CharacterList {
 
 		/// <summary>
-		/// Creates a char list containing characters that match the types requested. Also has to option to exclude specific characters from the generated list
+		/// Uppercase letters
 		/// </summary>
-		/// <param name="characters">A selection of <see cref="CharacterListOptions"/> that states what to include. E.g. UppercaseLetters or UppercaseLetters and Numerics etc</param>
-		/// <param name="exclude">An optional enumerable list of characters to exclude from the final output.</param>
-		/// <returns></returns>
-		public static char[] Generate(CharacterListOptions characters, string exclude) {
-
-			return Generate(characters, exclude.ToCharArray());
-		}
+		public const string UppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 		/// <summary>
-		/// Creates a char list containing characters that match the types requested. Also has to option to exclude specific characters from the generated list
+		/// Lowercase letters
 		/// </summary>
-		/// <param name="characters">A selection of <see cref="CharacterListOptions"/> that states what to include. E.g. UppercaseLetters or UppercaseLetters and Numerics etc</param>
-		/// <param name="exclude">An optional enumerable list of characters to exclude from the final output.</param>
-		/// <returns></returns>
-		public static char[] Generate(CharacterListOptions characters, IEnumerable<char> exclude) {
-
-			return Generate(characters, exclude.ToArray());
-		}
+		public const string LowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
 
 		/// <summary>
-		/// Creates a char list containing characters that match the types requested. Also has to option to exclude specific characters from the generated list
+		/// Numbers 0-9
 		/// </summary>
-		/// <param name="characters">A selection of <see cref="CharacterListOptions"/> that states what to include. E.g. UppercaseLetters or UppercaseLetters and Numerics etc</param>
-		/// <param name="exclude">An optional enumerable list of characters to exclude from the final output.</param>
-		/// <returns></returns>
-		public static char[] Generate(CharacterListOptions characters = CharacterListOptions.All, char[] exclude = null) {
+		public const string Numbers = "0123456789";
 
-			// Create a list of all the ascii characters that are allowed, at first ignoring the chars to exclude
-			var list = Enumerable.Empty<char>();
+		/// <summary>
+		/// Underscores
+		/// </summary>
+		public const string Underscores = "_";
 
-			exclude = exclude ?? new char[] { };
+		/// <summary>
+		/// Hyphens
+		/// </summary>
+		public const string Hyphens = "-";
 
-			// 65 -> 90
-			if (characters.Has(CharacterListOptions.UppercaseLetters)) {
+		/// <summary>
+		/// Other punctuation not typically included in a random string
+		/// </summary>
+		public const string OtherPunctuation = @"{}[]()/\'""`~,;:.<>";
 
-				list = list.Concat(from s in CharacterListPredefined.UppercaseLetters where !exclude.Contains(s) select s);
-			}
+		/// <summary>
+		/// Characters that look very similar so would sometimes be useful to remove to avoid confusion
+		/// </summary>
+		public const string SimilarCharacters = @"iIlLoO10";
 
-			// 97 -> 122
-			if (characters.Has(CharacterListOptions.LowercaseLetters)) {
+		/// <summary>
+		/// Include both lower and upper case letters
+		/// </summary>
+		public const string Letters = UppercaseLetters + LowercaseLetters;
 
-				list = list.Concat(from s in CharacterListPredefined.LowercaseLetters where !exclude.Contains(s) select s);
-			}
+		/// <summary>
+		/// Include all upper and lower case letters and numbers
+		/// </summary>
+		public const string AlphaNumerics = (Letters + Numbers);
 
-			// 48 -> 57
-			if (characters.Has(CharacterListOptions.Numbers)) {
-
-				list = list.Concat(from s in CharacterListPredefined.Numbers where !exclude.Contains(s) select s);
-			}
-
-			// 45
-			if (characters.Has(CharacterListOptions.Hyphens)) {
-
-				if (!exclude.Contains('-')) {
-					list = list.Concat(new[] { '-' });
-				}
-			}
-
-			// 95
-			if (characters.Has(CharacterListOptions.Underscores)) {
-
-				if (!exclude.Contains('_')) {
-					list = list.Concat(new[] { '_' });
-				}
-			}
-
-			if (characters.Has(CharacterListOptions.OtherPunctuation)) {
-
-				list = list.Concat(from s in CharacterListPredefined.OtherPunctuation where !exclude.Contains(s) select s);
-			}
-
-			return list.ToArray();
-		}
+		/// <summary>
+		/// Include all options
+		/// </summary>
+		public const string All = (AlphaNumerics + Underscores + Hyphens + OtherPunctuation);
 	}
 }

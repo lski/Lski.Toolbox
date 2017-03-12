@@ -3,26 +3,30 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
 
-namespace Lski.Toolbox.Objects {
-
+namespace Lski.Toolbox.Objects
+{
     /// <summary>
     /// This allows a human readable string to be added to an enumeration value
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    public class DescriptionAttribute : Attribute {
-
+    public class DescriptionAttribute : Attribute
+    {
         /// <summary>
         /// Holds the string value for a value in an enum.
         /// </summary>
         public String Value { get; set; }
 
-        public DescriptionAttribute(string value) {
+        public DescriptionAttribute(string value)
+        {
             Value = value;
         }
     }
 
-    public static class DecriptionAttributeExtension {
-
+    /// <summary>
+    /// Provides extension methods to Enum values that have DescriptionAttribute attached.
+    /// </summary>
+    public static class DescriptionAttributeExt
+    {
         /// <summary>
         /// Caching to prevent recalling
         /// </summary>
@@ -33,13 +37,13 @@ namespace Lski.Toolbox.Objects {
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public static String GetDescription(this Enum e) {
-
+        public static String GetDescription(this Enum e)
+        {
             string output = null;
 
             // Check first in our cached results...
-            if (!_cached.TryGetValue(e, out output)) {
-
+            if (!_cached.TryGetValue(e, out output))
+            {
                 //Look for our 'DescriptionAttribute' in the field's custom attributes
                 var type = e.GetType();
                 var fi = type.GetTypeInfo().GetDeclaredField(e.ToString());

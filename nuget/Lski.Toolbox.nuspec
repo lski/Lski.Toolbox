@@ -10,12 +10,15 @@
         <description>A simple C# toolbox containing some useful functions.</description>
         <summary>A simple C# toolbox containing some useful functions.</summary>
         <releaseNotes>
-		Removed obsolete functions
+		Full update to support netstandard1.4 as well as net45 for legacy systems
 		</releaseNotes>
     </metadata>
     <files>
-        <file src="..\src\lski.toolbox\bin\release\Lski.Toolbox.dll" target="lib\net45\Lski.Toolbox.dll" />
-        <file src="..\src\lski.toolbox\bin\release\Lski.Toolbox.pdb" target="lib\net45\Lski.Toolbox.pdb" />
-        <file src="..\src\lski.toolbox\bin\release\Lski.Toolbox.XML" target="lib\net45\Lski.Toolbox.XML" />
+        <file src="..\src\lski.toolbox\bin\release\net45\Lski.Toolbox.dll" target="lib\net45\Lski.Toolbox.dll" />
+        <file src="..\src\lski.toolbox\bin\release\net45\Lski.Toolbox.pdb" target="lib\net45\Lski.Toolbox.pdb" />
+        <file src="..\src\lski.toolbox\bin\release\net45\Lski.Toolbox.XML" target="lib\net45\Lski.Toolbox.XML" />
+        <file src="..\src\lski.toolbox\bin\release\netstandard1.4\Lski.Toolbox.dll" target="lib\netstandard1.4\Lski.Toolbox.dll" />
+        <file src="..\src\lski.toolbox\bin\release\netstandard1.4\Lski.Toolbox.pdb" target="lib\netstandard1.4\Lski.Toolbox.pdb" />
+        <file src="..\src\lski.toolbox\bin\release\netstandard1.4\Lski.Toolbox.XML" target="lib\netstandard1.4\Lski.Toolbox.XML" />
     </files>
 </package>

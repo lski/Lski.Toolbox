@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Lski.Toolbox.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using Xunit;
 
-namespace Lski.Toolbox.Test
+namespace Lski.Toolbox.Tests
 {
-    [TestClass]
     public class DictionaryExtensionTests
     {
-        [TestMethod]
-        public void ValueReturnedTest() {
+        [Fact]
+        public void ValueReturnedTest()
+        {
             IDictionary<string, string> dictionary = new Dictionary<string, string>();
 
             dictionary.Add("first", "value");

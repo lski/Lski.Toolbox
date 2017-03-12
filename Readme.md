@@ -9,6 +9,7 @@ A simple C# toolbox repository containing a few basic useful functions. Highligh
   - FixedLength - Ensures a string is a fixed length, eiter truncating or padding as needed
   - Truncate - A safe truncate return null if null passed in
   - Trim - A safe trim, returning null if null passed in
+- StringBuilder AsEnumerable() extension method for enabling linq on chars in StringBuilder
 - String encryption/decryption methods
 - Random string generator designed to work with loops without collisions
 - Generic Observable class used for subscribing to changes on variables
@@ -19,7 +20,6 @@ A simple C# toolbox repository containing a few basic useful functions. Highligh
 - DateTime extensions:
   - Functions for working with Unix times
   - Returning getting date of first day of week
-  - Combining a date and a time from two DateTime objects
 - MinOrDefault and MaxOrDefault linq extensions
 - IList extensions for moving items
 

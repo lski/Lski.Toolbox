@@ -26,8 +26,7 @@ namespace Lski.Toolbox.Collections
                 throw new ArgumentNullException(nameof(dictionary));
             }
 
-            TValue value;
-            return dictionary.TryGetValue(key, out value) ? value : default(TValue);
+            return dictionary.TryGetValue(key, out TValue value) ? value : default(TValue);
         }
     }
 }
