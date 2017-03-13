@@ -55,11 +55,22 @@ namespace Lski.Toolbox.Collections
         }
 
         /// <summary>
-        /// Gives a way of 
+        /// Gives a convenient way of testing for the presence of a value
         /// </summary>
         public static bool Any<T>(this IEnumerable<T> enumerable, T value)
         {
-            return IndexOf(enumerable, value) > -1;
+            return enumerable.Any(i => i.Equals(value));
+        }
+
+        /// <summary>
+        /// Equivalent to string.IsNullOrEmpty("") true if null or has no elements
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable == null || !enumerable.Any();
         }
 
         /// <summary>
