@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace Lski.Toolbox.Txt
 {
+    /// <summary>
+    /// A selection of extension methods for String objects
+    /// </summary>
     public static class StringExtensions
     {
         /// <summary>
@@ -26,7 +29,7 @@ namespace Lski.Toolbox.Txt
             {
                 return "".PadRight(size);
             }
-            
+
             if (size > str.Length)
             {
                 return str.PadRight(size);
@@ -147,10 +150,23 @@ namespace Lski.Toolbox.Txt
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         public static bool IsNullOrEmpty(this string value)
         {
             return value == null || value.Length == 0;
         }
+
+        /// <summary>
+        /// Shorthand for string.Format()
+        /// </summary>
+        [DebuggerStepThrough]
+        public static string ToFormat(this string str, params object[] args) => string.Format(str, args);
+
+        /// <summary>
+        /// Shorthand for string.Format()
+        /// </summary>
+        [DebuggerStepThrough]
+        public static string ToFormat(this string str, IFormatProvider formatProvider, params object[] args) => string.Format(formatProvider, str, args);
 
         /// <summary>
         /// Removes all the characters from a string, faster than Regex
@@ -168,7 +184,8 @@ namespace Lski.Toolbox.Txt
 
             foreach (char c in value)
             {
-                if (!toStrip.Any(c)) {
+                if (!toStrip.Any(c))
+                {
                     sb.Append(c);
                 }
             }
