@@ -4,8 +4,19 @@ using System.Linq;
 
 namespace Lski.Toolbox.Collections
 {
+    /// <summary>
+    /// A selection of extension methods to IEnumberable
+    /// </summary>
     public static class IEnumerableExtensions
     {
+        /// <summary>
+        /// Allows switching of the OrderBy direction based on a bool flag
+        /// </summary>
+        public static IOrderedEnumerable<TInput> OrderByEither<TInput, TComparer>(this IEnumerable<TInput> enumerable, Func<TInput, TComparer> func, bool ascending)
+        {
+            return ascending ? enumerable.OrderBy(func) : enumerable.OrderByDescending(func);
+        }
+
         /// <summary>
         /// Adds the ability to ask for the to call Max, without exception if the enumerable is empty. On empty the default value of T is returned
         /// </summary>
