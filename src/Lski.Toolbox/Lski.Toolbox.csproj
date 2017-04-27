@@ -20,5 +20,5 @@
     <None Remove="Lski.Toolbox.net45.project.json" />
     <None Remove="Lski.Toolbox.net45.project.lock.json" />
   </ItemGroup>
-  
+
 </Project>
