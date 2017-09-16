@@ -10,6 +10,24 @@ namespace Lski.Toolbox.Collections
     public static class IEnumerableExtensions
     {
         /// <summary>
+        /// Loops through each element in the IEnumerable, useful for chaining. Does not modify the original IEnumerable.
+        /// </summary>
+        /// <remarks>
+        /// There are normally much better ways to work with enumerables, such as for loops or using Select to create a new IEnumerable, however as this function
+        /// returns the original enumerable it is useful for chaining.
+        /// </remarks>
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        {
+            foreach (var item in enumerable)
+            {
+                action(item);
+            }
+
+            return enumerable;
+        }
+
+
+        /// <summary>
         /// Allows switching of the OrderBy direction based on a bool flag
         /// </summary>
         public static IOrderedEnumerable<TInput> OrderByEither<TInput, TComparer>(this IEnumerable<TInput> enumerable, Func<TInput, TComparer> func, bool ascending)
