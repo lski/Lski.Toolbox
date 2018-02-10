@@ -13,28 +13,32 @@ namespace Lski.Toolbox.Encryption
         /// Decrypts a string that was encrypted using the same password, salt and <see cref="SymmetricAlgorithm"/> that created it
         /// </summary>
         /// <param name="text">The text that you want to decrypt</param>
-        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-        string Decrypt(string text, string password);
+        /// <param name="encryptionKey">The password that is used with the salt to encrypt/decrypt the text</param>
+        /// <param name="iterations">Is the number of times the encryption is performed</param>
+        string Decrypt(string text, string encryptionKey, int iterations = 1000);
 
         /// <summary>
         /// Encrypts a string that can also be decrypted using the same password and a salt and <see cref="SymmetricAlgorithm"/>
         /// </summary>
         /// <param name="value">The text that you want to encypt</param>
-        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-        string Encrypt(string value, string password);
+        /// <param name="encryptionKey">The password that is used with the salt to encrypt/decrypt the text</param>
+        /// <param name="iterations">Is the number of times the encryption is performed</param>
+        string Encrypt(string value, string encryptionKey, int iterations = 1000);
 
         /// <summary>
         /// Decrypts a string that was encrypted using the same password, salt and <see cref="SymmetricAlgorithm"/> that created it
         /// </summary>
         /// <param name="text">The text that you want to decrypt</param>
-        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-        Task<string> DecryptAsync(string text, string password);
+        /// <param name="encryptionKey">The password that is used with the salt to encrypt/decrypt the text</param>
+        /// <param name="iterations">Is the number of times the encryption is performed</param>
+        Task<string> DecryptAsync(string text, string encryptionKey, int iterations = 1000);
 
         /// <summary>
         /// Encrypts a string that can also be decrypted using the same password and a salt and <see cref="SymmetricAlgorithm"/>
         /// </summary>
         /// <param name="value">The text that you want to encypt</param>
-        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-        Task<string> EncryptAsync(string value, string password);
+        /// <param name="encryptionKey">The password that is used with the salt to encrypt/decrypt the text</param>
+        /// <param name="iterations">Is the number of times the encryption is performed</param>
+        Task<string> EncryptAsync(string value, string encryptionKey, int iterations = 1000);
     }
 }

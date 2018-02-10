@@ -6,109 +6,88 @@ using System.Threading.Tasks;
 
 namespace Lski.Toolbox.Encryption
 {
-    /// <summary>
-    /// Used for encrypting/decrypting a string value using a password and a salt passed in. Where the algorithm used is declared as a generic type.
-    /// </summary>
-    /// <remarks>
-    /// NB: This is an altered version based on code found online, however I no longer can provide reference.
-    /// </remarks>
-    public class SimpleEncryption : ISimpleEncryption
-    {
-        private SymmetricAlgorithm _algorithm;
-    
-        private readonly byte[] _salt;
-
-        /// <summary>
-        /// Used for encrypting/decrypting a string value using a password and a salt passed in. Where the algorithm used is declared as a generic type.
-        /// </summary>
-        /// <param name="salt">The salt to be used with the password to encrypt/decrypt text</param>
-        public SimpleEncryption(SymmetricAlgorithm algorithm, string salt)
-            : this(algorithm, Encoding.Unicode.GetBytes(salt)) { }
-
-        /// <summary>
-        /// Used for encrypting/decrypting a string value using a password and a salt passed in. Where the algorithm used is declared as a generic type.
-        /// </summary>
-        /// <param name="salt">The salt to be used with the password to encrypt/decrypt text</param>
-        public SimpleEncryption(SymmetricAlgorithm algorithm, byte[] salt)
-        {
-            _algorithm = algorithm;
-            _salt = salt;
-        }
-
-        /// <summary>
-        /// Decrypts a string that was encrypted using the same password, salt and <see cref="SymmetricAlgorithm"/> that created it
-        /// </summary>
-        /// <param name="text">The text that you want to decrypt</param>
-        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-	    public string Decrypt(string text, string password)
-        {
-            return DecryptAsync(text, password).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-		/// Encrypts a string that can also be decrypted using the same password and a salt and <see cref="SymmetricAlgorithm"/>
+	/// <summary>
+	/// Used for encrypting/decrypting a string value using a password and a salt passed in. Where the algorithm used is declared as a generic type.
+	/// </summary>
+	public class SimpleEncryption : ISimpleEncryption
+	{
+		/// <summary>
+		/// The default number of iterations used for encrypting and decrypting
 		/// </summary>
-		/// <param name="value">The text that you want to encypt</param>
-		/// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-	    public string Encrypt(string value, string password)
-        {
-            return EncryptAsync(value, password).GetAwaiter().GetResult();
-        }
+		public const int DEFAULT_ITERATIONS = 1000;
 
-        /// <summary>
-        /// Decrypts a string that was encrypted using the same password, salt and <see cref="SymmetricAlgorithm"/> that created it
-        /// </summary>
-        /// <param name="text">The text that you want to decrypt</param>
-        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-        public async Task<string> DecryptAsync(string text, string password)
-        {
-            using (DeriveBytes rgb = new Rfc2898DeriveBytes(password, _salt))
-            {
-                var rgbKey = rgb.GetBytes(_algorithm.KeySize >> 3);
-                var rgbIV = rgb.GetBytes(_algorithm.BlockSize >> 3);
+		private SymmetricAlgorithm _algorithm;
+		private readonly byte[] _salt;
 
-                var transform = _algorithm.CreateDecryptor(rgbKey, rgbIV);
+		/// <inheritdoc />
+		public SimpleEncryption(SymmetricAlgorithm algorithm, string salt)
+			: this(algorithm, Encoding.Unicode.GetBytes(salt)) { }
 
-                using (var buffer = new MemoryStream(Convert.FromBase64String(text)))
-                {
-                    using (var stream = new CryptoStream(buffer, transform, CryptoStreamMode.Read))
-                    {
-                        using (var reader = new StreamReader(stream, Encoding.Unicode))
-                        {
-                            return await reader.ReadToEndAsync();
-                        }
-                    }
-                }
-            }
-        }
+		/// <inheritdoc />
+		public SimpleEncryption(SymmetricAlgorithm algorithm, byte[] salt)
+		{
+			_algorithm = algorithm;
+			_salt = salt;
+		}
 
-        /// <summary>
-        /// Encrypts a string that can also be decrypted using the same password and a salt and <see cref="SymmetricAlgorithm"/>
-        /// </summary>
-        /// <param name="value">The text that you want to encypt</param>
-        /// <param name="password">The password that is used with the salt to encrypt/decrypt the text</param>
-        public async Task<string> EncryptAsync(string value, string password)
-        {
-            using (DeriveBytes rgb = new Rfc2898DeriveBytes(password, _salt))
-            {
-                var rgbKey = rgb.GetBytes(_algorithm.KeySize >> 3);
-                var rgbIV = rgb.GetBytes(_algorithm.BlockSize >> 3);
+		/// <inheritdoc />
+		public string Decrypt(string text, string encryptionKey, int iterations = DEFAULT_ITERATIONS)
+		{
+			return DecryptAsync(text, encryptionKey, iterations).GetAwaiter().GetResult();
+		}
 
-                var transform = _algorithm.CreateEncryptor(rgbKey, rgbIV);
+		/// <inheritdoc />
+		public string Encrypt(string value, string encryptionKey, int iterations = DEFAULT_ITERATIONS)
+		{
+			return EncryptAsync(value, encryptionKey, iterations).GetAwaiter().GetResult();
+		}
 
-                using (var buffer = new MemoryStream())
-                {
-                    using (var stream = new CryptoStream(buffer, transform, CryptoStreamMode.Write))
-                    {
-                        using (var writer = new StreamWriter(stream, Encoding.Unicode))
-                        {
-                            await writer.WriteAsync(value);
-                        }
-                    }
+		/// <inheritdoc />
+		public async Task<string> DecryptAsync(string text, string encryptionKey, int iterations = DEFAULT_ITERATIONS)
+		{
+			using (var rgb = new Rfc2898DeriveBytes(encryptionKey, _salt, iterations))
+			{
+				var rgbKey = rgb.GetBytes(_algorithm.KeySize >> 3);
+				var rgbIV = rgb.GetBytes(_algorithm.BlockSize >> 3);
 
-                    return Convert.ToBase64String(buffer.ToArray());
-                }
-            }
-        }
-    }
+				var transform = _algorithm.CreateDecryptor(rgbKey, rgbIV);
+
+				using (var buffer = new MemoryStream(Convert.FromBase64String(text)))
+				{
+					using (var stream = new CryptoStream(buffer, transform, CryptoStreamMode.Read))
+					{
+						using (var reader = new StreamReader(stream, Encoding.Unicode))
+						{
+							return await reader.ReadToEndAsync();
+						}
+					}
+				}
+			}
+		}
+
+		/// <inheritdoc />
+		public async Task<string> EncryptAsync(string value, string encryptionKey, int iterations = DEFAULT_ITERATIONS)
+		{
+			using (DeriveBytes rgb = new Rfc2898DeriveBytes(encryptionKey, _salt, iterations))
+			{
+				var rgbKey = rgb.GetBytes(_algorithm.KeySize >> 3);
+				var rgbIV = rgb.GetBytes(_algorithm.BlockSize >> 3);
+
+				var transform = _algorithm.CreateEncryptor(rgbKey, rgbIV);
+
+				using (var buffer = new MemoryStream())
+				{
+					using (var stream = new CryptoStream(buffer, transform, CryptoStreamMode.Write))
+					{
+						using (var writer = new StreamWriter(stream, Encoding.Unicode))
+						{
+							await writer.WriteAsync(value);
+						}
+					}
+
+					return Convert.ToBase64String(buffer.ToArray());
+				}
+			}
+		}
+	}
 }
