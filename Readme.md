@@ -10,7 +10,6 @@ A simple C# toolbox repository containing a few basic useful functions. Highligh
   - Truncate - A safe truncate return null if null passed in
   - Trim - A safe trim, returning null if null passed in
 - StringBuilder AsEnumerable() extension method for enabling linq on chars in StringBuilder
-- String encryption/decryption methods
 - Random string generator designed to work with loops without collisions
 - Generic Observable class used for subscribing to changes on variables
 - Functions for handling Generics
@@ -28,3 +27,7 @@ Plus others...
 ### Roadmap
 
 To ensure this project will work in an ASP.Net Core environment whilst trying to maintain the current API.
+
+## Update 4 to 5
+
+- Encryption functions have been extracted to [Lski.Encryption](https://github.com/lski/Lski.Encryption), although not like for like as a couple of less secure items have been removed, the main functionality is there.
