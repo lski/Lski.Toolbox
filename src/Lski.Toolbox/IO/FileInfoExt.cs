@@ -4,45 +4,11 @@ using System.IO;
 
 namespace Lski.Toolbox.IO
 {
+    /// <summary>
+    /// A selection of extensions for manipulating a FileInfo object
+    /// </summary>
     public static class FileInfoExt
     {
-        /// <summary>
-        /// Creates a new FileInfo object, if an invalid path it returns null.
-        ///
-        /// It does this by trying to check for invalid path characters prior to creating a new FileInfo, and only then capturing and suppressing any
-        /// exceptions thrown by FileInfo object as that should only be a FileNotFound.
-        ///
-        /// This should be more efficient as creating Exceptions is a heavy process. Most situations that could cause a FileInfo to throw an exceptions
-        /// would be caught before attempting to create a FileInfo object.
-        /// </summary>
-        /// <param name="filepath"></param>
-        /// <returns></returns>
-        public static FileInfo CreateSafe(string filepath)
-        {
-            if (filepath == null)
-            {
-                throw new ArgumentNullException(nameof(filepath));
-            }
-
-            FileInfo fi;
-
-            if (filepath.IndexOfAny(Path.GetInvalidPathChars()) > -1)
-            {
-                return null;
-            }
-
-            try
-            {
-                fi = new FileInfo(filepath);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-
-            return fi;
-        }
-
         /// <summary>
         /// Provides a MoveTo function with the added functionality of an overwrite feature, plus creates the directory structure of the destination if one doesnt exist.
         /// </summary>
