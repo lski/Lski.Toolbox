@@ -2,7 +2,7 @@
 using Lski.Toolbox.Txt;
 using Xunit;
 
-namespace Lski.Toolbox.Tests
+namespace Lski.Toolbox.Test
 {
     public class StringTests
     {

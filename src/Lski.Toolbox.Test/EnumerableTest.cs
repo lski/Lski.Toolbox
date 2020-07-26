@@ -3,7 +3,7 @@ using Lski.Toolbox.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Lski.Toolbox.Tests
+namespace Lski.Toolbox.Test
 {
     public class EnumerableTest
     {
