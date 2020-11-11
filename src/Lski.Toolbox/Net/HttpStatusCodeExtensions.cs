@@ -8,7 +8,7 @@ namespace Lski.Toolbox.Net
     public static class HttpStatusCodeExtensions
     {
         /// <summary>
-        /// States whether the status code is between 200 and 299 and can be considered a 'success'
+        /// States whether the status code is between 200 and 299 and can be considered a &apos;success&apos;.
         /// </summary>
         public static bool IsSuccess(this HttpStatusCode code)
         {

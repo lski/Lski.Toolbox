@@ -8,7 +8,7 @@ using System.Text;
 namespace Lski.Toolbox.Txt
 {
     /// <summary>
-    /// Extension methods to help working with Uri's and strings containing Uris
+    /// Extension methods to help working with Uri&apos;s and strings containing Uris
     /// </summary>
     public static class UriHelper
     {
@@ -76,7 +76,7 @@ namespace Lski.Toolbox.Txt
         /// <param name="uri">The original Uri to add the value too</param>
         /// <param name="name">The name of the parameter to add</param>
         /// <param name="value">The value of the parameter to add, if null neither the name/value pair are NOT added.</param>
-        /// <param name="checkExistingParam">Used for performance and chaining. By default checks the string to see it has '?' and therefore change the seperator to '&'. If false simply uses an '&' so if chaining multiple AddParams set this to false</param>
+        /// <param name="checkExistingParam">Used for performance and chaining. By default checks the string to see it has &apos;?&apos; and therefore change the seperator to &apos;&amp;&apos;. If false simply uses an &apos;&amp;&apos; so if chaining multiple AddParams set this to false</param>
         /// <param name="handleHash">Used for performance. By default will not attempt to handle hashes, if true will strip the hash and append it to the new uri</param>
         /// <remarks>
         /// - Uses String.Format to convert the value to a string before encoding the name and value for use in a Url.
@@ -134,7 +134,7 @@ namespace Lski.Toolbox.Txt
         /// <param name="uri">The original Uri to add the value too</param>
         /// <param name="name">The name of the parameter to add</param>
         /// <param name="value">The value of the parameter to add, if null neither the name/value pair are NOT added.</param>
-        /// <param name="checkExistingParam">Used for performance and chaining. By default checks the string to see it has '?' and therefore change the seperator to '&'. If false simply uses an '&' so if chaining multiple AddParams set this to false</param>
+        /// <param name="checkExistingParam">Used for performance and chaining. By default checks the string to see it has &apos;?&apos; and therefore change the seperator to &apos;&amp;&apos;. If false simply uses an &apos;&amp;&apos; so if chaining multiple AddParams set this to false</param>
         /// <param name="handleHash">Used for performance. By default will not attempt to handle hashes, if true will strip the hash and append it to the new uri</param>
         /// <remarks>
         /// - Uses String.Format to convert the value to a string before encoding the name and value for use in a Url.

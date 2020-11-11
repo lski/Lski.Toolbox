@@ -33,7 +33,7 @@ namespace Lski.Toolbox.Objects
         private static readonly ConcurrentDictionary<Enum, string> _cached = new ConcurrentDictionary<Enum, string>();
 
         /// <summary>
-        /// Returns a string, if the enumeration value has a 'Description' attribute it will return the value from that, otherwise returns a string version of the enumeration value itself
+        /// Returns a string, if the enumeration value has a &apos;Description&apos; attribute it will return the value from that, otherwise returns a string version of the enumeration value itself.
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>

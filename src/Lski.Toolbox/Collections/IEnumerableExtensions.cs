@@ -103,7 +103,7 @@ namespace Lski.Toolbox.Collections
         }
 
         /// <summary>
-        /// Covert an enumerable so it can be used in a using statement <see cref="DisposableEnumerator"/>
+        /// Covert an enumerable so it can be used in a using statement <see cref="DisposableEnumerator{T}"/>
         /// </summary>
         public static DisposableEnumerator<T> AsDisposable<T>(this IEnumerable<T> enumerable) where T : IDisposable
         {
