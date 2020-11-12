@@ -23,11 +23,39 @@ A simple C# toolbox repository containing a few basic useful functions. Highligh
 
 Plus others...
 
-### Roadmap
+## Build
 
-To ensure this project will work in an ASP.Net Core environment whilst trying to maintain the current API.
+```
+cd ./src
+dotnet build
+```
 
-## Update 4 to 5
+## Test
+
+```
+cd ./src
+dotnet test
+```
+
+## Publish
+
+```
+PACKAGE_VERSION=""
+NUGET_KEY=""
+
+cd ./src
+dotnet test
+dotnet pack -c Release -o ../nuget
+dotnet nuget push -s https://api.nuget.org/v3/index.json "../nuget/Lski.Toolbox.$PACKAGE_VERSION.nupkg" -k "$NUGET_KEY"
+```
+
+_NB: Remember to add variables above._
+
+## Upgrading 4 to 5
 
 - Encryption functions have been extracted to [Lski.Encryption](https://github.com/lski/Lski.Encryption), although not like for like as a couple of less secure items have been removed, the main functionality is there.
 - RandomString has been extracted to [Lski.RandomString](https://github.com/lski/Lski.RandomString).
+
+### Roadmap
+
+To ensure this project will work in an ASP.Net Core environment whilst trying to maintain the current API.

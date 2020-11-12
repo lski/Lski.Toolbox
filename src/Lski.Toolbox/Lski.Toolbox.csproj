@@ -1,9 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.4;net45</TargetFrameworks>
+    <TargetFramework>netstandard1.4</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- If you want the xml doc file somewhere else <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile> -->
+    <noWarn>1591</noWarn>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Lski.Toolbox</PackageId>
+    <Version>5.0.0</Version>
+    <Authors>Lee Cooper</Authors>
+    <Description>A simple C# toolbox containing some useful functions.</Description>
+    <Copyright>Copyright 2020</Copyright>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageIconUrl>https://www.gravatar.com/avatar/e28af3724cd70eb082bdb84063964ea1?s=128</PackageIconUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/lski/Lski.Toolbox</RepositoryUrl>
+    <PackageReleaseNotes>
+- Encryption functions have been extracted to Lski.Encryption, although not like for like as a couple of less secure items have been removed, the main functionality is there.
+- RandomString has been extracted to Lski.RandomString.
+- Dropped support for .Net Framework directly.
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\nuget\Icon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
 </Project>
